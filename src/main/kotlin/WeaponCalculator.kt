@@ -44,13 +44,13 @@ class WeaponCalculator {
         // Calcula o dano
         var finalDamage = calculateDamage(weapon.damage, effectiveDamageMultiplier, absorption, resistance, weaponTypeResistance)
 
-        println(weapon.name)
+        /* println(weapon.name) */
 
-        if (isHeadshot) {
+        /* if (isHeadshot) {
             println("-- HeadShot --")
         } else {
             println("-- Corpo --")
-        }
+        } */
 
         // Loop para aplicar o dano até que a saúde chegue a 0 ou menos
         while (remainingHealth > 0) {
@@ -58,12 +58,12 @@ class WeaponCalculator {
             val armorDamage = finalDamage * 0.8
             val healthDamage = finalDamage * 0.2
 
-            println("Tiro $shots:")
+            /* println("Tiro $shots:")
             println(" - Dano Total: $finalDamage")
             println(" - Dano à Armadura: $armorDamage")
             println(" - Dano à Saúde: $healthDamage")
             println(" - Armadura Antes do Tiro: $remainingArmor")
-            println(" - Saúde Antes do Tiro: $remainingHealth")
+            println(" - Saúde Antes do Tiro: $remainingHealth") */
 
             // Aplica o dano à armadura
             remainingArmor -= armorDamage
@@ -77,9 +77,9 @@ class WeaponCalculator {
             // Aplica o dano à saúde
             remainingHealth -= healthDamage
 
-            println(" - Armadura Após o Tiro: $remainingArmor")
-            println(" - Saúde Após o Tiro: $remainingHealth")
-            println("------------------------------")
+            /*  println(" - Armadura Após o Tiro: $remainingArmor")
+             println(" - Saúde Após o Tiro: $remainingHealth")
+             println("------------------------------") */
 
             shots++
         }
@@ -132,6 +132,9 @@ class WeaponCalculator {
         val (shotsBody, ttkBody) = calculateTTKWithProtection(weapon, classStats, isHeadshot = false)
         println(" - Tiros no Corpo: $shotsBody")
         println(" - TTK Corpo (s): ${"%.3f".format(ttkBody)}")
+
+        val ttkMedia = ttkBody + ttkHead / 2.0
+        println(" - TTK Médio: ${"%.3f".format(ttkMedia)}")
         println("------------------------------")
         weapon.ttk.put(shotsBody, ttkBody)
     }
@@ -139,7 +142,7 @@ class WeaponCalculator {
     fun findBestTTK(
         weapons: List<Weapon>,
         classStats: ClassStats = ClassStats.FuzileiroStats
-    ) {
+    ): Triple<Weapon?, Weapon?, Weapon?> {
         var bestHeadTTK = Double.MAX_VALUE
         var bestHeadWeapon: Weapon? = null
         var bestBodyTTK = Double.MAX_VALUE
@@ -165,8 +168,8 @@ class WeaponCalculator {
             }
 
             val media = (ttkHead + ttkBody) / 2
-            println("Média dos TTKs: $media")
-            println("------------------------------")
+            /* println("Média dos TTKs: $media")
+            println("------------------------------") */
 
             if (media < bestTTKMedia) {
                 bestTTKMedia = media
@@ -179,5 +182,7 @@ class WeaponCalculator {
         println("Melhor TTK para o Corpo: ${bestBodyWeapon?.name} com TTK de ${"%.3f".format(bestBodyTTK)} segundos em $bestBulletBody tiros(s)")
         println("Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon?.name} com TTK Médio de ${"%.3f".format(bestTTKMedia)} segundos")
         println("===================================")
+
+        return Triple(bestHeadWeapon, bestBodyWeapon, bestTTKMediaWeapon)
     }
 }

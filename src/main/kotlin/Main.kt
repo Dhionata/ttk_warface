@@ -4,6 +4,8 @@ import br.com.dhionata.Weapon.WeaponsLists.engenheiroWeapons
 import br.com.dhionata.Weapon.WeaponsLists.fuzileiroWeapons
 
 fun main() {
+    println("\n==== TTK no corpo ====\n")
+
     println("\n=== Classe Fuzileiro ===\n")
     fuzileiroWeapons.forEach {
         println(it.toString())
@@ -28,8 +30,8 @@ fun main() {
 
     println("\n=== Classe Fuzileiro ===\n")
     val weaponCalculator = WeaponCalculator()
-    weaponCalculator.findBestTTK(fuzileiroWeapons)
+    weaponCalculator.findBestTTK(fuzileiroWeapons).toList().forEach { weaponCalculator.printWeaponTTKWithProtection(it!!) }
 
     println("\n=== Classe Engenheiro ===\n")
-    weaponCalculator.findBestTTK(engenheiroWeapons)
+    weaponCalculator.findBestTTK(engenheiroWeapons).toList().forEach { weaponCalculator.printWeaponTTKWithProtection(it!!) }
 }
