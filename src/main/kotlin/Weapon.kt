@@ -9,7 +9,7 @@ data class Weapon(
     var fireRate: Int, // DPM (disparos por minuto)
     var headMultiplier: Double,
     var bodyMultiplier: Double,
-    val ttk: MutableMap<Int, Double> = mutableMapOf()
+    val ttk: MutableMap<Int, Double> = mutableMapOf(),
 ) {
 
     init {
@@ -24,7 +24,7 @@ data class Weapon(
         fireRateAddPercentage: Double? = null,
         damageAdd: Int? = null,
         headMultiplierAddPercentage: Double? = null,
-        bodyMultiplierAddPercentage: Double? = null
+        bodyMultiplierAddPercentage: Double? = null,
     ): Weapon {
         if (fireRateAddPercentage != null) {
             fireRate += BigDecimal(fireRate * fireRateAddPercentage / 100.0).setScale(0, RoundingMode.UP).toInt()
@@ -60,7 +60,7 @@ data class Weapon(
     }
 
     companion object WeaponsLists {
-        val fuzileiroWeapons = listOf(
+        val fuzileiroWeapons: List<Weapon> = listOf(
             Weapon("AK Alpha", 100, 800, 6.5, 1.0).addMods(6.0, 4),
             Weapon("AK Alpha RAJADA", 100, 800, 6.5, 1.0).addMods(-35.0, 50),
             Weapon("AK Alpha RAJADA", 100, 800, 6.5, 1.0).addMods(-35.0, 50).addMods(6.0, 4),
@@ -75,7 +75,7 @@ data class Weapon(
             Weapon("STK Modificada", 110, 720, 4.0, 1.25).addMods(8.0 - 42.0, 60, headMultiplierAddPercentage = 13.0 - 10.0),
         ).sortedBy { it.ttk.values.last() }
 
-        val engenheiroWeapons = listOf(
+        val engenheiroWeapons: List<Weapon> = listOf(
             Weapon("Tavor CTAR-21", 102, 970, 4.0, 1.6).addMods(10.0),
             Weapon("Honey Badger", 128, 785, 6.0, 1.24).addMods(7.0),
             Weapon("Kriss Super V Custom (Mod)", 100, 740, 4.5, 1.1).addMods(5.0, 9).addMods(40.0),
@@ -88,7 +88,8 @@ data class Weapon(
             Weapon("PP-2011 (Mod Cadência)", 120, 790, 5.8, 1.12).addMods(6.8),
             Weapon("PP-2011 (Mod Dano Corporal)", 120, 790, 5.8, 1.21).addMods(bodyMultiplierAddPercentage = 8.0),
             Weapon("PP-2011 (Ambas Modificações)", 120, 790, 5.8, 1.21).addMods(6.8, bodyMultiplierAddPercentage = 8.0),
-            Weapon("CSV-9 Comodo", 92, 980, 4.8, 1.2).addMods(-13.0, 29, 25.0).addMods(bodyMultiplierAddPercentage = 8.0)
+            Weapon("CSV-9 Comodo", 92, 980, 4.8, 1.2).addMods(-13.0, 29, 25.0).addMods(bodyMultiplierAddPercentage = 8.0),
+            Weapon("Famae SAF-200 (Mod Cadência)", 125, 790, 6.0, 1.3).addMods(fireRateAddPercentage = 10.0)
         ).sortedBy { it.ttk.values.last() }
     }
 }
