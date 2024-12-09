@@ -71,8 +71,8 @@ data class Weapon(
             Weapon("Kord", 175, 640, 6.0, 1.15).addMods(10.0),
             Weapon("PKM Zenit", 105, 793, 5.5, 1.06),
             Weapon("QBZ", 106, 720, 7.0, 1.12).addMods(8.0),
-            Weapon("STK", 110, 825, 4.0, 1.25).addMods(8.0, bodyMultiplierAddPercentage = 13.0),
-            Weapon("STK Modificada", 110, 720, 4.0, 1.25).addMods(8.0 - 42.0, 60, headMultiplierAddPercentage = 13.0 - 10.0),
+            Weapon("STK (Mod Cadência e Corporal)", 110, 825, 4.0, 1.25).addMods(8.0, bodyMultiplierAddPercentage = 13.0),
+            Weapon("STK (Mod Cadência, Corporal e Dano)", 110, 720, 4.0, 1.25).addMods(8.0 - 42.0, 60, headMultiplierAddPercentage = 13.0 - 10.0),
         ).sortedBy { it.ttk.values.last() }
 
         val engenheiroWeapons: List<Weapon> = listOf(
