@@ -28,6 +28,18 @@ fun main() {
         println(it.toString())
     }
 
+    println("\n==== Média do TTK por Arma ====\n")
+
+    println("\n=== Classe Fuzileiro ===\n")
+    fuzileiroWeapons.sortedBy { it.ttk.values.average() }.forEach {
+        println("$it TTK Médio: ${it.ttk.values.average()}")
+    }
+
+    println("\n=== Classe Engenheiro ===\n")
+    engenheiroWeapons.sortedBy { it.ttk.values.average() }.forEach {
+        println("$it TTK Médio: ${it.ttk.values.average()}")
+    }
+
     println("\n=== Classe Fuzileiro ===\n")
     val weaponCalculator = WeaponCalculator()
     weaponCalculator.findBestTTK(fuzileiroWeapons).toList().forEach { weaponCalculator.printWeaponTTKWithProtection(it!!) }
