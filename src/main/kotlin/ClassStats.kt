@@ -12,11 +12,11 @@ data class ClassStats(
     val weaponTypeResistance: Double, // Weapon Type Resistance (percentage)
     val cyborgDmgBuff: Double = 0.0,  // Bonus contra Cyborgs
     val entityDmgMult: Double = 1.0,  // Multiplicador contra entidades específicas
-    val hp: Double = 125.0             // HP inicial
+    val hp: Double = 125.0,             // HP inicial
 ) {
 
     companion object Fuzileiro {
-        val FuzileiroStats = ClassStats(
+        val FuzileiroStats: ClassStats = ClassStats(
             "Fuzileiro",
             500.0,
             0.15,

@@ -46,4 +46,7 @@ fun main() {
 
     println("\n=== Classe Engenheiro ===\n")
     weaponCalculator.findBestTTK(engenheiroWeapons).toList().forEach { weaponCalculator.printWeaponTTKWithProtection(it!!) }
+
+    println("\n=== Fuzileiro + Engenheiro ===\n")
+    (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.values.first() }.forEach { println(it.toString()) }
 }

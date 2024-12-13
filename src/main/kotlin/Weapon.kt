@@ -39,9 +39,6 @@ data class Weapon(
             headMultiplier += (headMultiplier * headMultiplierAddPercentage / 100.0)
         }
 
-        bodyMultiplier = BigDecimal(bodyMultiplier).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-        headMultiplier = BigDecimal(headMultiplier).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-
         updateTTK()
 
         return this
@@ -70,15 +67,17 @@ data class Weapon(
             Weapon("AK-12 (Mod Cadência)", 105, 735, 7.0, 1.25).addMods(10.0),
             Weapon("Beretta", 111, 810, 4.0, 1.4).addMods(10.0),
             Weapon("Carmel Modificada", 96, 720, 7.0, 1.07).addMods(-27.5, 70, null, 12.0),
-            Weapon("Cobalt (Mod Cadência [normal], +2 Corporal)", 95, 735, 7.0, 1.05).addMods(5.2)
-                .addMods(bodyMultiplierAddPercentage = 10.0)
+            Weapon("Cobalt (Mod Cadência [normal], +2 Corporal)", 95, 735, 7.0, 1.05).addMods(5.2).addMods(bodyMultiplierAddPercentage = 10.0)
                 .addMods(bodyMultiplierAddPercentage = 40.0),
+            Weapon("Cobalt (Mod Cadência [especial] e Corporal", 95, 735, 7.0, 1.05).addMods(40.0, headMultiplierAddPercentage = -32.0).addMods(5.2).addMods
+                (bodyMultiplierAddPercentage = 10.0),
             Weapon("Kord", 175, 640, 6.0, 1.15).addMods(10.0),
             Weapon("Kord (Mod Recuo)", 175, 640, 6.0, 1.15).addMods(10.0).addMods(-26.0),
             Weapon("PKM Zenit", 105, 793, 5.5, 1.06),
             Weapon("QBZ", 106, 720, 7.0, 1.12).addMods(8.0),
             Weapon("STK (Mod Cadência e Corporal)", 110, 840, 4.0, 1.25).addMods(8.0, bodyMultiplierAddPercentage = 13.0),
-            Weapon("STK (Mod Cadência, Corporal e Dano)", 110, 840, 4.0, 1.25).addMods(8.0 - 42.0, 60, headMultiplierAddPercentage = 13.0 - 10.0),
+            Weapon("STK (Mod Cadência, Corporal e Dano)", 110, 840, 4.0, 1.25).addMods(8.0).addMods(bodyMultiplierAddPercentage = 13.0)
+                .addMods(-42.0, 60, bodyMultiplierAddPercentage = -10.0),
             Weapon("FN SCAR-H", 175, 600, 7.0, 1.24),
             Weapon("FN SCAR-H (Mod Cadência)", 175, 600, 7.0, 1.24).addMods(10.0)
         ).sortedBy { it.ttk.values.last() }
