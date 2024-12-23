@@ -1,6 +1,6 @@
 package br.com.dhionata
 
-class WeaponCalculator {
+class TTKCalculator {
 
     fun calculateDamage(
         weaponDamage: Int,
@@ -169,7 +169,7 @@ class WeaponCalculator {
         println("===================================")
         println("Melhor TTK para a Cabeça: ${bestHeadWeapon.name} com TTK de ${"%.3f".format(bestHeadTTK)} segundos em $bestBulletHead tiro(s)")
         println("Melhor TTK para o Corpo: ${bestBodyWeapon.name} com TTK de ${"%.3f".format(bestBodyTTK)} segundos em $bestBulletBody tiros(s)")
-        println("Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon?.name} com TTK Médio de ${"%.3f".format(bestTTKMedia)} segundos")
+        println("Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon.name} com TTK Médio de ${"%.3f".format(bestTTKMedia)} segundos")
         println("===================================")
 
         return Triple(bestHeadWeapon, bestBodyWeapon, bestTTKMediaWeapon)

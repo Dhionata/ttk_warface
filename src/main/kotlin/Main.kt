@@ -41,12 +41,15 @@ fun main() {
     }
 
     println("\n=== Classe Fuzileiro ===\n")
-    val weaponCalculator = WeaponCalculator()
-    weaponCalculator.findBestTTK(fuzileiroWeapons).toList().forEach { weaponCalculator.printWeaponTTKWithProtection(it!!) }
+    val ttkCalculator = TTKCalculator()
+    ttkCalculator.findBestTTK(fuzileiroWeapons).toList().forEach { ttkCalculator.printWeaponTTKWithProtection(it!!) }
 
     println("\n=== Classe Engenheiro ===\n")
-    weaponCalculator.findBestTTK(engenheiroWeapons).toList().forEach { weaponCalculator.printWeaponTTKWithProtection(it!!) }
+    ttkCalculator.findBestTTK(engenheiroWeapons).toList().forEach { ttkCalculator.printWeaponTTKWithProtection(it!!) }
 
-    println("\n=== Fuzileiro + Engenheiro ===\n")
+    println("\n=== Fuzileiro + Engenheiro ===\n==== TTK na cabeça ====\n")
     (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.values.first() }.forEach { println(it.toString()) }
+
+    println("\n=== Fuzileiro + Engenheiro ===\n==== TTK no corpo ====\n")
+    (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.values.last() }.forEach { println(it.toString()) }
 }
