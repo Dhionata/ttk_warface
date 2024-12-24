@@ -82,7 +82,7 @@ class TTKCalculator {
     fun calculateTTKWithProtection(
         weapon: Weapon,
         classStats: ClassStats = ClassStats.FuzileiroStats,
-        isHeadshot: Boolean
+        isHeadshot: Boolean,
     ): Pair<Int, Double> { // Retorna (shots, totalTimeSeconds)
         val shotsNeeded = bulletsToKillWithProtection(
             weapon,
@@ -114,26 +114,22 @@ class TTKCalculator {
         println("Arma: ${weapon.name}")
 
         // Calcula para tiro na cabeça
-        val (shotsHead, ttkHead) = calculateTTKWithProtection(weapon, classStats, isHeadshot = true)
-        println(" - Tiros na Cabeça: $shotsHead")
-        println(" - TTK Cabeça (s): ${"%.3f".format(ttkHead)}")
-        weapon.ttk.put(shotsHead, ttkHead)
+        println(" - Tiros na Cabeça: ${weapon.ttk.keys.first()}")
+        println(" - TTK Cabeça (s): ${"%.3f".format(weapon.ttk.values.first())}")
 
         // Calcula para tiro no corpo
-        val (shotsBody, ttkBody) = calculateTTKWithProtection(weapon, classStats, isHeadshot = false)
-        println(" - Tiros no Corpo: $shotsBody")
-        println(" - TTK Corpo (s): ${"%.3f".format(ttkBody)}")
+        println(" - Tiros no Corpo: ${weapon.ttk.keys.elementAt(1)}")
+        println(" - TTK Corpo (s): ${"%.3f".format(weapon.ttk.values.elementAt(1))}")
 
-        val ttkMedia = ttkBody + ttkHead / 2.0
-        println(" - TTK Médio: ${"%.3f".format(ttkMedia)}")
+        println(" - Média de Tiros: ${weapon.ttk.keys.last()}")
+        println(" - TTK Médio: ${"%.3f".format(weapon.ttk.values.last())}")
         println("------------------------------")
-        weapon.ttk.put(shotsBody, ttkBody)
     }
 
     fun findBestTTK(
         weapons: List<Weapon>,
         classStats: ClassStats = ClassStats.FuzileiroStats,
-    ): Triple<Weapon?, Weapon?, Weapon?> {
+    ): Triple<Weapon, Weapon, Weapon> {
         var bestHeadTTK = Double.MAX_VALUE
         lateinit var bestHeadWeapon: Weapon
         var bestBodyTTK = Double.MAX_VALUE
