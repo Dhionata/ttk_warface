@@ -9,11 +9,15 @@ data class Weapon(
     var fireRate: Int, // DPM (disparos por minuto)
     var headMultiplier: Double,
     var bodyMultiplier: Double,
-    val ttk: MutableMap<Int, Double> = mutableMapOf(),
+    val ttk: MutableMap<String, Double> = mutableMapOf(),
 ) {
 
     init {
         updateTTK()
+    }
+
+    override fun toString(): String {
+        return "Nome: $name | Dano: $damage | Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X $bodyMultiplier | TTK - Tiros=Tempo(s): $ttk"
     }
 
     /**
@@ -53,17 +57,21 @@ data class Weapon(
         val ttkCalculator = TTKCalculator()
 
         val headMap = ttkCalculator.calculateTTKWithProtection(this, ClassStats.FuzileiroStats, true)
-        ttk[headMap.first] = headMap.second
+        ttk["Cabeça: ${headMap.first}"] = headMap.second
 
         val bodyMap = ttkCalculator.calculateTTKWithProtection(this, ClassStats.FuzileiroStats, false)
-        ttk[bodyMap.first] = bodyMap.second
+        ttk["Corpo: ${bodyMap.first}"] = bodyMap.second
+
+        val ttkAverage = (headMap.second + bodyMap.second) / 2
+        ttk["Média: ${((headMap.first + bodyMap.first) / 2)}"] = ttkAverage
+
     }
 
     companion object WeaponsLists {
         val fuzileiroWeapons: List<Weapon> = listOf(
             Weapon("AK Alpha", 100, 800, 6.5, 1.0).addMods(6.0, 4),
-            Weapon("AK Alpha RAJADA", 100, 800, 6.5, 1.0).addMods(-35.0, 50),
-            Weapon("AK Alpha RAJADA", 100, 800, 6.5, 1.0).addMods(-35.0, 50).addMods(6.0, 4),
+            Weapon("AK Alpha (Mod RAJADA)", 100, 800, 6.5, 1.0).addMods(-35.0, 50),
+            Weapon("AK Alpha (Mod RAJADA e Cadência)", 100, 800, 6.5, 1.0).addMods(-35.0, 50).addMods(6.0, 4),
             Weapon("AK-12 (Mod Cadência)", 105, 735, 7.0, 1.25).addMods(10.0),
             Weapon("Beretta", 111, 810, 4.0, 1.4).addMods(10.0),
             Weapon("Carmel Modificada", 96, 720, 7.0, 1.07).addMods(-27.5, 70, null, 12.0),
@@ -85,7 +93,7 @@ data class Weapon(
             Weapon("AN-94 (Mod Cadência)", 125, 620, 7.0, 1.25).addMods(10.0),
             Weapon("MPAR-556", 110, 825, 4.0, 1.45),
             Weapon("MPAR-556 (Mod Cadência)", 110, 825, 4.0, 1.45).addMods(10.0)
-        ).sortedBy { it.ttk.values.last() }
+        ).sortedBy { it.ttk.values.elementAt(1) }
 
         val engenheiroWeapons: List<Weapon> = listOf(
             Weapon("Tavor CTAR-21", 102, 970, 4.0, 1.6).addMods(10.0),
@@ -104,6 +112,27 @@ data class Weapon(
             Weapon("Famae SAF-200 (Mod Cadência)", 125, 790, 6.0, 1.3).addMods(fireRateAddPercentage = 10.0),
             Weapon("CZ Scorpion", 128, 775, 6.0, 1.28),
             Weapon("CZ Scorpion (Mod Cadência)", 128, 775, 6.0, 1.28).addMods(10.0)
-        ).sortedBy { it.ttk.values.last() }
+        ).sortedBy { it.ttk.values.elementAt(1) }
+
+        val pistolas: List<Weapon> = listOf(
+            Weapon("Taurus Raging Hunter", 350, 160, 6.0, 1.10),
+            Weapon("Taurus Raging Hunter (Cadência)", 350, 160, 6.0, 1.10).addMods(5.0),
+            Weapon("Taurus Raging Hunter (Mod Dano Corporal, Precisão e Cadência)", 350, 160, 6.0, 1.10).addMods(5.0).addMods(bodyMultiplierAddPercentage = 10.0)
+                .addMods(-10.0),
+            Weapon("Taurus Raging Hunter (Mod Dano Corporal e Cadência)", 350, 160, 6.0, 1.10).addMods(5.0).addMods(bodyMultiplierAddPercentage = 10.0),
+            Weapon("Taurus Raging Hunter (Mod Dano Corporal, Cadência e Cadência [especial])", 350, 160, 6.0, 1.10).addMods(5.0)
+                .addMods(bodyMultiplierAddPercentage = 10.0)
+                .addMods(55.0, -90),
+            Weapon("SIG Sauer P226", 155, 275, 4.0, 1.05),
+            Weapon("SIG Sauer P226 (Cadência e Dano)", 155, 275, 4.0, 1.05).addMods(8.0).addMods(damageAdd = 26),
+            Weapon("SIG Sauer P226 (Cadência, Dano e Precisão)", 155, 275, 4.0, 1.05).addMods(8.0).addMods(damageAdd = 26).addMods(-30.0, 80),
+            Weapon("Maxim 9", 130, 290, 3.5, 1.15),
+            Weapon("ST Kinetics", 108, 880, 5.0, 1.1),
+            Weapon("ST Kinetics (Mod Cadência e Corporal", 108, 880, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0),
+            Weapon("ST Kinetics (Mod Cadência, Corporal e Dupla", 108, 880, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0).addMods(7.0, -15, -20.0).addMods
+                (100.0),
+            Weapon("Taurus Judge", 680, 100, 3.0, 1.4),
+            Weapon("Taurus Judge (Mod Cadência)", 680, 100, 3.0, 1.4).addMods(10.0)
+        ).sortedBy { it.ttk.values.elementAt(1) }
     }
 }
