@@ -17,10 +17,11 @@ object TTKCalculator {
         weapon: Weapon,
         set: Set,
         isHeadshot: Boolean = false,
+        debug: Boolean = false,
     ): Int {
         var remainingArmor = set.armor
         var remainingHealth = set.hp
-        var shots = 0
+        var shots = 1
 
         // Selecionar a proteção apropriada com base no tipo de tiro
         val equipmentProtection = if (isHeadshot) set.headProtection else set.bodyProtection
@@ -40,13 +41,15 @@ object TTKCalculator {
             val armorDamage = finalDamage * 0.8
             val healthDamage = finalDamage * 0.2
 
-            /* println("Tiro $shots:")
-            println(" - Dano Total: $finalDamage")
-            println(" - Dano à Armadura: $armorDamage")
-            println(" - Dano à Saúde: $healthDamage")
-            println(" - Armadura Antes do Tiro: $remainingArmor")
-            println(" - Saúde Antes do Tiro: $remainingHealth") */
-
+            if (debug) {
+                println("------------------------------")
+                println("Tiro $shots:")
+                println(" - Dano Total: $finalDamage")
+                println(" - Dano à Armadura: $armorDamage")
+                println(" - Dano à Saúde: $healthDamage")
+                println(" - Armadura Antes do Tiro: $remainingArmor")
+                println(" - Saúde Antes do Tiro: $remainingHealth")
+            }
             // Aplica o dano à armadura
             remainingArmor -= armorDamage
 
@@ -59,9 +62,12 @@ object TTKCalculator {
             // Aplica o dano à saúde
             remainingHealth -= healthDamage
 
-            /*  println(" - Armadura Após o Tiro: $remainingArmor")
-             println(" - Saúde Após o Tiro: $remainingHealth")
-             println("------------------------------") */
+            if (debug) {
+                println(" - Armadura Após o Tiro: $remainingArmor")
+                println(" - Saúde Após o Tiro: $remainingHealth")
+                println("------------------------------")
+
+            }
 
             shots++
         }
