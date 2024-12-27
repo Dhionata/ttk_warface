@@ -80,11 +80,13 @@ object TTKCalculator {
         weapon: Weapon,
         set: Set = Set.sirocco,
         isHeadshot: Boolean,
+        debug: Boolean = false,
     ): Pair<Int, Double> { // Retorna (shots, totalTimeSeconds)
         val shotsNeeded = bulletsToKillWithProtection(
             weapon,
             set,
-            isHeadshot
+            isHeadshot,
+            debug
         )
 
         // Calcula o tempo total baseado na taxa de fogo (DPM)
@@ -115,6 +117,7 @@ object TTKCalculator {
     fun findBestTTK(
         weapons: List<Weapon>,
         setStats: Set = Set.sirocco,
+        debug: Boolean = false,
     ): Triple<Weapon, Weapon, Weapon> {
         var bestHeadTTK = Double.MAX_VALUE
         lateinit var bestHeadWeapon: Weapon
@@ -126,14 +129,14 @@ object TTKCalculator {
         lateinit var bestTTKMediaWeapon: Weapon
 
         for (weapon in weapons) {
-            val (bulletHead, ttkHead) = calculateTTKWithProtection(weapon, setStats, isHeadshot = true)
+            val (bulletHead, ttkHead) = calculateTTKWithProtection(weapon, setStats, true, debug)
             if (ttkHead < bestHeadTTK) {
                 bestHeadTTK = ttkHead
                 bestHeadWeapon = weapon
                 bestBulletHead = bulletHead
             }
 
-            val (bulletBody, ttkBody) = calculateTTKWithProtection(weapon, setStats, isHeadshot = false)
+            val (bulletBody, ttkBody) = calculateTTKWithProtection(weapon, setStats, false, debug)
             if (ttkBody < bestBodyTTK) {
                 bestBodyTTK = ttkBody
                 bestBodyWeapon = weapon

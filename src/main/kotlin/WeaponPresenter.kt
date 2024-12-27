@@ -2,7 +2,7 @@ package br.com.dhionata
 
 object WeaponPresenter {
 
-    fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, pistolas: List<Weapon>, set: Set) {
+    fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, pistolas: List<Weapon>, set: Set, debug: Boolean) {
         println("\n=== Detalhes para o conjunto ===\n\n==== ${set.name} ====")
 
         println("\n==== TTK no corpo ====")
@@ -50,10 +50,10 @@ object WeaponPresenter {
         println("\n=== Melhores TTKs ===")
 
         println("\n=== Classe Fuzileiro ===\n")
-        TTKCalculator.findBestTTK(fuzileiroWeapons, set).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it, set) }
+        TTKCalculator.findBestTTK(fuzileiroWeapons, set, debug).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it, set) }
 
         println("\n=== Classe Engenheiro ===\n")
-        TTKCalculator.findBestTTK(engenheiroWeapons, set).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it, set) }
+        TTKCalculator.findBestTTK(engenheiroWeapons, set, debug).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it, set) }
 
     }
 }
