@@ -8,9 +8,9 @@ import br.com.dhionata.WeaponPresenter.printDetailedAllWeaponsInfo
 fun main() {
     val setList: List<Set> = listOf(Set.sirocco, Set.nord)
 
-    setList.forEach {
-        fuzileiroWeapons.forEach { it.set = Set.nord }
-        engenheiroWeapons.forEach { it.set = Set.nord }
-        printDetailedAllWeaponsInfo(fuzileiroWeapons, engenheiroWeapons, pistolas, Set.sirocco)
+    setList.forEach { set ->
+        fuzileiroWeapons.forEach { it.set = set }
+        engenheiroWeapons.forEach { it.set = set }
+        printDetailedAllWeaponsInfo(fuzileiroWeapons, engenheiroWeapons, pistolas, set)
     }
 }

@@ -3,7 +3,7 @@ package br.com.dhionata
 object WeaponPresenter {
 
     fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, pistolas: List<Weapon>, set: Set) {
-        println("\n=== Detalhes para o conjunto\n\n==== ${set.name} ====")
+        println("\n=== Detalhes para o conjunto ===\n\n==== ${set.name} ====")
 
         println("\n==== TTK no corpo ====")
 
@@ -38,14 +38,6 @@ object WeaponPresenter {
         println("\n=== Pistolas ===\n")
         pistolas.sortedBy { it.ttk.values.last() }.forEach { println(it) }
 
-        println("\n=== Melhores TTKs ===\n==== ${set.name} ====")
-
-        println("\n=== Classe Fuzileiro ===\n")
-        TTKCalculator.findBestTTK(fuzileiroWeapons, set).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it, set) }
-
-        println("\n=== Classe Engenheiro ===\n")
-        TTKCalculator.findBestTTK(engenheiroWeapons, set).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it, set) }
-
         println("\n=== Fuzileiro + Engenheiro ===\n\n==== TTK na cabeça ====\n")
         (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.values.first() }.forEach { println(it) }
 
@@ -54,5 +46,14 @@ object WeaponPresenter {
 
         println("\n=== Fuzileiro + Engenheiro ===\n\n==== TTK Médio ====\n")
         (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.values.last() }.forEach { println(it) }
+
+        println("\n=== Melhores TTKs ===")
+
+        println("\n=== Classe Fuzileiro ===\n")
+        TTKCalculator.findBestTTK(fuzileiroWeapons, set).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it, set) }
+
+        println("\n=== Classe Engenheiro ===\n")
+        TTKCalculator.findBestTTK(engenheiroWeapons, set).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it, set) }
+
     }
 }
