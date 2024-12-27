@@ -1,6 +1,6 @@
 package br.com.dhionata
 
-class TTKCalculator {
+object TTKCalculator {
 
     fun calculateDamage(
         weaponDamage: Int,
@@ -15,33 +15,24 @@ class TTKCalculator {
 
     fun bulletsToKillWithProtection(
         weapon: Weapon,
-        multiplier: Double,
-        armor: Double,
-        health: Double,
-        bodyProtection: Double,
-        headProtection: Double,
-        absorption: Double,
-        resistance: Double = 0.0,
-        weaponTypeResistance: Double = 0.0,
+        set: Set,
         isHeadshot: Boolean = false,
-        entityDmgMult: Double = 1.0,
-        cyborgDmgBuff: Double = 0.0,
     ): Int {
-        var remainingArmor = armor
-        var remainingHealth = health
+        var remainingArmor = set.armor
+        var remainingHealth = set.hp
         var shots = 0
 
         // Selecionar a proteção apropriada com base no tipo de tiro
-        val equipmentProtection = if (isHeadshot) headProtection else bodyProtection
+        val equipmentProtection = if (isHeadshot) set.headProtection else set.bodyProtection
 
         // Calcula o damageMultiplier corretamente
-        val damageMultiplier = (multiplier * entityDmgMult * (1 + cyborgDmgBuff)) - equipmentProtection
+        val damageMultiplier = (if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier * set.entityDmgMult * (1 + set.cyborgDmgBuff)) - equipmentProtection
 
         // Verifica se o damageMultiplier é negativo
         val effectiveDamageMultiplier = if (damageMultiplier < 0) 0.0 else damageMultiplier
 
         // Calcula o dano
-        var finalDamage = calculateDamage(weapon.damage, effectiveDamageMultiplier, absorption, resistance, weaponTypeResistance)
+        var finalDamage = calculateDamage(weapon.damage, effectiveDamageMultiplier, set.absorption, set.resistance, set.weaponTypeResistance)
 
         // Loop para aplicar o dano até que a saúde chegue a 0 ou menos
         while (remainingHealth > 0) {
@@ -81,22 +72,13 @@ class TTKCalculator {
 
     fun calculateTTKWithProtection(
         weapon: Weapon,
-        classStats: ClassStats = ClassStats.FuzileiroStats,
+        set: Set = Set.sirocco,
         isHeadshot: Boolean,
     ): Pair<Int, Double> { // Retorna (shots, totalTimeSeconds)
         val shotsNeeded = bulletsToKillWithProtection(
             weapon,
-            if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier,
-            classStats.armor,
-            classStats.hp,
-            classStats.bodyProtection,
-            classStats.headProtection,
-            classStats.absorption,
-            classStats.resistance,
-            classStats.weaponTypeResistance,
-            isHeadshot,
-            classStats.entityDmgMult,
-            classStats.cyborgDmgBuff
+            set,
+            isHeadshot
         )
 
         // Calcula o tempo total baseado na taxa de fogo (DPM)
@@ -108,27 +90,25 @@ class TTKCalculator {
 
     fun printWeaponTTKWithProtection(
         weapon: Weapon,
-        classStats: ClassStats = ClassStats.FuzileiroStats,
+        setStats: Set = Set.sirocco,
     ) {
-        println("Classe: ${classStats.name}")
+        println("Conjunto: ${setStats.name}")
         println("Arma: ${weapon.name}")
 
-        // Calcula para tiro na cabeça
         println(" - Tiros na Cabeça: ${weapon.ttk.keys.first()}")
         println(" - TTK Cabeça (s): ${"%.3f".format(weapon.ttk.values.first())}")
 
-        // Calcula para tiro no corpo
         println(" - Tiros no Corpo: ${weapon.ttk.keys.elementAt(1)}")
         println(" - TTK Corpo (s): ${"%.3f".format(weapon.ttk.values.elementAt(1))}")
 
         println(" - Média de Tiros: ${weapon.ttk.keys.last()}")
-        println(" - TTK Médio: ${"%.3f".format(weapon.ttk.values.last())}")
+        println(" - TTK Médio (s): ${"%.3f".format(weapon.ttk.values.last())}")
         println("------------------------------")
     }
 
     fun findBestTTK(
         weapons: List<Weapon>,
-        classStats: ClassStats = ClassStats.FuzileiroStats,
+        setStats: Set = Set.sirocco,
     ): Triple<Weapon, Weapon, Weapon> {
         var bestHeadTTK = Double.MAX_VALUE
         lateinit var bestHeadWeapon: Weapon
@@ -140,14 +120,14 @@ class TTKCalculator {
         lateinit var bestTTKMediaWeapon: Weapon
 
         for (weapon in weapons) {
-            val (bulletHead, ttkHead) = calculateTTKWithProtection(weapon, classStats, isHeadshot = true)
+            val (bulletHead, ttkHead) = calculateTTKWithProtection(weapon, setStats, isHeadshot = true)
             if (ttkHead < bestHeadTTK) {
                 bestHeadTTK = ttkHead
                 bestHeadWeapon = weapon
                 bestBulletHead = bulletHead
             }
 
-            val (bulletBody, ttkBody) = calculateTTKWithProtection(weapon, classStats, isHeadshot = false)
+            val (bulletBody, ttkBody) = calculateTTKWithProtection(weapon, setStats, isHeadshot = false)
             if (ttkBody < bestBodyTTK) {
                 bestBodyTTK = ttkBody
                 bestBodyWeapon = weapon

@@ -12,6 +12,12 @@ data class Weapon(
     val ttk: MutableMap<String, Double> = mutableMapOf(),
 ) {
 
+    var set: Set = Set.sirocco
+        set(value) {
+            field = value
+            updateTTK()
+        }
+
     init {
         updateTTK()
     }
@@ -51,15 +57,13 @@ data class Weapon(
     /**
      * Função privada para atualizar o mapa ttk com base nas propriedades atuais da arma.
      */
-    private fun updateTTK() {
+    private fun updateTTK(set: Set = this@Weapon.set) {
         ttk.clear()
 
-        val ttkCalculator = TTKCalculator()
-
-        val headMap = ttkCalculator.calculateTTKWithProtection(this, ClassStats.FuzileiroStats, true)
+        val headMap = TTKCalculator.calculateTTKWithProtection(this, set, true)
         ttk["Cabeça: ${headMap.first}"] = headMap.second
 
-        val bodyMap = ttkCalculator.calculateTTKWithProtection(this, ClassStats.FuzileiroStats, false)
+        val bodyMap = TTKCalculator.calculateTTKWithProtection(this, set, false)
         ttk["Corpo: ${bodyMap.first}"] = bodyMap.second
 
         val ttkAverage = (headMap.second + bodyMap.second) / 2
