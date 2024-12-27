@@ -21,7 +21,7 @@ object TTKCalculator {
     ): Int {
         var remainingArmor = set.armor
         var remainingHealth = set.hp
-        var shots = 1
+        var shots = 0
 
         // Selecionar a proteção apropriada com base no tipo de tiro
         val equipmentProtection = if (isHeadshot) set.headProtection else set.bodyProtection
@@ -45,7 +45,7 @@ object TTKCalculator {
                 println("------------------------------")
                 println("Arma: ${weapon.name}")
                 println(if (isHeadshot) "Cabeça" else "Corpo")
-                println("Tiro $shots:")
+                println("Tiro ${shots + 1}:")
                 println(" - Dano Total: $finalDamage")
                 println(" - Dano à Armadura: $armorDamage")
                 println(" - Dano à Saúde: $healthDamage")
