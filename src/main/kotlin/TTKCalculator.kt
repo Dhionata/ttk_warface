@@ -43,6 +43,8 @@ object TTKCalculator {
 
             if (debug) {
                 println("------------------------------")
+                println("Arma: ${weapon.name}")
+                println(if (isHeadshot) "Cabeça" else "Corpo")
                 println("Tiro $shots:")
                 println(" - Dano Total: $finalDamage")
                 println(" - Dano à Armadura: $armorDamage")
@@ -103,14 +105,14 @@ object TTKCalculator {
         println("Conjunto: ${setStats.name}")
         println("Arma: ${weapon.name}")
 
-        println(" - Tiros na Cabeça: ${weapon.ttk.keys.first()}")
-        println(" - TTK Cabeça (s): ${"%.3f".format(weapon.ttk.values.first())}")
+        println(" - Tiro(s) na ${weapon.ttk.keys.first()}")
+        println(" - TTK Cabeça: ${"%.3f".format(weapon.ttk.values.first())}(s)")
 
-        println(" - Tiros no Corpo: ${weapon.ttk.keys.elementAt(1)}")
-        println(" - TTK Corpo (s): ${"%.3f".format(weapon.ttk.values.elementAt(1))}")
+        println(" - Tiro(s) no ${weapon.ttk.keys.elementAt(1)}")
+        println(" - TTK Corpo: ${"%.3f".format(weapon.ttk.values.elementAt(1))}(s)")
 
-        println(" - Média de Tiros: ${weapon.ttk.keys.last()}")
-        println(" - TTK Médio (s): ${"%.3f".format(weapon.ttk.values.last())}")
+        println(" - ${weapon.ttk.keys.last()} tiro(s)")
+        println(" - TTK Médio: ${"%.3f".format(weapon.ttk.values.last())}(s)")
         println("------------------------------")
     }
 
