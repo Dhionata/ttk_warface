@@ -2,7 +2,7 @@ package br.com.dhionata
 
 object WeaponPresenter {
 
-    fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, pistolas: List<Weapon>, set: Set, debug: Boolean) {
+    fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, pistolas: List<Weapon>, set: Set, debug: Boolean = false) {
         println("\n=== Detalhes para o conjunto ===\n\n==== ${set.name} ====")
 
         println("\n==== TTK no corpo ====")
