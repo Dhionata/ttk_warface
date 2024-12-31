@@ -102,8 +102,8 @@ data class Weapon(
         val engenheiroWeapons: List<Weapon> = listOf(
             Weapon("Tavor CTAR-21", 102, 970, 4.0, 1.6).addMods(10.0),
             Weapon("Honey Badger", 128, 785, 6.0, 1.24).addMods(7.0),
-            Weapon("Kriss Super V Custom (Mod)", 100, 740, 4.5, 1.1).addMods(5.0, 9).addMods(40.0),
-            Weapon("Kriss Super V Custom (Mod)", 100, 740, 4.5, 1.1).addMods(5.0, 16, 20.0).addMods(40.0),
+            Weapon("Kriss Super V Custom (Mod Cadência, Dano e Dano na Cabeça)", 100, 800, 4.5, 1.1).addMods(5.0, 9).addMods(damageAdd = 16, headMultiplierAddPercentage = 20.0),
+            Weapon("Kriss Super V Custom (Mod Cadência, Dano e Cadência [especial])", 100, 800, 4.5, 1.1).addMods(5.0).addMods(40.0).addMods(damageAdd = 9),
             Weapon("Magpul", 100, 1010, 4.0, 1.42),
             Weapon("Magpul (Mod Cadência)", 100, 1010, 4.0, 1.42).addMods(8.0),
             Weapon("Magpul (Mod Dano Corporal)", 100, 1010, 4.0, 1.42).addMods(bodyMultiplierAddPercentage = 13.0),
