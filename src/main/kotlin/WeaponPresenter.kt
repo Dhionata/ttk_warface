@@ -8,13 +8,13 @@ object WeaponPresenter {
         println("\n==== TTK no corpo ====")
 
         println("\n=== Classe Fuzileiro ===\n")
-        fuzileiroWeapons.forEach { println(it) }
+        fuzileiroWeapons.sortedBy { it.ttk.values.elementAt(1) }.forEach { println(it) }
 
         println("\n=== Classe Engenheiro ===\n")
-        engenheiroWeapons.forEach { println(it) }
+        engenheiroWeapons.sortedBy { it.ttk.values.elementAt(1) }.forEach { println(it) }
 
         println("\n=== Pistolas ===\n")
-        pistolas.forEach { println(it) }
+        pistolas.sortedBy { it.ttk.values.elementAt(1) }.forEach { println(it) }
 
         println("\n==== TTK na cabeça ====")
 
