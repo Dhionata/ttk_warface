@@ -93,7 +93,7 @@ data class Weapon(
             Weapon("STK (Mod Cadência, Corporal e Dano)", 110, 840, 4.0, 1.25).addMods(8.0).addMods(bodyMultiplierAddPercentage = 13.0)
                 .addMods(-42.0, 60, bodyMultiplierAddPercentage = -10.0),
             Weapon("FN SCAR-H (Mod Cadência)", 175, 600, 7.0, 1.24).addMods(10.0),
-            Weapon("AN-94 (Mod Cadência)", 125, 620, 7.0, 1.25).addMods(10.0),
+            Weapon("AN-94 (Mod Cadência)", 125, 620, 7.0, 1.8).addMods(10.0),
             Weapon("MPAR-556 (Mod Cadência)", 110, 825, 4.0, 1.45).addMods(10.0)
         ).sortedBy { it.ttk.values.elementAt(1) }
 
