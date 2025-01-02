@@ -73,12 +73,12 @@ data class Weapon(
 
     companion object WeaponsLists {
         val fuzileiroWeapons: List<Weapon> = listOf(
-            Weapon("AK Alpha", 100, 800, 6.5, 1.0).addMods(6.0, 4),
+            Weapon("AK Alpha (Mod Cadência)", 100, 800, 6.5, 1.0).addMods(6.0, 4),
             Weapon("AK Alpha (Mod RAJADA)", 100, 800, 6.5, 1.0).addMods(-35.0, 50),
             Weapon("AK Alpha (Mod RAJADA e Cadência)", 100, 800, 6.5, 1.0).addMods(-35.0, 50).addMods(6.0, 4),
             Weapon("AK-12 (Mod Cadência)", 105, 735, 7.0, 1.25).addMods(10.0),
-            Weapon("Beretta", 111, 810, 4.0, 1.4).addMods(10.0),
-            Weapon("Carmel Modificada", 96, 720, 7.0, 1.07).addMods(-27.5, 70, null, 12.0),
+            Weapon("Beretta (Mod Cadência)", 111, 810, 4.0, 1.4).addMods(10.0),
+            Weapon("Carmel (Mod Dano)", 96, 720, 7.0, 1.07).addMods(-27.5, 70, bodyMultiplierAddPercentage = 12.0),
             Weapon("Cobalt (Mod Cadência [normal], +2 Corporal)", 95, 735, 7.0, 1.05).addMods(5.2).addMods(bodyMultiplierAddPercentage = 10.0)
                 .addMods(bodyMultiplierAddPercentage = 40.0),
             Weapon("Cobalt (Mod Cadência [especial] e Corporal", 95, 735, 7.0, 1.05).addMods(40.0, headMultiplierAddPercentage = -32.0).addMods(5.2).addMods
@@ -86,56 +86,47 @@ data class Weapon(
             Weapon("Kord", 175, 640, 6.0, 1.15),
             Weapon("Kord (Mod Cadência)", 175, 640, 6.0, 1.15).addMods(10.0),
             Weapon("Kord (Mod Cadência e Recuo)", 175, 640, 6.0, 1.15).addMods(10.0).addMods(-26.0),
-            Weapon("PKM Zenit", 105, 793, 5.5, 1.06),
-            Weapon("QBZ", 106, 720, 7.0, 1.12).addMods(8.0),
+            Weapon("PKM Zenit (Mod Cadência e Cadência [especial]", 145, 440, 5.5, 1.0).addMods(6.0).addMods(70.0, -40),
+            Weapon("PKM Zenit (Mod Cadência)", 145, 440, 5.5, 1.0).addMods(6.0),
+            Weapon("QBZ (Mod Cadência)", 106, 720, 7.0, 1.12).addMods(8.0),
             Weapon("STK (Mod Cadência e Corporal)", 110, 840, 4.0, 1.25).addMods(8.0, bodyMultiplierAddPercentage = 13.0),
             Weapon("STK (Mod Cadência, Corporal e Dano)", 110, 840, 4.0, 1.25).addMods(8.0).addMods(bodyMultiplierAddPercentage = 13.0)
                 .addMods(-42.0, 60, bodyMultiplierAddPercentage = -10.0),
-            Weapon("FN SCAR-H", 175, 600, 7.0, 1.24),
             Weapon("FN SCAR-H (Mod Cadência)", 175, 600, 7.0, 1.24).addMods(10.0),
-            Weapon("AN-94", 125, 620, 7.0, 1.25),
             Weapon("AN-94 (Mod Cadência)", 125, 620, 7.0, 1.25).addMods(10.0),
-            Weapon("MPAR-556", 110, 825, 4.0, 1.45),
             Weapon("MPAR-556 (Mod Cadência)", 110, 825, 4.0, 1.45).addMods(10.0)
         ).sortedBy { it.ttk.values.elementAt(1) }
 
         val engenheiroWeapons: List<Weapon> = listOf(
-            Weapon("Tavor CTAR-21", 102, 970, 4.0, 1.6).addMods(10.0),
-            Weapon("Honey Badger", 128, 785, 6.0, 1.24).addMods(7.0),
+            Weapon("Tavor CTAR-21 (Mod Cadência)", 102, 970, 4.0, 1.6).addMods(10.0),
+            Weapon("Honey Badger (Mod Cadência)", 128, 785, 6.0, 1.24).addMods(7.0),
             Weapon("Kriss Super V Custom (Mod Cadência, Dano e Dano na Cabeça)", 100, 800, 4.5, 1.1).addMods(5.0, 9).addMods(damageAdd = 16, headMultiplierAddPercentage = 20.0),
             Weapon("Kriss Super V Custom (Mod Cadência, Dano e Cadência [especial])", 100, 800, 4.5, 1.1).addMods(5.0).addMods(40.0).addMods(damageAdd = 9),
-            Weapon("Magpul", 100, 1010, 4.0, 1.42),
             Weapon("Magpul (Mod Cadência)", 100, 1010, 4.0, 1.42).addMods(8.0),
             Weapon("Magpul (Mod Dano Corporal)", 100, 1010, 4.0, 1.42).addMods(bodyMultiplierAddPercentage = 13.0),
             Weapon("Magpul (Ambas Modificações)", 100, 1010, 4.0, 1.42).addMods(8.0, bodyMultiplierAddPercentage = 13.0),
-            Weapon("PP-2011", 120, 790, 5.8, 1.12),
             Weapon("PP-2011 (Mod Cadência)", 120, 790, 5.8, 1.12).addMods(6.8),
             Weapon("PP-2011 (Mod Dano Corporal)", 120, 790, 5.8, 1.21).addMods(bodyMultiplierAddPercentage = 8.0),
-            Weapon("PP-2011 (Ambas Modificações)", 120, 790, 5.8, 1.21).addMods(6.8, bodyMultiplierAddPercentage = 8.0),
-            Weapon("CSV-9 Comodo", 92, 980, 4.8, 1.2).addMods(-13.0, 29, 25.0).addMods(bodyMultiplierAddPercentage = 8.0),
+            Weapon("PP-2011 (Mod Cadência e Dano Corporal)", 120, 790, 5.8, 1.21).addMods(6.8, bodyMultiplierAddPercentage = 8.0),
+            Weapon("CSV-9 Comodo (Mod Dano e Dano Corporal)", 92, 980, 4.8, 1.2).addMods(-13.0, 29, 25.0).addMods(bodyMultiplierAddPercentage = 8.0),
             Weapon("Famae SAF-200 (Mod Cadência)", 125, 790, 6.0, 1.3).addMods(fireRateAddPercentage = 10.0),
-            Weapon("CZ Scorpion", 128, 775, 6.0, 1.28),
             Weapon("CZ Scorpion (Mod Cadência)", 128, 775, 6.0, 1.28).addMods(10.0)
         ).sortedBy { it.ttk.values.elementAt(1) }
 
         val pistolas: List<Weapon> = listOf(
-            Weapon("Taurus Raging Hunter", 350, 160, 6.0, 1.10),
-            Weapon("Taurus Raging Hunter (Cadência)", 350, 160, 6.0, 1.10).addMods(5.0),
+            Weapon("Taurus Raging Hunter (Mod Cadência)", 350, 160, 6.0, 1.10).addMods(5.0),
             Weapon("Taurus Raging Hunter (Mod Dano Corporal, Precisão e Cadência)", 350, 160, 6.0, 1.10).addMods(5.0).addMods(bodyMultiplierAddPercentage = 10.0)
                 .addMods(-10.0),
             Weapon("Taurus Raging Hunter (Mod Dano Corporal e Cadência)", 350, 160, 6.0, 1.10).addMods(5.0).addMods(bodyMultiplierAddPercentage = 10.0),
             Weapon("Taurus Raging Hunter (Mod Dano Corporal, Cadência e Cadência [especial])", 350, 160, 6.0, 1.10).addMods(5.0)
                 .addMods(bodyMultiplierAddPercentage = 10.0)
                 .addMods(55.0, -90),
-            Weapon("SIG Sauer P226", 155, 275, 4.0, 1.05),
-            Weapon("SIG Sauer P226 (Cadência e Dano)", 155, 275, 4.0, 1.05).addMods(8.0).addMods(damageAdd = 26),
-            Weapon("SIG Sauer P226 (Cadência, Dano e Precisão)", 155, 275, 4.0, 1.05).addMods(8.0).addMods(damageAdd = 26).addMods(-30.0, 80),
+            Weapon("SIG Sauer P226 (Mod Cadência e Dano)", 155, 275, 4.0, 1.05).addMods(8.0).addMods(damageAdd = 26),
+            Weapon("SIG Sauer P226 (Mod Cadência, Dano e Precisão)", 155, 275, 4.0, 1.05).addMods(8.0).addMods(damageAdd = 26).addMods(-30.0, 80),
             Weapon("Maxim 9", 130, 290, 3.5, 1.15),
-            Weapon("ST Kinetics", 108, 880, 5.0, 1.1),
             Weapon("ST Kinetics (Mod Cadência e Corporal", 108, 880, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0),
             Weapon("ST Kinetics (Mod Cadência, Corporal e Dupla", 108, 880, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0).addMods(7.0, -15, -20.0).addMods
                 (100.0),
-            Weapon("Taurus Judge", 680, 100, 3.0, 1.4),
             Weapon("Taurus Judge (Mod Cadência)", 680, 100, 3.0, 1.4).addMods(10.0)
         ).sortedBy { it.ttk.values.elementAt(1) }
     }
