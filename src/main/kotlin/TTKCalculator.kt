@@ -15,7 +15,7 @@ object TTKCalculator {
 
     fun bulletsToKillWithProtection(
         weapon: Weapon,
-        set: Set,
+        set: Set = Set.sirocco,
         isHeadshot: Boolean = false,
         debug: Boolean = false,
     ): Int {
