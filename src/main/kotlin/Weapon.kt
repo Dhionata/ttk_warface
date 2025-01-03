@@ -73,13 +73,18 @@ data class Weapon(
 
     companion object WeaponsLists {
         val fuzileiroWeapons: List<Weapon> = listOf(
-            Weapon("AK Alpha (Mod Cadência)", 100, 800, 6.5, 1.0),
+            Weapon("AK Alpha", 100, 800, 6.5, 1.0),
+            Weapon("AK Alpha (Mod Dano)", 100, 800, 6.5, 1.0).addMods(damageAdd = 6),
+            Weapon("AK Alpha (Mod Cadência)", 100, 800, 6.5, 1.0).addMods(6.0),
             Weapon("AK Alpha (Mod Cadência e Dano)", 100, 800, 6.5, 1.0).addMods(6.0, 4),
             Weapon("AK Alpha (Mod RAJADA)", 100, 800, 6.5, 1.0).addMods(-35.0, 50),
             Weapon("AK Alpha (Mod RAJADA, Cadência e Dano)", 100, 800, 6.5, 1.0).addMods(-35.0, 50).addMods(6.0).addMods(damageAdd = 4),
             Weapon("AK-12 (Mod Cadência)", 105, 735, 7.0, 1.25).addMods(10.0),
             Weapon("Beretta (Mod Cadência)", 111, 810, 4.0, 1.4).addMods(10.0),
-            Weapon("Carmel (Mod Dano)", 96, 720, 7.0, 1.07).addMods(-27.5, 70, bodyMultiplierAddPercentage = 12.0),
+            Weapon("Carmel (Mod Dano, Cadência e Corporal)", 96, 720, 7.0, 1.07).addMods(-27.5, 70, bodyMultiplierAddPercentage = 12.0).addMods(6.0).addMods
+                (bodyMultiplierAddPercentage = 12.0),
+            Weapon("Carmel (Mod Cadência [normal e especial] e Corporal)", 96, 720, 7.0, 1.07).addMods(45.0, headMultiplierAddPercentage = -45.0).addMods(6.0).addMods
+                (bodyMultiplierAddPercentage = 12.0),
             Weapon("Cobalt (Mod Cadência [normal], +2 Corporal)", 95, 735, 7.0, 1.05).addMods(5.2).addMods(bodyMultiplierAddPercentage = 10.0)
                 .addMods(bodyMultiplierAddPercentage = 40.0),
             Weapon("Cobalt (Mod Cadência [especial] e Corporal", 95, 735, 7.0, 1.05).addMods(40.0, headMultiplierAddPercentage = -32.0).addMods(5.2).addMods
