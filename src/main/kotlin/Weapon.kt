@@ -73,9 +73,10 @@ data class Weapon(
 
     companion object WeaponsLists {
         val fuzileiroWeapons: List<Weapon> = listOf(
-            Weapon("AK Alpha (Mod Cadência)", 100, 800, 6.5, 1.0).addMods(6.0, 4),
+            Weapon("AK Alpha (Mod Cadência)", 100, 800, 6.5, 1.0),
+            Weapon("AK Alpha (Mod Cadência e Dano)", 100, 800, 6.5, 1.0).addMods(6.0, 4),
             Weapon("AK Alpha (Mod RAJADA)", 100, 800, 6.5, 1.0).addMods(-35.0, 50),
-            Weapon("AK Alpha (Mod RAJADA e Cadência)", 100, 800, 6.5, 1.0).addMods(-35.0, 50).addMods(6.0, 4),
+            Weapon("AK Alpha (Mod RAJADA, Cadência e Dano)", 100, 800, 6.5, 1.0).addMods(-35.0, 50).addMods(6.0).addMods(damageAdd = 4),
             Weapon("AK-12 (Mod Cadência)", 105, 735, 7.0, 1.25).addMods(10.0),
             Weapon("Beretta (Mod Cadência)", 111, 810, 4.0, 1.4).addMods(10.0),
             Weapon("Carmel (Mod Dano)", 96, 720, 7.0, 1.07).addMods(-27.5, 70, bodyMultiplierAddPercentage = 12.0),
