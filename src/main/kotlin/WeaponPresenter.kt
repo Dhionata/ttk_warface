@@ -8,44 +8,44 @@ object WeaponPresenter {
         println("\n==== TTK no corpo ====")
 
         println("\n=== Classe Fuzileiro ===\n")
-        fuzileiroWeapons.sortedBy { it.ttk.values.elementAt(1) }.forEach { println(it) }
+        fuzileiroWeapons.sortedBy { it.ttk.elementAt(1).second }.forEach { println(it) }
 
         println("\n=== Classe Engenheiro ===\n")
-        engenheiroWeapons.sortedBy { it.ttk.values.elementAt(1) }.forEach { println(it) }
+        engenheiroWeapons.sortedBy { it.ttk.elementAt(1).second }.forEach { println(it) }
 
         println("\n=== Pistolas ===\n")
-        pistolas.sortedBy { it.ttk.values.elementAt(1) }.forEach { println(it) }
+        pistolas.sortedBy { it.ttk.elementAt(1).second }.forEach { println(it) }
 
         println("\n==== TTK na cabeça ====")
 
         println("\n=== Classe Fuzileiro ===\n")
-        fuzileiroWeapons.sortedBy { it.ttk.values.first() }.forEach { println(it) }
+        fuzileiroWeapons.sortedBy { it.ttk.first().second }.forEach { println(it) }
 
         println("\n=== Classe Engenheiro ===\n")
-        engenheiroWeapons.sortedBy { it.ttk.values.first() }.forEach { println(it) }
+        engenheiroWeapons.sortedBy { it.ttk.first().second }.forEach { println(it) }
 
         println("\n=== Pistolas ===\n")
-        pistolas.sortedBy { it.ttk.values.first() }.forEach { println(it) }
+        pistolas.sortedBy { it.ttk.first().second }.forEach { println(it) }
 
         println("\n==== Média do TTK por Arma ====")
 
         println("\n=== Classe Fuzileiro ===\n")
-        fuzileiroWeapons.sortedBy { it.ttk.values.last() }.forEach { println(it) }
+        fuzileiroWeapons.sortedBy { it.ttk.last().second }.forEach { println(it) }
 
         println("\n=== Classe Engenheiro ===\n")
-        engenheiroWeapons.sortedBy { it.ttk.values.last() }.forEach { println(it) }
+        engenheiroWeapons.sortedBy { it.ttk.last().second }.forEach { println(it) }
 
         println("\n=== Pistolas ===\n")
-        pistolas.sortedBy { it.ttk.values.last() }.forEach { println(it) }
+        pistolas.sortedBy { it.ttk.last().second }.forEach { println(it) }
 
         println("\n=== Fuzileiro + Engenheiro ===\n\n==== TTK na cabeça ====\n")
-        (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.values.first() }.forEach { println(it) }
+        (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.first().second }.forEach { println(it) }
 
         println("\n=== Fuzileiro + Engenheiro ===\n\n==== TTK no corpo ====\n")
-        (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.values.elementAt(1) }.forEach { println(it) }
+        (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.elementAt(1).second }.forEach { println(it) }
 
         println("\n=== Fuzileiro + Engenheiro ===\n\n==== TTK Médio ====\n")
-        (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.values.last() }.forEach { println(it) }
+        (fuzileiroWeapons + engenheiroWeapons).sortedBy { it.ttk.last().second }.forEach { println(it) }
 
         println("\n=== Melhores TTKs ===")
 

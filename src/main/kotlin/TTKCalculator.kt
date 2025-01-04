@@ -105,14 +105,11 @@ object TTKCalculator {
         println("Conjunto: ${setStats.name}")
         println("Arma: ${weapon.name}")
 
-        println(" - Tiro(s) na ${weapon.ttk.keys.first()}")
-        println(" - TTK Cabeça: ${"%.3f".format(weapon.ttk.values.first())}(s)")
+        println(" - ${weapon.ttk.first().first} tiro(s) na cabeça em ${"%.3f".format(weapon.ttk.first().second)}(s)")
 
-        println(" - Tiro(s) no ${weapon.ttk.keys.elementAt(1)}")
-        println(" - TTK Corpo: ${"%.3f".format(weapon.ttk.values.elementAt(1))}(s)")
+        println(" - ${weapon.ttk.elementAt(1).first} tiro(s) no corpo em ${"%.3f".format(weapon.ttk.elementAt(1).second)}(s)")
 
-        println(" - ${weapon.ttk.keys.last()} tiro(s)")
-        println(" - TTK Médio: ${"%.3f".format(weapon.ttk.values.last())}(s)")
+        println(" - TTK Médio: ${weapon.ttk.last().first} tiro(s) em ${"%.3f".format(weapon.ttk.last().second)}(s)")
         println("------------------------------")
     }
 
@@ -121,25 +118,25 @@ object TTKCalculator {
         set: Set = Set.sirocco,
         debug: Boolean = false,
     ): Triple<Weapon, Weapon, Weapon> {
-        val bestHeadWeapon = weapons.minBy { it.ttk.values.first() }
-        val bestBodyWeapon = weapons.minBy { it.ttk.values.elementAt(1) }
-        val bestTTKMediaWeapon = weapons.minBy { it.ttk.values.last() }
+        val bestHeadWeapon = weapons.minBy { it.ttk.first().second }
+        val bestBodyWeapon = weapons.minBy { it.ttk.elementAt(1).second }
+        val bestTTKMediaWeapon = weapons.minBy { it.ttk.last().second }
 
         println("===================================")
         println(
-            "Melhor TTK para a Cabeça: ${bestHeadWeapon.name} com TTK de ${"%.3f".format(bestHeadWeapon.ttk.values.first())} segundos em ${
+            "Melhor TTK para a Cabeça: ${bestHeadWeapon.name} com TTK de ${"%.3f".format(bestHeadWeapon.ttk.first().second)} segundos em ${
                 bulletsToKillWithProtection
                     (bestHeadWeapon, set, true, debug)
             } tiro(s)"
         )
         println(
-            "Melhor TTK para o Corpo: ${bestBodyWeapon.name} com TTK de ${"%.3f".format(bestBodyWeapon.ttk.values.elementAt(1))} segundos em ${
+            "Melhor TTK para o Corpo: ${bestBodyWeapon.name} com TTK de ${"%.3f".format(bestBodyWeapon.ttk.elementAt(1).second)} segundos em ${
                 bulletsToKillWithProtection
                     (bestBodyWeapon, set, debug = debug)
             } tiros(s)"
         )
         println(
-            "Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon.name} com TTK Médio de ${"%.3f".format(bestTTKMediaWeapon.ttk.values.last())} segundos em " +
+            "Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon.name} com TTK Médio de ${"%.3f".format(bestTTKMediaWeapon.ttk.last().second)} segundos em " +
                     "${(bulletsToKillWithProtection(bestTTKMediaWeapon, set, true, debug) + bulletsToKillWithProtection(bestTTKMediaWeapon, set, debug = debug)) / 2} tiro(s)"
         )
         println("===================================")
