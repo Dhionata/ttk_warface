@@ -11,6 +11,7 @@ fun main() {
     setList.forEach { set ->
         fuzileiroWeapons.forEach { it.set = set }
         engenheiroWeapons.forEach { it.set = set }
+        pistolas.forEach { it.set = set }
         printDetailedAllWeaponsInfo(fuzileiroWeapons, engenheiroWeapons, pistolas, set)
     }
 }
