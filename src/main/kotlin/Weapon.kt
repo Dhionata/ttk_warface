@@ -101,7 +101,7 @@ data class Weapon(
             Weapon("FN SCAR-H (Mod Cadência)", 175, 600.0, 7.0, 1.24).addMods(10.0),
             Weapon("AN-94 (Mod Cadência)", 125, 620.0, 7.0, 1.8).addMods(10.0),
             Weapon("MPAR-556 (Mod Cadência)", 110, 825.0, 4.0, 1.45).addMods(10.0),
-            Weapon("MPAR-556 (Mod Cadência)", 110, 825.0, 4.0, 1.45),
+            Weapon("MPAR-556", 110, 825.0, 4.0, 1.45),
         )
 
         val engenheiroWeapons: List<Weapon> = listOf(
