@@ -136,8 +136,14 @@ object TTKCalculator {
             } tiros(s)"
         )
         println(
-            "Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon.name} com TTK Médio de ${"%.3f".format(bestTTKMediaWeapon.ttk.last().second)} segundos em " +
-                    "${(bulletsToKillWithProtection(bestTTKMediaWeapon, set, true, debug) + bulletsToKillWithProtection(bestTTKMediaWeapon, set, debug = debug)) / 2} tiro(s)"
+            "Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon.name} com TTK Médio de ${"%.3f".format(bestTTKMediaWeapon.ttk.last().second)} segundos em ${
+                (bulletsToKillWithProtection(
+                    bestTTKMediaWeapon,
+                    set,
+                    true,
+                    debug
+                ) + bulletsToKillWithProtection(bestTTKMediaWeapon, set, debug = debug)) / 2
+            } tiro(s)"
         )
         println("===================================")
 
