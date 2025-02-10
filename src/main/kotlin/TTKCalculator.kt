@@ -10,7 +10,7 @@ object TTKCalculator {
         weaponTypeResistance: Double,
     ): Double {
         val damage = (weaponDamage * damageMultiplier - (absorption)) * (1 - resistance) * (1 - weaponTypeResistance)
-        return if (damage < 0) 0.0 else damage // O dano não pode ser negativo
+        return if (damage < 0) throw IllegalArgumentException("Há alteração nos parâmetros de dano!") else damage // O dano não pode ser negativo
     }
 
     fun bulletsToKillWithProtection(
@@ -27,7 +27,7 @@ object TTKCalculator {
         val equipmentProtection = if (isHeadshot) set.headProtection else set.bodyProtection
 
         // Calcula o damageMultiplier corretamente
-        val damageMultiplier = (if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier * set.entityDmgMult * (1 + set.cyborgDmgBuff)) - equipmentProtection
+        val damageMultiplier = ((if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier) * set.entityDmgMult * (1 + set.cyborgDmgBuff)) - equipmentProtection
 
         // Verifica se o damageMultiplier é negativo
         val effectiveDamageMultiplier = if (damageMultiplier < 0) 0.0 else damageMultiplier
@@ -35,11 +35,12 @@ object TTKCalculator {
         // Calcula o dano
         var finalDamage = calculateDamage(weapon.damage, effectiveDamageMultiplier, set.absorption, set.resistance, set.weaponTypeResistance)
 
+        // Calcula a distribuição do dano
+        val armorDamage = finalDamage * 0.8
+        val healthDamage = finalDamage * 0.2
+
         // Loop para aplicar o dano até que a saúde chegue a 0 ou menos
         while (remainingHealth > 0) {
-            // Calcula a distribuição do dano
-            val armorDamage = finalDamage * 0.8
-            val healthDamage = finalDamage * 0.2
 
             if (debug) {
                 println("------------------------------")
