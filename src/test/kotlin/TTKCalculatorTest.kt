@@ -7,6 +7,11 @@ class TTKCalculatorTest {
 
     @Test
     fun bulletsToKillWithProtection() {
-        TTKCalculator.bulletsToKillWithProtection(Weapon.fuzileiroWeapons.find { it.name == "PKM Zenit (Mod Cadência e Cadência [especial]" }!!, Set.sirocco, true, true)
+        val list = Weapon.fuzileiroWeapons.filter { weapon -> weapon.name.startsWith("STK") }
+        list.forEach {
+            TTKCalculator.bulletsToKillWithProtection(
+                it, Set.sirocco, true, true
+            )
+        }
     }
 }
