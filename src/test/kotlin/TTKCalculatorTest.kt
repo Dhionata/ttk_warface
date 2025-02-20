@@ -7,10 +7,9 @@ class TTKCalculatorTest {
 
     @Test
     fun bulletsToKillWithProtection() {
-        val list = Weapon.fuzileiroWeapons.filter { weapon -> weapon.name.startsWith("STK") }
-        list.forEach {
-            TTKCalculator.bulletsToKillWithProtection(
-                it, Set.sirocco, true, true
+        Weapon.fuzileiroWeapons.filter { weapon -> weapon.name.startsWith("STK") }.forEach { weapon ->
+            TTKCalculator.bulletsToKillWithProtectionInt(
+                weapon, Set.sirocco, true, true
             )
         }
     }

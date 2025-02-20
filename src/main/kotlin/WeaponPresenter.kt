@@ -70,7 +70,6 @@ object WeaponPresenter {
         val tempoMedioDeResistenciaCabeca = (fuzileiroWeapons + engenheiroWeapons).map { it.ttk.first().second }.average()
         println(BigDecimal(tempoMedioDeResistenciaCabeca).setScale(2, RoundingMode.HALF_UP))
 
-
         println("\n=== Corpo ===")
 
         println("\n== Tiros ==")

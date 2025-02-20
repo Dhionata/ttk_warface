@@ -64,10 +64,10 @@ data class Weapon(
     private fun updateTTK() {
         ttk.clear()
 
-        val headPair = TTKCalculator.calculateTTKWithProtection(this, set, true)
+        val headPair = TTKCalculator.calculateTTKWithProtectionInt(this, set, true)
         ttk.add(Pair(headPair.first, headPair.second))
 
-        val bodyPair = TTKCalculator.calculateTTKWithProtection(this, set, false)
+        val bodyPair = TTKCalculator.calculateTTKWithProtectionInt(this, set, false)
         ttk.add(Pair(bodyPair.first, bodyPair.second))
 
         val ttkAverage = (headPair.second + bodyPair.second) / 2
@@ -110,7 +110,7 @@ data class Weapon(
             Weapon("AN-94 (Mod Cadência)", 125, 620.0, 7.0, 1.8).addMods(10.0),
             Weapon("MPAR-556 (Mod Cadência)", 110, 850.0, 4.0, 1.45).addMods(10.0),
             Weapon("MPAR-556", 110, 850.0, 4.0, 1.45),
-            Weapon("As-Val", 105, 765.0, 7.0, 1.0)
+            Weapon("As-Val (Mod Cadência)", 105, 765.0, 7.0, 1.25).addMods(10.0)
         )
 
         val engenheiroWeapons: List<Weapon> = listOf(
@@ -122,8 +122,8 @@ data class Weapon(
             Weapon("Magpul (Mod Dano Corporal)", 100, 1010.0, 4.0, 1.42).addMods(bodyMultiplierAddPercentage = 13.0),
             Weapon("Magpul (Ambas Modificações)", 100, 1010.0, 4.0, 1.42).addMods(8.0, bodyMultiplierAddPercentage = 13.0),
             Weapon("PP-2011 (Mod Cadência)", 125, 790.0, 6.0, 1.25).addMods(6.8),
-            Weapon("PP-2011 (Mod Dano Corporal)", 125, 790.0, 6.0, 1.25).addMods(bodyMultiplierAddPercentage = 8.0),
-            Weapon("PP-2011 (Mod Cadência e Dano Corporal)", 125, 790.0, 6.0, 1.25).addMods(6.8, bodyMultiplierAddPercentage = 8.0),
+            Weapon("PP-2011 (Mod Dano Corporal)", 125, 790.0, 6.0, 1.25).addMods(bodyMultiplierAddPercentage = 4.0),
+            Weapon("PP-2011 (Mod Cadência e Dano Corporal)", 125, 790.0, 6.0, 1.25).addMods(6.8, bodyMultiplierAddPercentage = 4.0),
             Weapon("CSV-9 Comodo (Mod Dano e Dano Corporal)", 92, 980.0, 4.8, 1.2).addMods(-13.0, 29, 25.0).addMods(bodyMultiplierAddPercentage = 8.0),
             Weapon("Famae SAF-200 (Mod Cadência)", 125, 750.0, 6.0, 1.3).addMods(fireRateAddPercentage = 10.0),
             Weapon("CZ Scorpion (Mod Cadência)", 128, 740.0, 6.0, 1.28).addMods(10.0),
