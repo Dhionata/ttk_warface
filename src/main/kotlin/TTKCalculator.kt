@@ -100,9 +100,7 @@ object TTKCalculator {
 
     fun printWeaponTTKWithProtection(
         weapon: Weapon,
-        setStats: Set = Set.sirocco,
     ) {
-        println("Conjunto: ${setStats.name}")
         println("Arma: ${weapon.name}")
 
         println(" - ${weapon.ttk.first().first} tiro(s) na cabeça em ${"%.3f".format(weapon.ttk.first().second)}(s)")

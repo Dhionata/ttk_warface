@@ -2,11 +2,12 @@ package br.com.dhionata
 
 import java.math.BigDecimal
 import java.math.RoundingMode
+import kotlin.math.roundToInt
 
 data class Weapon(
     val name: String,
     var damage: Int,
-    var fireRate: Double, // DPM (disparos por minuto)
+    private var _fireRate: Double, // valor interno para cálculos precisos
     var headMultiplier: Double,
     var bodyMultiplier: Double,
     val ttk: MutableList<Pair<Int, Double>> = mutableListOf<Pair<Int, Double>>(),
@@ -18,15 +19,26 @@ data class Weapon(
             updateTTK()
         }
 
+    // Propriedade pública que retorna o fireRate arredondado
+    val fireRate: Int
+        get() = _fireRate.roundToInt()
+
     override fun toString(): String {
         return "Nome: $name | Dano: $damage | Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
-            BigDecimal(bodyMultiplier).setScale(2, RoundingMode.HALF_UP)
+            BigDecimal(bodyMultiplier).setScale(
+                2,
+                RoundingMode.HALF_UP
+            )
         } | TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
             BigDecimal(ttk.first().second).setScale(
-                3, RoundingMode.HALF_UP
+                3,
+                RoundingMode.HALF_UP
             )
         }], Corpo[${ttk.elementAt(1).first} em ${
-            BigDecimal(ttk.elementAt(1).second).setScale(3, RoundingMode.HALF_UP)
+            BigDecimal(ttk.elementAt(1).second).setScale(
+                3,
+                RoundingMode.HALF_UP
+            )
         }], Média[${ttk.last().first} em ${BigDecimal(ttk.last().second).setScale(3, RoundingMode.HALF_UP)}]"
     }
 
@@ -41,7 +53,7 @@ data class Weapon(
         bodyMultiplierAddPercentage: Double? = null,
     ): Weapon {
         if (fireRateAddPercentage != null) {
-            fireRate += fireRate * fireRateAddPercentage / 100.0
+            _fireRate += _fireRate * fireRateAddPercentage / 100.0
         }
         if (damageAdd != null) {
             damage += damageAdd
@@ -128,7 +140,8 @@ data class Weapon(
             Weapon("Famae SAF-200 (Mod Cadência)", 125, 750.0, 6.0, 1.3).addMods(fireRateAddPercentage = 10.0),
             Weapon("CZ Scorpion (Mod Cadência)", 128, 740.0, 6.0, 1.28).addMods(10.0),
             Weapon("SR-3M (Mod Cadência)", 100, 985.0, 4.0, 1.6).addMods(10.0),
-            Weapon("AMB-17", 125, 745.0, 6.0, 1.0)
+            Weapon("AMB-17", 125, 745.0, 6.0, 1.0),
+            Weapon("Taurus CT9 G2 (Mod Cadência)", 100, 815.0, 6.2, 1.05).addMods(3.0)
         )
 
         val pistolas: List<Weapon> = listOf(
