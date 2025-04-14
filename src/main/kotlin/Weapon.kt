@@ -19,7 +19,6 @@ data class Weapon(
             updateTTK()
         }
 
-    // Propriedade pública que retorna o fireRate arredondado
     val fireRate: Int
         get() = _fireRate.roundToInt()
 
@@ -44,7 +43,7 @@ data class Weapon(
 
     /**
      * Função para adicionar modificações à arma.
-     * Após as modificações, o mapa ttk é atualizado.
+     * Após as modificações, o `map` ttk é atualizado.
      */
     fun addMods(
         fireRateAddPercentage: Double? = null,
