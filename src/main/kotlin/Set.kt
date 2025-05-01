@@ -1,6 +1,5 @@
 package br.com.dhionata
 
-// Classe para armazenar estatísticas de cada classe
 data class Set(
     val name: String,
     val armor: Int,
@@ -39,6 +38,86 @@ data class Set(
             22.0,
             0.0,
             0.0
+        )
+
+        val `Assault (CO-OP), CQB (CO-OP) & Sniper (CO-OP)`: Set = Set(
+            "Assault (CO-OP) | CQB (CO-OP) | Sniper (CO-OP)",
+            280,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            500
+        )
+
+        val `Demoman (CO-OP)`: Set = Set(
+            "Demoman (CO-OP)",
+            350,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            hp = 625
+        )
+
+        val `Spec-Ops (CO-OP)`: Set = Set(
+            "Spec-Ops (CO-OP)",
+            420,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            hp = 750
+        )
+
+        val `Heavy Gunner (CO-OP)`: Set = Set(
+            "Heavy Gunner (CO-OP)",
+            0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            hp = 20000
+        )
+
+        val `G15 Pteranodon`: Set = Set(
+            "G15 Pteranodon",
+            0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            hp = 8400
+        )
+
+        val `SWAT Heavy Gunner`: Set = Set(
+            "SWAT Heavy Gunner",
+            400,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            hp = 12000,
         )
     }
 }

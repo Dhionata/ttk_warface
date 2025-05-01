@@ -121,7 +121,8 @@ data class Weapon(
             Weapon("AN-94 (Mod Cadência)", 125, 620.0, 7.0, 1.8).addMods(10.0),
             Weapon("MPAR-556 (Mod Cadência)", 110, 850.0, 4.0, 1.45).addMods(10.0),
             Weapon("MPAR-556", 110, 850.0, 4.0, 1.45),
-            Weapon("As-Val (Mod Cadência)", 105, 765.0, 7.0, 1.25).addMods(10.0)
+            Weapon("As-Val (Mod Cadência)", 105, 765.0, 7.0, 1.25).addMods(10.0),
+            Weapon("A-545 (Mod Cadência)", 106, 735.0, 7.0, 1.18).addMods(10.0),
         )
 
         val engenheiroWeapons: List<Weapon> = listOf(
