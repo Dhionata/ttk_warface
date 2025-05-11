@@ -21,20 +21,20 @@ object TTKCalculator {
 
     fun bulletsToKillWithProtectionInt(
         weapon: Weapon,
-        set: Set,
         isHeadshot: Boolean = false,
         debug: Boolean = false,
     ): Int {
-        var remainingArmor = set.armor
-        var remainingHealth = set.hp
+        var remainingArmor = weapon.set.armor
+        var remainingHealth = weapon.set.hp
         var shots = 0
 
-        val equipmentProtection = if (isHeadshot) set.headProtection else set.bodyProtection
+        val equipmentProtection = if (isHeadshot) weapon.set.headProtection else weapon.set.bodyProtection
 
-        val damageMultiplier = ((if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier) * set.entityDmgMult * (1 + set.cyborgDmgBuff)) - equipmentProtection
+        val damageMultiplier =
+            ((if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier) * weapon.set.entityDmgMult * (1 + weapon.set.cyborgDmgBuff)) - equipmentProtection
 
         val finalDamage = calculateDamageInt(
-            weapon.damage, damageMultiplier, set.absorption, resistance = set.resistance, weaponTypeResistance = set.weaponTypeResistance
+            weapon.damage, damageMultiplier, weapon.set.absorption, resistance = weapon.set.resistance, weaponTypeResistance = weapon.set.weaponTypeResistance
         )
 
         val armorDamage = (finalDamage * 80) / 100
@@ -74,11 +74,10 @@ object TTKCalculator {
 
     fun calculateTTKWithProtectionInt(
         weapon: Weapon,
-        set: Set = Set.sirocco,
         isHeadshot: Boolean,
         debug: Boolean = false,
     ): Pair<Int, Double> {
-        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, set, isHeadshot, debug)
+        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug)
         val shotsPerSecond = weapon.fireRate / 60.0
         val totalTime = shotsNeeded / shotsPerSecond
         return Pair(shotsNeeded, totalTime)
@@ -99,7 +98,6 @@ object TTKCalculator {
 
     fun findBestTTK(
         weapons: List<Weapon>,
-        set: Set = Set.sirocco,
         debug: Boolean = false,
     ): Triple<Weapon, Weapon, Weapon> {
         val bestHeadWeapon = weapons.minBy { it.ttk.first().second }
@@ -109,19 +107,19 @@ object TTKCalculator {
         println("===================================")
         println(
             "Melhor TTK para a Cabeça: ${bestHeadWeapon.name} com TTK de ${"%.3f".format(bestHeadWeapon.ttk.first().second)} segundos em ${
-                bulletsToKillWithProtectionInt(bestHeadWeapon, set, true, debug)
+                bulletsToKillWithProtectionInt(bestHeadWeapon, true, debug)
             } tiro(s)"
         )
         println(
             "Melhor TTK para o Corpo: ${bestBodyWeapon.name} com TTK de ${"%.3f".format(bestBodyWeapon.ttk.elementAt(1).second)} segundos em ${
-                bulletsToKillWithProtectionInt(bestBodyWeapon, set, debug = debug)
+                bulletsToKillWithProtectionInt(bestBodyWeapon, debug = debug)
             } tiros(s)"
         )
         println(
             "Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon.name} com TTK Médio de ${"%.3f".format(bestTTKMediaWeapon.ttk.last().second)} segundos em ${
                 (bulletsToKillWithProtectionInt(
-                    bestTTKMediaWeapon, set, true, debug
-                ) + bulletsToKillWithProtectionInt(bestTTKMediaWeapon, set, debug = debug)) / 2
+                    bestTTKMediaWeapon, true, debug
+                ) + bulletsToKillWithProtectionInt(bestTTKMediaWeapon, debug = debug)) / 2
             } tiro(s)"
         )
         println("===================================")

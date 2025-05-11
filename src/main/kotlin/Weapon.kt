@@ -25,18 +25,15 @@ data class Weapon(
     override fun toString(): String {
         return "Nome: $name | Dano: $damage | Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
             BigDecimal(bodyMultiplier).setScale(
-                2,
-                RoundingMode.HALF_UP
+                2, RoundingMode.HALF_UP
             )
         } | TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
             BigDecimal(ttk.first().second).setScale(
-                3,
-                RoundingMode.HALF_UP
+                3, RoundingMode.HALF_UP
             )
         }], Corpo[${ttk.elementAt(1).first} em ${
             BigDecimal(ttk.elementAt(1).second).setScale(
-                3,
-                RoundingMode.HALF_UP
+                3, RoundingMode.HALF_UP
             )
         }], Média[${ttk.last().first} em ${BigDecimal(ttk.last().second).setScale(3, RoundingMode.HALF_UP)}]"
     }
@@ -75,10 +72,10 @@ data class Weapon(
     private fun updateTTK() {
         ttk.clear()
 
-        val headPair = TTKCalculator.calculateTTKWithProtectionInt(this, set, true)
+        val headPair = TTKCalculator.calculateTTKWithProtectionInt(this, true)
         ttk.add(Pair(headPair.first, headPair.second))
 
-        val bodyPair = TTKCalculator.calculateTTKWithProtectionInt(this, set, false)
+        val bodyPair = TTKCalculator.calculateTTKWithProtectionInt(this, false)
         ttk.add(Pair(bodyPair.first, bodyPair.second))
 
         val ttkAverage = (headPair.second + bodyPair.second) / 2

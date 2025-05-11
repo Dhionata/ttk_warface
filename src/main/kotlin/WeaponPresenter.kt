@@ -5,8 +5,8 @@ import java.math.RoundingMode
 
 object WeaponPresenter {
 
-    fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, pistolas: List<Weapon>, set: Set, debug: Boolean = false) {
-        println("\n=== Detalhes para o conjunto ===\n\n==== ${set.name} ====")
+    fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, pistolas: List<Weapon>, debug: Boolean = false) {
+        println("\n=== Detalhes para o conjunto ===\n\n==== ${fuzileiroWeapons.first().set.name} ====")
 
         println("\n==== TTK no corpo ====")
         val bodyComparator = compareBy<Weapon> { it.ttk[1].second }.thenBy { it.ttk.first().second }.thenBy { it.ttk.last().second }
@@ -56,13 +56,13 @@ object WeaponPresenter {
         println("\n=== Melhores TTKs ===")
 
         println("\n=== Classe Fuzileiro ===\n")
-        println("Contra Conjunto: ${fuzileiroWeapons.firstOrNull()?.set?.name ?: set.name}")
-        TTKCalculator.findBestTTK(fuzileiroWeapons, set, debug).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it) }
+        println("Contra Conjunto: ${fuzileiroWeapons.first().set.name}")
+        TTKCalculator.findBestTTK(fuzileiroWeapons, debug).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it) }
 
         println("\n=== Classe Engenheiro ===\n")
-        TTKCalculator.findBestTTK(engenheiroWeapons, set, debug).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it) }
+        TTKCalculator.findBestTTK(engenheiroWeapons, debug).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it) }
 
-        println("\n==== Tempo médio de resistência contra Fuzi. + Eng. com o conjunto ${set.name}")
+        println("\n==== Tempo médio de resistência contra Fuzi. + Eng. com o conjunto ${fuzileiroWeapons.first().set.name}")
 
         println("\n=== Cabeça ===")
 
