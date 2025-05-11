@@ -4,25 +4,21 @@ import kotlin.math.roundToInt
 
 object TTKCalculator {
 
-    // Calcula o dano total (após absorção, resistência e weaponTypeResistance)
-    // Retorna um valor inteiro, arredondado para o inteiro mais próximo.
     fun calculateDamageInt(
         weaponDamage: Int,
         damageMultiplier: Double,
-        absorption: Double, // Valor fixo de absorção
-        pellets: Int = 1,   // Número de pellets (para dividir a absorção se necessário)
-        resistance: Double, // Percentual de resistência (0.0 a 1.0)
-        weaponTypeResistance: Double, // Percentual de resistência específica ao tipo de arma
+        absorption: Double,
+        pellets: Int = 1,
+        resistance: Double,
+        weaponTypeResistance: Double,
     ): Int {
         val effectiveAbsorption = absorption / pellets
         val baseDamage = weaponDamage * damageMultiplier - effectiveAbsorption
-        if (baseDamage <= 0) return 0  // Se o dano base for menor ou igual a zero, ignora o tiro.
+        if (baseDamage <= 0) return 0
         val finalDamage = baseDamage * (1 - resistance) * (1 - weaponTypeResistance)
-        return finalDamage.roundToInt()  // Arredonda o dano final para um inteiro.
+        return finalDamage.roundToInt()
     }
 
-    // Calcula quantos tiros são necessários para zerar a armadura e o HP do alvo,
-    // considerando que HP e ARMOR são valores inteiros e que o dano é distribuído (80% na armadura e 20% no HP).
     fun bulletsToKillWithProtectionInt(
         weapon: Weapon,
         set: Set,
@@ -33,24 +29,17 @@ object TTKCalculator {
         var remainingHealth = set.hp
         var shots = 0
 
-        // Seleciona a proteção correta: usa headProtection para headshots e bodyProtection para tiros no corpo.
         val equipmentProtection = if (isHeadshot) set.headProtection else set.bodyProtection
 
-        // Calcula o multiplicador de dano (aplicando, se existir, EntityDmgMult e CyborgDmgBuff)
         val damageMultiplier = ((if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier) * set.entityDmgMult * (1 + set.cyborgDmgBuff)) - equipmentProtection
 
-        // Calcula o dano total do tiro (já arredondado para inteiro)
         val finalDamage = calculateDamageInt(
-            weapon.damage, damageMultiplier, set.absorption, pellets = 1, // Supondo 1 pellet; se o arma disparar mais, altere esse valor.
-            resistance = set.resistance, weaponTypeResistance = set.weaponTypeResistance
+            weapon.damage, damageMultiplier, set.absorption, resistance = set.resistance, weaponTypeResistance = set.weaponTypeResistance
         )
 
-        // Distribui o dano: 80% afeta a armadura e 20% o HP.
-        // Para garantir que a soma seja igual ao dano total, calculamos um e subtraímos dele o outro.
         val armorDamage = (finalDamage * 80) / 100
         val healthDamage = finalDamage - armorDamage
 
-        // Aplica o dano em loop até que o HP seja zerado.
         while (remainingHealth > 0) {
             if (debug) {
                 println("------------------------------")
@@ -63,14 +52,13 @@ object TTKCalculator {
                 println(" - Armadura Antes do Tiro: $remainingArmor")
                 println(" - Saúde Antes do Tiro: $remainingHealth")
             }
-            // Aplica dano à armadura.
+
             remainingArmor -= armorDamage
             if (remainingArmor < 0) {
-                // Se o dano exceder a armadura, o excesso é aplicado ao HP.
-                remainingHealth += remainingArmor  // remainingArmor é negativo aqui.
+                remainingHealth += remainingArmor
                 remainingArmor = 0
             }
-            // Aplica dano ao HP.
+
             remainingHealth -= healthDamage
 
             if (debug) {
@@ -84,8 +72,6 @@ object TTKCalculator {
         return shots
     }
 
-    /* Calcula o Time-To-Kill (TTK) em segundos, considerando a fireRate da arma (em disparos por minuto).
-    Retorna um Pair onde o primeiro elemento é o número de tiros e o segundo o tempo total em segundos. */
     fun calculateTTKWithProtectionInt(
         weapon: Weapon,
         set: Set = Set.sirocco,

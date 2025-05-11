@@ -10,7 +10,7 @@ data class Weapon(
     private var _fireRate: Double, // valor interno para cálculos precisos
     var headMultiplier: Double,
     var bodyMultiplier: Double,
-    val ttk: MutableList<Pair<Int, Double>> = mutableListOf<Pair<Int, Double>>(),
+    val ttk: MutableList<Pair<Int, Double>> = mutableListOf(),
 ) {
 
     var set: Set = Set.sirocco
@@ -137,10 +137,10 @@ data class Weapon(
             Weapon("PP-2011 (Mod Dano Corporal)", 125, 790.0, 6.0, 1.25).addMods(bodyMultiplierAddPercentage = 4.0),
             Weapon("PP-2011 (Mod Cadência e Dano Corporal)", 125, 790.0, 6.0, 1.25).addMods(6.8, bodyMultiplierAddPercentage = 4.0),
             Weapon("CSV-9 Comodo (Mod Dano e Dano Corporal)", 92, 980.0, 4.8, 1.2).addMods(-13.0, 29, 25.0).addMods(bodyMultiplierAddPercentage = 8.0),
-            Weapon("Famae SAF-200 (Mod Cadência)", 125, 750.0, 6.0, 1.3).addMods(fireRateAddPercentage = 10.0),
+            Weapon("Famae SAF-200 (Mod Cadência)", 125, 750.0, 6.0, 1.3).addMods(10.0),
             Weapon("CZ Scorpion (Mod Cadência)", 128, 740.0, 6.0, 1.28).addMods(10.0),
             Weapon("SR-3M (Mod Cadência)", 100, 985.0, 4.0, 1.6).addMods(10.0),
-            Weapon("AMB-17", 125, 745.0, 6.0, 1.0),
+            Weapon("AMB-17 (Mod Cadência)", 125, 745.0, 6.0, 1.3).addMods(10.0),
             Weapon("Taurus CT9 G2 (Mod Cadência)", 100, 815.0, 6.2, 1.05).addMods(3.0)
         )
 

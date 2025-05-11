@@ -16,6 +16,7 @@ data class Set(
 ) {
 
     companion object Fuzileiro {
+
         val sirocco: Set = Set(
             "Tempestade de Areia",
             500,
@@ -50,9 +51,7 @@ data class Set(
             0.0,
             0.0,
             0.0,
-            0.0,
-            1.0,
-            500
+            hp = 500
         )
 
         val `Demoman (CO-OP)`: Set = Set(
