@@ -62,6 +62,9 @@ object WeaponPresenter {
         println("\n=== Classe Engenheiro ===\n")
         TTKCalculator.findBestTTK(engenheiroWeapons, debug).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it) }
 
+        println("\n=== Pistolas ===\n")
+        TTKCalculator.findBestTTK(pistolas, debug).toList().forEach { TTKCalculator.printWeaponTTKWithProtection(it) }
+
         println("\n==== Tempo médio de resistência contra Fuzi. + Eng. com o conjunto ${fuzileiroWeapons.first().set.name}")
 
         println("\n=== Cabeça ===")

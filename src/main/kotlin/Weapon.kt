@@ -100,14 +100,14 @@ data class Weapon(
                 .addMods(bodyMultiplierAddPercentage = 12.0),
             Weapon("Cobalt (Mod Cadência [normal], +2 Corporal)", 95, 735.0, 7.0, 1.05).addMods(5.2).addMods(bodyMultiplierAddPercentage = 10.0)
                 .addMods(bodyMultiplierAddPercentage = 40.0),
-            Weapon("Cobalt (Mod Cadência [especial] e Corporal", 95, 735.0, 7.0, 1.05).addMods(40.0, headMultiplierAddPercentage = -32.0).addMods(5.2)
+            Weapon("Cobalt (Mod Cadência [especial] e Corporal)", 95, 735.0, 7.0, 1.05).addMods(40.0, headMultiplierAddPercentage = -32.0).addMods(5.2)
                 .addMods(bodyMultiplierAddPercentage = 10.0),
             Weapon("Kord", 175, 640.0, 6.0, 1.15),
             Weapon("Kord (Mod Cadência)", 175, 640.0, 6.0, 1.15).addMods(10.0),
             Weapon("Kord (Mod Cadência e Recuo)", 175, 640.0, 6.0, 1.15).addMods(10.0).addMods(-26.0),
-            Weapon("PKM Zenit (Mod Cadência [normal e especial]", 145, 440.0, 5.5, 1.0).addMods(6.0).addMods(70.0, -40),
+            Weapon("PKM Zenit (Mod Cadência [normal e especial])", 145, 440.0, 5.5, 1.0).addMods(6.0).addMods(70.0, -40),
             Weapon("PKM Zenit (Mod Cadência)", 145, 440.0, 5.5, 1.0).addMods(6.0),
-            Weapon("PKM Zenit (Mod Cadência [especial e normal] e Corporal", 145, 440.0, 5.5, 1.0).addMods(6.0).addMods(70.0, -40).addMods(bodyMultiplierAddPercentage = 6.0),
+            Weapon("PKM Zenit (Mod Cadência [especial e normal] e Corporal)", 145, 440.0, 5.5, 1.0).addMods(6.0).addMods(70.0, -40).addMods(bodyMultiplierAddPercentage = 6.0),
             Weapon("PKM Zenit (Mod Cadência e Corporal)", 145, 440.0, 5.5, 1.0).addMods(6.0).addMods(bodyMultiplierAddPercentage = 6.0),
             Weapon("QBZ (Mod Cadência e Corporal)", 106, 720.0, 7.0, 1.12).addMods(8.0).addMods(bodyMultiplierAddPercentage = 13.0),
             Weapon("STK (Mod Cadência e Corporal)", 110, 865.0, 4.0, 1.25).addMods(8.0, bodyMultiplierAddPercentage = 13.0),
@@ -120,6 +120,7 @@ data class Weapon(
             Weapon("MPAR-556", 110, 850.0, 4.0, 1.45),
             Weapon("As-Val (Mod Cadência)", 105, 765.0, 7.0, 1.25).addMods(10.0),
             Weapon("A-545 (Mod Cadência)", 106, 735.0, 7.0, 1.18).addMods(10.0),
+            Weapon("M16A3 Custom (Mod Cadência)", 108, 730.0, 7.0, 1.24).addMods(10.0),
         )
 
         val engenheiroWeapons: List<Weapon> = listOf(
@@ -138,7 +139,9 @@ data class Weapon(
             Weapon("CZ Scorpion (Mod Cadência)", 128, 740.0, 6.0, 1.28).addMods(10.0),
             Weapon("SR-3M (Mod Cadência)", 100, 985.0, 4.0, 1.6).addMods(10.0),
             Weapon("AMB-17 (Mod Cadência)", 125, 745.0, 6.0, 1.3).addMods(10.0),
-            Weapon("Taurus CT9 G2 (Mod Cadência)", 100, 815.0, 6.2, 1.05).addMods(3.0)
+            Weapon("Taurus CT9 G2 (Mod Cadência)", 100, 815.0, 6.2, 1.05).addMods(3.0),
+            Weapon("PPSH-41 Modern (Mod Cadência)", 150, 625.0, 6.0, 1.45).addMods(10.0),
+            Weapon("Scar-L PDW (Mod cadência)", 150, 630.0, 5.3, 1.45).addMods(10.0),
         )
 
         val pistolas: List<Weapon> = listOf(
@@ -147,14 +150,15 @@ data class Weapon(
             Weapon("Taurus Raging Hunter (Mod Dano Corporal e Cadência)", 350, 160.0, 6.0, 1.10).addMods(5.0).addMods(bodyMultiplierAddPercentage = 10.0),
             Weapon("Taurus Raging Hunter (Mod Dano Corporal, Cadência e Cadência [especial])", 350, 160.0, 6.0, 1.10).addMods(5.0).addMods(bodyMultiplierAddPercentage = 10.0)
                 .addMods(55.0, -90),
-            Weapon("SIG Sauer P226 (Mod Cadência e Dano)", 155, 275.0, 4.0, 1.05).addMods(8.0).addMods(damageAdd = 26),
-            Weapon("SIG Sauer P226 (Mod Cadência, Dano e Precisão)", 155, 275.0, 4.0, 1.05).addMods(8.0).addMods(damageAdd = 26).addMods(-30.0, 80),
+            Weapon("SIG Sauer P226 (Mod Cadência e Dano)", 200, 275.0, 4.0, 1.3).addMods(8.0).addMods(damageAdd = 26),
+            Weapon("SIG Sauer P226 (Mod Cadência, Dano e Precisão)", 200, 275.0, 4.0, 1.3).addMods(8.0).addMods(damageAdd = 26).addMods(-30.0, 80),
             Weapon("Maxim 9", 130, 290.0, 3.5, 1.15),
-            Weapon("ST Kinetics (Mod Cadência e Corporal", 108, 950.0, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0),
-            Weapon("ST Kinetics (Mod Cadência, Corporal e Dupla", 108, 950.0, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0).addMods(7.0, -15, -20.0)
+            Weapon("ST Kinetics (Mod Cadência e Corporal)", 108, 950.0, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0),
+            Weapon("ST Kinetics (Mod Cadência, Corporal e Dupla)", 108, 950.0, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0).addMods(7.0, -15, -20.0)
                 .addMods(100.0),
             Weapon("Taurus Judge (Mod Cadência)", 680, 100.0, 3.0, 1.4).addMods(10.0),
-            Weapon("Mauser (Mod Dupla, Cadência e Dano", 100, 400.0, 3.8, 1.05).addMods(30.0, -20).addMods(100.0).addMods(5.0).addMods(damageAdd = 20)
+            Weapon("Mauser (Mod Dupla, Cadência e Dano)", 100, 400.0, 3.8, 1.05).addMods(30.0, -20).addMods(100.0).addMods(5.0).addMods(damageAdd = 20),
+            Weapon("Deset Eagle (Mod Cadência)", 275, 270.0, 4.25, 1.35).addMods(20.0),
         )
     }
 }
