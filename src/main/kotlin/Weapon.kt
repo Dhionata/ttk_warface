@@ -115,7 +115,7 @@ data class Weapon(
                 -42.0, 60, bodyMultiplierAddPercentage = -10.0
             ),
             Weapon("FN SCAR-H (Mod Cadência)", 175, 540.0, 7.0, 1.24).addMods(10.0),
-            Weapon("AN-94 (Mod Cadência)", 125, 620.0, 7.0, 1.8).addMods(10.0),
+            Weapon("AN-94 (Mod Cadência)", 125, 700.0, 7.0, 1.8).addMods(10.0),
             Weapon("MPAR-556 (Mod Cadência)", 110, 850.0, 4.0, 1.45).addMods(10.0),
             Weapon("MPAR-556", 110, 850.0, 4.0, 1.45),
             Weapon("As-Val (Mod Cadência)", 105, 765.0, 7.0, 1.25).addMods(10.0),
@@ -157,8 +157,13 @@ data class Weapon(
             Weapon("ST Kinetics (Mod Cadência, Corporal e Dupla)", 108, 950.0, 5.0, 1.1).addMods(12.0).addMods(bodyMultiplierAddPercentage = 16.0).addMods(7.0, -15, -20.0)
                 .addMods(100.0),
             Weapon("Taurus Judge (Mod Cadência)", 680, 100.0, 3.0, 1.4).addMods(10.0),
-            Weapon("Mauser (Mod Dupla, Cadência e Dano)", 100, 400.0, 3.8, 1.05).addMods(30.0, -20).addMods(100.0).addMods(5.0).addMods(damageAdd = 20),
+            Weapon("Mauser (Mod Dupla, Cadência e Dano)", 175, 400.0, 3.8, 1.05).addMods(30.0, -20).addMods(100.0).addMods(5.0).addMods(damageAdd = 20),
             Weapon("Deset Eagle (Mod Cadência)", 275, 270.0, 4.25, 1.35).addMods(20.0),
+            Weapon("M1911A1 (Mod Dano e Cadência [especial], Cadência e Dano [especial])", 200, 290.0, 6.0, 1.1).addMods(20.0, 30).addMods(5.0).addMods(damageAdd = 20),
+            Weapon("M1911A (Mod Dano [especial], Cadência e Dano)", 200, 290.0, 6.0, 1.1).addMods(-50.0, 160).addMods(5.0).addMods(damageAdd = 20),
+            Weapon("Glock 18c (Mod cadência)", 108, 800.0, 5.0, 1.25).addMods(10.0),
+            Weapon("Makarov (Mod cadência, dano e dano [especial])", 135, 300.0, 4.0, 1.0).addMods(10.0).addMods(damageAdd = 15).addMods(-35.0, 35),
+            Weapon("Makarov (Mod cadência, dano e cadência [especial]", 135, 300.0, 4.0, 1.0).addMods(10.0).addMods(damageAdd = 15).addMods(15.0)
         )
     }
 }
