@@ -19,3 +19,10 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
+
+tasks.register<JavaExec>("run") {
+    group = "application"
+    description = "Runs the main function"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("br.com.dhionata.MainKt")
+}

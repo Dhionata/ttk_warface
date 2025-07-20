@@ -93,7 +93,7 @@ data class Weapon(
             Weapon("AK Alpha (Mod RAJADA)", 100, 800.0, 6.5, 1.0).addMods(-35.0, 50),
             Weapon("AK Alpha (Mod RAJADA, Cadência e Dano)", 100, 800.0, 6.5, 1.0).addMods(-35.0, 50).addMods(6.0).addMods(damageAdd = 4),
             Weapon("AK-12 (Mod Cadência)", 105, 735.0, 7.0, 1.25).addMods(10.0),
-            Weapon("Beretta (Mod Cadência)", 111, 810.0, 4.0, 1.4).addMods(10.0),
+            Weapon("Beretta (Mod Cadência)", 120, 810.0, 4.0, 1.4).addMods(10.0),
             Weapon("Carmel (Mod Dano, Cadência e Corporal)", 96, 720.0, 7.0, 1.07).addMods(-27.5, 70, bodyMultiplierAddPercentage = 12.0).addMods(6.0)
                 .addMods(bodyMultiplierAddPercentage = 12.0),
             Weapon("Carmel (Mod Cadência [normal e especial] e Corporal)", 96, 720.0, 7.0, 1.07).addMods(45.0, headMultiplierAddPercentage = -45.0).addMods(6.0)
@@ -164,6 +164,11 @@ data class Weapon(
             Weapon("Glock 18c (Mod cadência)", 108, 800.0, 5.0, 1.25).addMods(10.0),
             Weapon("Makarov (Mod cadência, dano e dano [especial])", 135, 300.0, 4.0, 1.0).addMods(10.0).addMods(damageAdd = 15).addMods(-35.0, 35),
             Weapon("Makarov (Mod cadência, dano e cadência [especial]", 135, 300.0, 4.0, 1.0).addMods(10.0).addMods(damageAdd = 15).addMods(15.0)
+        )
+
+        val sniperWeapons: List<Weapon> = listOf(
+            Weapon("FN SCAR Creedmoor", 250, 380.0, 5.0, 1.40),
+            Weapon("FN SCAR Creedmoor (Mod Cadência)", 250, 380.0, 5.0, 1.40).addMods(fireRateAddPercentage = 25.0)
         )
     }
 }
