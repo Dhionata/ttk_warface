@@ -167,8 +167,8 @@ data class Weapon(
         )
 
         val sniperWeapons: List<Weapon> = listOf(
-            Weapon("FN SCAR Creedmoor", 250, 380.0, 5.0, 1.40),
-            Weapon("FN SCAR Creedmoor (Mod Cadência)", 250, 380.0, 5.0, 1.40).addMods(fireRateAddPercentage = 25.0)
+            Weapon("FN SCAR Creedmoor", 250, 370.0, 5.0, 1.40),
+            Weapon("FN SCAR Creedmoor (Mod Cadência)", 250, 370.0, 5.0, 1.40).addMods(fireRateAddPercentage = 25.0)
         )
     }
 }
