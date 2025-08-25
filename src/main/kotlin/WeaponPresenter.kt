@@ -2,6 +2,8 @@ package br.com.dhionata
 
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 object WeaponPresenter {
 
@@ -36,6 +38,11 @@ object WeaponPresenter {
     }
 
     fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, sniperWeapons: List<Weapon>, pistolas: List<Weapon>, debug: Boolean = false) {
+        println("Autor: Dhionatã Carlos Vieira")
+
+        val formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
+        println(LocalDateTime.now().format(formatador))
+
         if (fuzileiroWeapons.isEmpty() && engenheiroWeapons.isEmpty() && sniperWeapons.isEmpty()) {
             println("Nenhuma arma para analisar.")
             return

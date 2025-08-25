@@ -121,6 +121,7 @@ data class Weapon(
             Weapon("As-Val (Mod Cadência)", 105, 765.0, 7.0, 1.25).addMods(10.0),
             Weapon("A-545 (Mod Cadência)", 106, 735.0, 7.0, 1.18).addMods(10.0),
             Weapon("M16A3 Custom (Mod Cadência)", 108, 730.0, 7.0, 1.24).addMods(10.0),
+            Weapon("FN Evolys (Mod Cadência", 140, 875.0, 6.0,1.25).addMods(10.0),
         )
 
         val engenheiroWeapons: List<Weapon> = listOf(
@@ -141,7 +142,7 @@ data class Weapon(
             Weapon("AMB-17 (Mod Cadência)", 125, 745.0, 6.0, 1.3).addMods(10.0),
             Weapon("Taurus CT9 G2 (Mod Cadência)", 100, 815.0, 6.2, 1.05).addMods(3.0),
             Weapon("PPSH-41 Modern (Mod Cadência)", 150, 625.0, 6.0, 1.45).addMods(10.0),
-            Weapon("Scar-L PDW (Mod cadência)", 150, 630.0, 5.3, 1.45).addMods(10.0),
+            Weapon("Scar-L PDW (Mod Cadência)", 150, 630.0, 5.3, 1.45).addMods(10.0),
         )
 
         val pistolas: List<Weapon> = listOf(
