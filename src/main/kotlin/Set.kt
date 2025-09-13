@@ -15,21 +15,21 @@ data class Set(
     val hp: Int = 125,             // HP inicial
 ) {
 
-    companion object Fuzileiro {
+    companion object SetsAndEnemy {
 
-        val sirocco: Set = Set(
+        val Sirocco: Set = Set(
             "Tempestade de Areia",
             500,
             0.15,
+            0.30,
             0.25,
             0.25,
-            0.25,
-            15.0,
+            27.0,
             0.0,
             0.0
         )
 
-        val nord: Set = Set(
+        val Nord: Set = Set(
             "Nórdico",
             340,
             0.0,
@@ -41,7 +41,7 @@ data class Set(
             0.0
         )
 
-        val `Assault (CO-OP), CQB (CO-OP) & Sniper (CO-OP)`: Set = Set(
+        val `Assault, CQB & Sniper`: Set = Set(
             "Assault (CO-OP) | CQB (CO-OP) | Sniper (CO-OP)",
             280,
             0.0,
@@ -54,7 +54,7 @@ data class Set(
             hp = 500
         )
 
-        val `Demoman (CO-OP)`: Set = Set(
+        val `Demoman`: Set = Set(
             "Demoman (CO-OP)",
             350,
             0.0,
@@ -67,7 +67,7 @@ data class Set(
             hp = 625
         )
 
-        val `Spec-Ops (CO-OP)`: Set = Set(
+        val `Spec-Ops`: Set = Set(
             "Spec-Ops (CO-OP)",
             420,
             0.0,
@@ -80,7 +80,7 @@ data class Set(
             hp = 750
         )
 
-        val `Heavy Gunner (CO-OP)`: Set = Set(
+        val `Heavy Gunner`: Set = Set(
             "Heavy Gunner (CO-OP)",
             0,
             0.0,
@@ -117,6 +117,32 @@ data class Set(
             0.0,
             0.0,
             hp = 12000,
+        )
+
+        val `Alpha, Beta e Omega`: Set = Set(
+            "Alpha, Beta e Omega",
+            300,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            hp = 300
+        )
+
+        val `Screamer`: Set = Set(
+            "Screamer",
+            1680,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            hp = 3000
         )
     }
 }

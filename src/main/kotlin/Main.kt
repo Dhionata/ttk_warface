@@ -8,16 +8,18 @@ import br.com.dhionata.WeaponPresenter.printDetailedAllWeaponsInfo
 
 fun main() {
     val setListOfCoop: List<Set> = listOf(
-        Set.`Assault (CO-OP), CQB (CO-OP) & Sniper (CO-OP)`,
-        Set.`Demoman (CO-OP)`,
+        Set.`Assault, CQB & Sniper`,
+        Set.Demoman,
         Set.`G15 Pteranodon`,
-        Set.`Heavy Gunner (CO-OP)`,
-        Set.`Spec-Ops (CO-OP)`,
-        Set.`SWAT Heavy Gunner`
+        Set.`Heavy Gunner`,
+        Set.`Spec-Ops`,
+        Set.`SWAT Heavy Gunner`,
+        Set.`Alpha, Beta e Omega`,
+        Set.Screamer
     )
 
     val setListPvp: List<Set> = listOf(
-        Set.sirocco, Set.nord
+        Set.Sirocco, Set.Nord
     )
 
     val allList = setListPvp + setListOfCoop

@@ -4,8 +4,8 @@ import kotlin.math.roundToInt
 
 object TTKCalculator {
 
-    fun calculateDamageInt(
-        weaponDamage: Int,
+    private fun calculateDamageInt(
+        weaponDamage: Double,
         damageMultiplier: Double,
         absorption: Double,
         pellets: Int = 1,
