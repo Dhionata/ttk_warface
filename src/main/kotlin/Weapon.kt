@@ -211,11 +211,7 @@ data class Weapon(
                 bodyMultiplierAddPercentage = 10.0
             ),
             Weapon("Taurus Raging Hunter (Mod Dano Corporal, Cadência e Cadência [especial])", 350.0, 160.0, 6.0, 1.10).addMods("Rate of Fire", 5.0).addMods
-                (
-                "Body Damage", bodyMultiplierAddPercentage =
-                10.0
-            )
-                .addMods("High Noon", 55.0, -90.0),
+                ("Body Damage", bodyMultiplierAddPercentage = 10.0).addMods("High Noon", 55.0, -90.0),
             Weapon("SIG Sauer P226 (Mod Cadência e Dano)", 200.0, 275.0, 4.0, 1.3).addMods("Rate of Fire", 8.0).addMods("Damage", damageAdd = 26.0),
             Weapon("SIG Sauer P226 (Mod Cadência, Dano e Precisão)", 200.0, 275.0, 4.0, 1.3).addMods("Rate of Fire", 8.0).addMods("Damage", damageAdd = 26.0).addMods
                 (
@@ -245,11 +241,14 @@ data class Weapon(
                 "Deset Eagle", 275.0, 270.0, 4.25, 1.35
             ).addMods("Rate of Fire", 10.0).addMods("Range", 1.5).addMods("Damage Drop", 1.5).addMods("Spread", 1.5).addMods
                 ("Recoil", 1.5).addMods("Aim Speed", 1.5).addMods("Magazine", 1.5).addMods("Reload Speed", 1.5).addMods("Switch Speed", 1.5),
-            Weapon("M1911A1 (Mod Dano e Cadência [especial], Cadência e Dano [especial])", 200, 290.0, 6.0, 1.1).addMods(20.0, 30).addMods(5.0).addMods(damageAdd = 20),
-            Weapon("M1911A (Mod Dano [especial], Cadência e Dano)", 200, 290.0, 6.0, 1.1).addMods(-50.0, 160).addMods(5.0).addMods(damageAdd = 20),
-            Weapon("Glock 18c (Mod cadência)", 108, 800.0, 5.0, 1.25).addMods(10.0),
-            Weapon("Makarov (Mod cadência, dano e dano [especial])", 135, 300.0, 4.0, 1.0).addMods(10.0).addMods(damageAdd = 15).addMods(-35.0, 35),
-            Weapon("Makarov (Mod cadência, dano e cadência [especial]", 135, 300.0, 4.0, 1.0).addMods(10.0).addMods(damageAdd = 15).addMods(15.0)
+            Weapon("M1911A1 (Hide!)", 200.0, 290.0, 6.0, 1.1).addMods("Hide!", 20.0, 30.0).addMods("Rate of Fire", 5.0).addMods("Damage", damageAdd = 20.0),
+            Weapon("M1911A1 (One is Enough)", 200.0, 290.0, 6.0, 1.1).addMods("One is Enough", -50.0, 160.0).addMods("Rate of Fire", 5.0).addMods("Damage", damageAdd = 20.0),
+            Weapon("Glock 18c", 108.0, 800.0, 5.0, 1.25).addMods("Rate of Fire", 10.0, 1.0).addMods("Damage", 1.0, 1.0).addMods("Damage Drop", 1.0, 1.0)
+                .addMods("Spread", 1.0, 1.0).addMods("Recoil", 1.0, 1.0).addMods("Aim Speed", 1.0, 1.0).addMods("Magazine Capacity", 1.0, 1.0)
+                .addMods("Reload Speed", 1.0, 1.0).addMods("Switch Speed", 1.0, 1.0),
+            Weapon("Makarov (Golden Bullets)", 135.0, 300.0, 4.0, 1.0).addMods("Rate of Fire", 10.0).addMods("Damage", damageAdd = 15.0)
+                .addMods("Golden Bullets", -35.0, 35.0),
+            Weapon("Makarov (Blockbuster)", 135.0, 300.0, 4.0, 1.0).addMods("Rate of Fire", 10.0).addMods("Damage", damageAdd = 15.0).addMods("Blockbuster", 15.0)
         )
 
         val sniperWeapons: List<Weapon> = listOf(
