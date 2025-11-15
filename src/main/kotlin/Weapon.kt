@@ -152,7 +152,9 @@ data class Weapon(
             Weapon("Type 97", 106.0, 740.0, 7.0, 1.18).addMods("Recoil", damageAdd = 1.5).addMods("Speed", damageAdd = 1.5).addMods("Switch Speed", damageAdd = 1.5).addMods(
                 "Aim Speed", damageAdd = 1.5
             ).addMods("Range", damageAdd = 1.5).addMods("Spread", damageAdd = 1.5).addMods("Rate of Fire", 10.0, 1.5).addMods("Magazine Capacity", damageAdd = 1.5)
-                .addMods("Damage", damageAdd = 3.0)
+                .addMods("Damage", damageAdd = 3.0),
+            Weapon("algumacoisa12", 200.0, 685.0, 7.0, 1.24),
+            Weapon("Para", 140.0, 1012.0, 6.0, 1.25)
         )
 
         val engenheiroWeapons: List<Weapon> = listOf(
@@ -199,6 +201,7 @@ data class Weapon(
                 .addMods("Spread", 1.0, 1.0).addMods("Recoil", 1.0, 1.0).addMods("Aim Speed", 1.0, 1.0).addMods("Magazine Capacity", 1.0, 1.0).addMods(
                     "Reload Speed", 1.0, 1.0
                 ).addMods("Switch Speed", 1.0, 1.0),
+            Weapon("RONI", 116.0, 1126.0, 4.00, 1.66)
         )
 
         val pistolas: List<Weapon> = listOf(
@@ -244,7 +247,10 @@ data class Weapon(
                 .addMods("Reload Speed", 1.0, 1.0).addMods("Switch Speed", 1.0, 1.0),
             Weapon("Makarov (Golden Bullets)", 135.0, 300.0, 4.0, 1.0).addMods("Rate of Fire", 10.0).addMods("Damage", damageAdd = 15.0)
                 .addMods("Golden Bullets", -35.0, 35.0),
-            Weapon("Makarov (Blockbuster)", 135.0, 300.0, 4.0, 1.0).addMods("Rate of Fire", 10.0).addMods("Damage", damageAdd = 15.0).addMods("Blockbuster", 15.0)
+            Weapon("Makarov (Blockbuster)", 135.0, 300.0, 4.0, 1.0).addMods("Rate of Fire", 10.0).addMods("Damage", damageAdd = 15.0).addMods("Blockbuster", 15.0),
+            Weapon("R8", 275.0, 281.0, 4.25, 1.35),
+            Weapon("VP9", 170.0, 434.0, 3.8, 1.3),
+            Weapon("Marakov, futura att", 345.0, 156.0, 4.0, 1.30)
         )
 
         val sniperWeapons: List<Weapon> = listOf(
