@@ -250,7 +250,8 @@ data class Weapon(
             Weapon("Makarov (Blockbuster)", 135.0, 300.0, 4.0, 1.0).addMods("Rate of Fire", 10.0).addMods("Damage", damageAdd = 15.0).addMods("Blockbuster", 15.0),
             Weapon("R8", 275.0, 281.0, 4.25, 1.35),
             Weapon("VP9", 170.0, 434.0, 3.8, 1.3),
-            Weapon("Marakov, futura att", 345.0, 156.0, 4.0, 1.30)
+            Weapon("Marakov, futura att", 345.0, 156.0, 4.0, 1.30),
+            Weapon("Mateba", 375.0, 162.0, 6.0, 1.25)
         )
 
         val sniperWeapons: List<Weapon> = listOf(
