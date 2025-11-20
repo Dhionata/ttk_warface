@@ -1,25 +1,24 @@
-package br.com.dhionata
-
-import br.com.dhionata.Weapon.WeaponsLists.engenheiroWeapons
-import br.com.dhionata.Weapon.WeaponsLists.fuzileiroWeapons
-import br.com.dhionata.Weapon.WeaponsLists.pistolas
-import br.com.dhionata.Weapon.WeaponsLists.sniperWeapons
-import br.com.dhionata.WeaponPresenter.printDetailedAllWeaponsInfo
+import WeaponPresenter.printDetailedAllWeaponsInfo
+import WeaponRepository.engenheiroWeapons
+import WeaponRepository.fuzileiroWeapons
+import WeaponRepository.pistolas
+import WeaponRepository.sniperWeapons
+import br.com.dhionata.Set
 
 fun main() {
     val setListOfCoop: List<Set> = listOf(
-        Set.`Assault, CQB & Sniper`,
-        Set.Demoman,
-        Set.`G15 Pteranodon`,
-        Set.`Heavy Gunner`,
-        Set.`Spec-Ops`,
-        Set.`SWAT Heavy Gunner`,
-        Set.`Alpha, Beta e Omega`,
-        Set.Screamer
+        Set.SetsAndEnemy.`Assault, CQB & Sniper`,
+        Set.SetsAndEnemy.Demoman,
+        Set.SetsAndEnemy.`G15 Pteranodon`,
+        Set.SetsAndEnemy.`Heavy Gunner`,
+        Set.SetsAndEnemy.`Spec-Ops`,
+        Set.SetsAndEnemy.`SWAT Heavy Gunner`,
+        Set.SetsAndEnemy.`Alpha, Beta e Omega`,
+        Set.SetsAndEnemy.Screamer
     )
 
     val setListPvp: List<Set> = listOf(
-        Set.Sirocco, Set.Nord
+        Set.SetsAndEnemy.Sirocco, Set.SetsAndEnemy.Nord
     )
 
     val allList = setListPvp + setListOfCoop

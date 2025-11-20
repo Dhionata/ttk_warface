@@ -1,5 +1,3 @@
-package br.com.dhionata
-
 import kotlin.math.roundToInt
 
 object TTKCalculator {

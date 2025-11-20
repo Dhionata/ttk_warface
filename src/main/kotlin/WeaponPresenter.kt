@@ -1,5 +1,3 @@
-package br.com.dhionata
-
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDateTime
@@ -37,7 +35,13 @@ object WeaponPresenter {
         println("${BigDecimal(averageTime).setScale(2, RoundingMode.HALF_UP)}\n")
     }
 
-    fun printDetailedAllWeaponsInfo(fuzileiroWeapons: List<Weapon>, engenheiroWeapons: List<Weapon>, sniperWeapons: List<Weapon>, pistolas: List<Weapon>, debug: Boolean = false) {
+    fun printDetailedAllWeaponsInfo(
+        fuzileiroWeapons: List<Weapon>,
+        engenheiroWeapons: List<Weapon>,
+        sniperWeapons: List<Weapon>,
+        pistolas: List<Weapon>,
+        debug: Boolean = false,
+    ) {
         println("Autor: Dhionatã Carlos Vieira\n")
 
         val formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
