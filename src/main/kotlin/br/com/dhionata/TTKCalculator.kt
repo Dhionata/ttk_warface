@@ -1,6 +1,7 @@
 package br.com.dhionata
 
 import br.com.dhionata.weapon.Weapon
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 object TTKCalculator {
@@ -84,7 +85,25 @@ object TTKCalculator {
         isHeadshot: Boolean,
         debug: Boolean = false,
     ): Pair<Int, Double> {
-        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug)
+        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug, 0.0)
+        val shotsPerSecond = weapon.fireRate / 60.0
+        val totalTime = shotsNeeded / shotsPerSecond
+        return Pair(shotsNeeded, totalTime)
+    }
+
+    /**
+     * Calcula o TTK (Time To Kill) de uma arma a uma distância específica.
+     */
+    fun calculateTTKAtDistance(
+        weapon: Weapon,
+        isHeadshot: Boolean,
+        distance: Double,
+        debug: Boolean = false,
+    ): Pair<Int, Double> {
+        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug, distance)
+        if (shotsNeeded == Int.MAX_VALUE) {
+            return Pair(shotsNeeded, Double.POSITIVE_INFINITY)
+        }
         val shotsPerSecond = weapon.fireRate / 60.0
         val totalTime = shotsNeeded / shotsPerSecond
         return Pair(shotsNeeded, totalTime)
@@ -136,83 +155,81 @@ object TTKCalculator {
 
     /**
      * Calcula a distância máxima para matar com um tiro na cabeça ou no corpo.
-     *
-     * @param weapon A arma a ser calculada.
-     * @param isHeadshot Se o tiro é na cabeça.
-     * @param debug Se deve imprimir o passo a passo dos cálculos.
-     * @return A distância máxima em metros.
+     * Considera a mecânica de 80% de dano na armadura e 20% na vida.
      */
     fun calculateMaxDistanceForKill(
         weapon: Weapon,
         isHeadshot: Boolean,
         debug: Boolean = false,
     ): Double {
-        val multiplier = if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier
-        val totalHealth = weapon.set.hp + weapon.set.armor
+        val hp = weapon.set.hp.toDouble()
+        val armor = weapon.set.armor.toDouble()
 
-        // Dano mínimo necessário para matar com um tiro, considerando o multiplicador
-        val requiredDamage = totalHealth / multiplier
+        val equipmentProtection = if (isHeadshot) weapon.set.headProtection else weapon.set.bodyProtection
+        val baseMultiplier = if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier
+        val damageMultiplier = (baseMultiplier * weapon.set.entityDmgMult * (1 + weapon.set.cyborgDmgBuff)) - equipmentProtection
+
+        if (damageMultiplier <= 0) {
+            if (debug) println("Multiplicador de dano <= 0. Impossível matar.")
+            return 0.0
+        }
+
+        val damageForPassthroughKill = hp * 5.0
+
+        val damageForDepletionKill = hp + armor
+
+        val requiredFinalDamage = min(damageForPassthroughKill, damageForDepletionKill)
 
         if (debug) {
             println("------------------------------")
             println("Cálculo de Distância Máxima para: ${weapon.name} (${if (isHeadshot) "Cabeça" else "Corpo"})")
-            println("Vida Total do Alvo (Vida + Colete): $totalHealth")
-            println("Multiplicador de Dano: $multiplier")
-            println("Dano Mínimo Necessário (sem considerar queda): $requiredDamage")
+            println("Vida: $hp, Armadura: $armor")
+            println("Dano para matar via 20% (HP*5): $damageForPassthroughKill")
+            println("Dano para matar via Depleção (HP+Armor): $damageForDepletionKill")
+            println("Dano Final Necessário (menor dos dois): $requiredFinalDamage")
         }
 
-        // Verifica se a arma já causa menos dano que o necessário à queima-roupa
-        if (weapon.damage < requiredDamage) {
-            if (debug) {
-                println("A arma não consegue matar com um tiro nem à queima-roupa.")
-                println("------------------------------")
-            }
+        val resistanceFactor = (1 - weapon.set.resistance) * (1 - weapon.set.weaponTypeResistance)
+
+        if (resistanceFactor <= 0) {
+            if (debug) println("Resistência total do alvo é 100%. Impossível matar.")
             return 0.0
         }
 
-        // Verifica se o dano mínimo da arma já é suficiente para matar
-        if (weapon.minDamage * multiplier >= totalHealth) {
-            if (debug) {
-                println("O dano mínimo da arma já é suficiente para matar. A distância é teoricamente infinita.")
-                println("------------------------------")
-            }
+        val damageBeforeResistance = requiredFinalDamage / resistanceFactor
+
+        val damageBeforeAbsorption = damageBeforeResistance + weapon.set.absorption
+
+        val requiredWeaponDamage = damageBeforeAbsorption / damageMultiplier
+
+        if (debug) {
+            println("Multiplicador Total: $damageMultiplier")
+            println("Fator de Resistência: $resistanceFactor")
+            println("Dano Base Necessário na Arma: $requiredWeaponDamage")
+            println("Dano Atual da Arma: ${weapon.damage}")
+        }
+
+        if (weapon.damage < requiredWeaponDamage) {
+            if (debug) println("Arma não atinge o dano necessário nem à queima-roupa.")
+            return 0.0
+        }
+
+        if (weapon.minDamage >= requiredWeaponDamage) {
+            if (debug) println("Dano mínimo da arma é suficiente. Alcance infinito.")
             return Double.POSITIVE_INFINITY
         }
 
-        // Calcula a queda de dano total permitida
-        val allowedDamageDrop = weapon.damage - requiredDamage
-        if (debug) println("Queda de Dano Permitida: $allowedDamageDrop")
-
-        // Calcula a distância adicional que a arma pode ter antes de atingir o dano necessário
+        val allowedDamageDrop = weapon.damage - requiredWeaponDamage
         val additionalDistance = allowedDamageDrop / weapon.damageDropPerMeter
-        if (debug) {
-            println("Distância Adicional (Queda / Queda por Metro): $additionalDistance")
-        }
-
         val maxDistance = weapon.range + additionalDistance
+
         if (debug) {
-            println("Distância Máxima (Range + Distância Adicional): $maxDistance")
+            println("Queda de Dano Permitida: $allowedDamageDrop")
+            println("Distância Adicional: $additionalDistance")
+            println("Distância Máxima Total: $maxDistance")
             println("------------------------------")
         }
 
         return maxDistance
-    }
-
-    /**
-     * Calcula o TTK (Time To Kill) de uma arma a uma distância específica.
-     */
-    fun calculateTTKAtDistance(
-        weapon: Weapon,
-        isHeadshot: Boolean,
-        distance: Double,
-        debug: Boolean = false,
-    ): Pair<Int, Double> {
-        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug, distance)
-        if (shotsNeeded == Int.MAX_VALUE) {
-            return Pair(shotsNeeded, Double.POSITIVE_INFINITY)
-        }
-        val shotsPerSecond = weapon.fireRate / 60.0
-        val totalTime = shotsNeeded / shotsPerSecond
-        return Pair(shotsNeeded, totalTime)
     }
 }

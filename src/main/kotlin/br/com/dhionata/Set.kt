@@ -9,7 +9,7 @@ data class Set(
     val legProtection: Double,  // Leg Protection%
     val absorption: Double,    // Absorption (flat value)
     val resistance: Double,    // Resistance (percentage)
-    val weaponTypeResistance: Double, // br.com.dhionata.weapon.Weapon Type Resistance (percentage)
+    val weaponTypeResistance: Double, // Type Resistance (percentage)
     val cyborgDmgBuff: Double = 0.0,  // Bonus contra Cyborgs
     val entityDmgMult: Double = 1.0,  // Multiplicador contra entidades específicas
     val hp: Int = 125,             // HP inicial
