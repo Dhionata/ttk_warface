@@ -29,11 +29,22 @@ data class Weapon(
         get() = _fireRate.roundToInt()
 
     override fun toString(): String {
+        val maxHeadDist = TTKCalculator.calculateMaxDistanceForKill(this, true)
+        val maxBodyDist = TTKCalculator.calculateMaxDistanceForKill(this, false)
+
+        val oneHitKillInfo = if (maxHeadDist > 0.0 || maxBodyDist > 0.0) {
+            val headDistStr = if (maxHeadDist.isInfinite()) "Infinita" else "${"%.2f".format(maxHeadDist)}m"
+            val bodyDistStr = if (maxBodyDist.isInfinite()) "Infinita" else "${"%.2f".format(maxBodyDist)}m"
+            "| Dist. Max (1 tiro): Cabeça[$headDistStr], Corpo[$bodyDistStr] "
+        } else {
+            ""
+        }
+
         return "Nome: $name | Dano: $damage | Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
             BigDecimal(bodyMultiplier).setScale(
                 2, RoundingMode.HALF_UP
             )
-        } | TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
+        } | Alcance: ${range}m | Queda/m: $damageDropPerMeter | Dano Mín.: $minDamage $oneHitKillInfo| TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
             BigDecimal(ttk.first().second).setScale(
                 3, RoundingMode.HALF_UP
             )

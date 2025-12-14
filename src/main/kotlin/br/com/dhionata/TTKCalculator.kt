@@ -24,6 +24,7 @@ object TTKCalculator {
         weapon: Weapon,
         isHeadshot: Boolean = false,
         debug: Boolean = false,
+        distance: Double = 0.0,
     ): Int {
         var remainingArmor = weapon.set.armor
         var remainingHealth = weapon.set.hp
@@ -34,9 +35,13 @@ object TTKCalculator {
         val damageMultiplier =
             ((if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier) * weapon.set.entityDmgMult * (1 + weapon.set.cyborgDmgBuff)) - equipmentProtection
 
+        val effectiveDamage = if (distance > 0) weapon.getEffectiveDamage(distance) else weapon.damage
+
         val finalDamage = calculateDamageInt(
-            weapon.damage, damageMultiplier, weapon.set.absorption, resistance = weapon.set.resistance, weaponTypeResistance = weapon.set.weaponTypeResistance
+            effectiveDamage, damageMultiplier, weapon.set.absorption, resistance = weapon.set.resistance, weaponTypeResistance = weapon.set.weaponTypeResistance
         )
+
+        if (finalDamage <= 0) return Int.MAX_VALUE // Retorna um número alto se o dano for zero ou negativo
 
         val armorDamage = (finalDamage * 80) / 100
         val healthDamage = finalDamage - armorDamage
@@ -44,9 +49,10 @@ object TTKCalculator {
         while (remainingHealth > 0) {
             if (debug) {
                 println("------------------------------")
-                println("Arma: ${weapon.name}")
+                println("Arma: ${weapon.name} @ ${distance}m")
                 println(if (isHeadshot) "Headshot" else "Corpo")
                 println("Tiro ${shots + 1}:")
+                println(" - Dano Efetivo da Arma: $effectiveDamage")
                 println(" - Dano Total (arredondado): $finalDamage")
                 println(" - Dano à Armadura: $armorDamage")
                 println(" - Dano à Saúde: $healthDamage")
@@ -139,7 +145,7 @@ object TTKCalculator {
     fun calculateMaxDistanceForKill(
         weapon: Weapon,
         isHeadshot: Boolean,
-        debug: Boolean = false
+        debug: Boolean = false,
     ): Double {
         val multiplier = if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier
         val totalHealth = weapon.set.hp + weapon.set.armor
@@ -190,5 +196,23 @@ object TTKCalculator {
         }
 
         return maxDistance
+    }
+
+    /**
+     * Calcula o TTK (Time To Kill) de uma arma a uma distância específica.
+     */
+    fun calculateTTKAtDistance(
+        weapon: Weapon,
+        isHeadshot: Boolean,
+        distance: Double,
+        debug: Boolean = false,
+    ): Pair<Int, Double> {
+        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug, distance)
+        if (shotsNeeded == Int.MAX_VALUE) {
+            return Pair(shotsNeeded, Double.POSITIVE_INFINITY)
+        }
+        val shotsPerSecond = weapon.fireRate / 60.0
+        val totalTime = shotsNeeded / shotsPerSecond
+        return Pair(shotsNeeded, totalTime)
     }
 }

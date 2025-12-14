@@ -2,6 +2,8 @@ package br.com.dhionata
 
 import br.com.dhionata.weapon.WeaponPresenter
 import br.com.dhionata.weapon.WeaponRepository
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 fun main() {
     val setListOfCoop: List<Set> = listOf(
@@ -20,6 +22,10 @@ fun main() {
     )
 
     val allList = setListPvp + setListOfCoop
+
+    println("Autor: Dhionatã Carlos Vieira\n")
+    val formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
+    println(LocalDateTime.now().format(formatador))
 
     allList.forEach { set ->
         WeaponRepository.fuzileiroWeapons.forEach { it.set = set }
