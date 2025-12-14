@@ -21,5 +21,5 @@ tasks.register<JavaExec>("run") {
     group = "application"
     description = "Runs the main function"
     classpath = sourceSets["main"].runtimeClasspath
-    mainClass.set("br.com.dhionata.MainKt")
+    mainClass.set("MainKt")
 }

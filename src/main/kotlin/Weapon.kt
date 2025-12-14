@@ -9,6 +9,9 @@ data class Weapon(
     private var _fireRate: Double, // valor interno para cálculos precisos
     var headMultiplier: Double,
     var bodyMultiplier: Double,
+    var range: Double,
+    var damageDropPerMeter: Double,
+    var minDamage: Double,
     val ttk: MutableList<Pair<Int, Double>> = mutableListOf(),
     private val mods: MutableSet<String> = mutableSetOf(),
 ) {
@@ -48,6 +51,8 @@ data class Weapon(
         damageAdd: Double? = null,
         headMultiplierAddPercentage: Double? = null,
         bodyMultiplierAddPercentage: Double? = null,
+        rangeAdd: Double? = null,
+        damageDropPerMeterAddPercentage: Double? = null
     ): Weapon {
         if (fireRateAddPercentage != null) {
             _fireRate += _fireRate * fireRateAddPercentage / 100.0
@@ -61,6 +66,12 @@ data class Weapon(
         if (headMultiplierAddPercentage != null) {
             headMultiplier += headMultiplier * headMultiplierAddPercentage / 100.0
         }
+        if (rangeAdd != null) {
+            range += rangeAdd
+        }
+        if (damageDropPerMeterAddPercentage != null) {
+            damageDropPerMeter += damageDropPerMeter * (damageDropPerMeterAddPercentage / 100.0)
+        }
 
         updateTTK()
 
@@ -69,6 +80,21 @@ data class Weapon(
         }
 
         return this
+    }
+
+    /**
+     * Calcula o dano efetivo a uma determinada distância.
+     *
+     * @param distance A distância para a qual calcular o dano.
+     * @return O dano efetivo naquela distância.
+     */
+    fun getEffectiveDamage(distance: Double): Double {
+        if (distance <= range) {
+            return damage
+        }
+        val damageDrop = (distance - range) * damageDropPerMeter
+        val effectiveDamage = damage - damageDrop
+        return effectiveDamage.coerceAtLeast(minDamage)
     }
 
     /**

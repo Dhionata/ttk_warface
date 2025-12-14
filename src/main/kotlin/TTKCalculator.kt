@@ -124,4 +124,68 @@ object TTKCalculator {
 
         return Triple(bestHeadWeapon, bestBodyWeapon, bestTTKMediaWeapon)
     }
+
+    /**
+     * Calcula a distância máxima para matar com um tiro na cabeça ou no corpo.
+     *
+     * @param weapon A arma a ser calculada.
+     * @param isHeadshot Se o tiro é na cabeça.
+     * @param debug Se deve imprimir o passo a passo dos cálculos.
+     * @return A distância máxima em metros.
+     */
+    fun calculateMaxDistanceForKill(
+        weapon: Weapon,
+        isHeadshot: Boolean,
+        debug: Boolean = false
+    ): Double {
+        val multiplier = if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier
+        val totalHealth = weapon.set.hp + weapon.set.armor
+
+        // Dano mínimo necessário para matar com um tiro, considerando o multiplicador
+        val requiredDamage = totalHealth / multiplier
+
+        if (debug) {
+            println("------------------------------")
+            println("Cálculo de Distância Máxima para: ${weapon.name} (${if (isHeadshot) "Cabeça" else "Corpo"})")
+            println("Vida Total do Alvo (Vida + Colete): $totalHealth")
+            println("Multiplicador de Dano: $multiplier")
+            println("Dano Mínimo Necessário (sem considerar queda): $requiredDamage")
+        }
+
+        // Verifica se a arma já causa menos dano que o necessário à queima-roupa
+        if (weapon.damage < requiredDamage) {
+            if (debug) {
+                println("A arma não consegue matar com um tiro nem à queima-roupa.")
+                println("------------------------------")
+            }
+            return 0.0
+        }
+
+        // Verifica se o dano mínimo da arma já é suficiente para matar
+        if (weapon.minDamage * multiplier >= totalHealth) {
+            if (debug) {
+                println("O dano mínimo da arma já é suficiente para matar. A distância é teoricamente infinita.")
+                println("------------------------------")
+            }
+            return Double.POSITIVE_INFINITY
+        }
+
+        // Calcula a queda de dano total permitida
+        val allowedDamageDrop = weapon.damage - requiredDamage
+        if (debug) println("Queda de Dano Permitida: $allowedDamageDrop")
+
+        // Calcula a distância adicional que a arma pode ter antes de atingir o dano necessário
+        val additionalDistance = allowedDamageDrop / weapon.damageDropPerMeter
+        if (debug) {
+            println("Distância Adicional (Queda / Queda por Metro): $additionalDistance")
+        }
+
+        val maxDistance = weapon.range + additionalDistance
+        if (debug) {
+            println("Distância Máxima (Range + Distância Adicional): $maxDistance")
+            println("------------------------------")
+        }
+
+        return maxDistance
+    }
 }

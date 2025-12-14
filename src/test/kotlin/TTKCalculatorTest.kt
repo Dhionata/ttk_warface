@@ -6,7 +6,7 @@ class TTKCalculatorTest {
     fun bulletsToKillWithProtection() {
         WeaponRepository.engenheiroWeapons.filter { weapon -> weapon.name.startsWith("PP") }.forEach { weapon ->
             TTKCalculator.bulletsToKillWithProtectionInt(
-                weapon
+                weapon, debug = true
             )
         }
     }
