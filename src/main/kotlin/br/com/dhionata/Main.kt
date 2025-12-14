@@ -24,6 +24,7 @@ fun main() {
     val allList = setListPvp + setListOfCoop
 
     println("Autor: Dhionatã Carlos Vieira\n")
+
     val formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
     println(LocalDateTime.now().format(formatador))
 
