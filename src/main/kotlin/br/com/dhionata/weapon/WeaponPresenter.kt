@@ -85,6 +85,28 @@ object WeaponPresenter {
         }
     }
 
+    private fun printWeaponTTKEvolution(className: String, weapons: List<Weapon>, maxDistance: Int = 120) {
+        if (weapons.isEmpty()) return
+
+        println("\n=== Evolução do TTK por Distância (a cada 5m) - $className ===")
+
+        weapons.forEach { weapon ->
+            println("\nArma: ${weapon.name}")
+            println("Distância | TTK Cabeça | TTK Corpo")
+            println("----------|------------|----------")
+
+            for (distance in 5..maxDistance step 5) {
+                val ttkHead = TTKCalculator.calculateTTKAtDistance(weapon, true, distance.toDouble()).second
+                val ttkBody = TTKCalculator.calculateTTKAtDistance(weapon, false, distance.toDouble()).second
+
+                val headStr = if (ttkHead.isInfinite()) "---" else "%.3fs".format(ttkHead)
+                val bodyStr = if (ttkBody.isInfinite()) "---" else "%.3fs".format(ttkBody)
+
+                println("${distance.toString().padEnd(9)} | ${headStr.padEnd(10)} | $bodyStr")
+            }
+        }
+    }
+
     fun printDetailedAllWeaponsInfo(
         fuzileiroWeapons: List<Weapon>,
         engenheiroWeapons: List<Weapon>,
@@ -147,6 +169,8 @@ object WeaponPresenter {
             if (weapons.isNotEmpty()) {
                 printTTKRanksByDistance(className, weapons, isHeadshot = true)
                 printTTKRanksByDistance(className, weapons, isHeadshot = false)
+
+                printWeaponTTKEvolution(className, weapons)
             }
         }
     }
