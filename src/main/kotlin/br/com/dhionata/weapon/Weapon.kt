@@ -1,4 +1,7 @@
+package br.com.dhionata.weapon
+
 import br.com.dhionata.Set
+import br.com.dhionata.TTKCalculator
 import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.roundToInt

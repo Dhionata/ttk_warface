@@ -1,3 +1,6 @@
+package br.com.dhionata
+
+import br.com.dhionata.weapon.Weapon
 import kotlin.math.roundToInt
 
 object TTKCalculator {

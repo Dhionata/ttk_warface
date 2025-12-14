@@ -1,3 +1,5 @@
+package br.com.dhionata.weapon
+
 object WeaponRepository {
 
     val fuzileiroWeapons: List<Weapon> = listOf(
@@ -160,7 +162,7 @@ object WeaponRepository {
             .addMods("Magazine Capacity", 1.0)
             .addMods("Reload Speed", 1.0)
             .addMods("Switch Speed", 1.0),
-        //Weapon("Harms CQR", 123.0, 971.0, 4.0, 1.40)
+        //br.com.dhionata.weapon.Weapon("Harms CQR", 123.0, 971.0, 4.0, 1.40)
     )
 
     val engenheiroWeapons: List<Weapon> = listOf(
@@ -399,9 +401,9 @@ object WeaponRepository {
             .addMods("Magazine Capacity", 1.5, rangeAdd = 0.2)
             .addMods("Reload Speed", 1.5, rangeAdd = 0.2)
             .addMods("Switch Speed", 1.5, rangeAdd = 0.2),
-        //Weapon("VP9", 170.0, 434.0, 3.8, 1.3),
-        //Weapon("Marakov", 345.0, 156.0, 4.0, 1.30),
-        //Weapon("Mateba", 375.0, 158.0, 6.0, 1.25)
+        //br.com.dhionata.weapon.Weapon("VP9", 170.0, 434.0, 3.8, 1.3),
+        //br.com.dhionata.weapon.Weapon("Marakov", 345.0, 156.0, 4.0, 1.30),
+        //br.com.dhionata.weapon.Weapon("Mateba", 375.0, 158.0, 6.0, 1.25)
     )
 
     val sniperWeapons: List<Weapon> = listOf(

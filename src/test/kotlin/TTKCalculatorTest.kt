@@ -1,3 +1,5 @@
+import br.com.dhionata.TTKCalculator
+import br.com.dhionata.weapon.WeaponRepository
 import org.junit.jupiter.api.Test
 
 class TTKCalculatorTest {

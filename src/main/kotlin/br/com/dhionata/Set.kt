@@ -9,7 +9,7 @@ data class Set(
     val legProtection: Double,  // Leg Protection%
     val absorption: Double,    // Absorption (flat value)
     val resistance: Double,    // Resistance (percentage)
-    val weaponTypeResistance: Double, // Weapon Type Resistance (percentage)
+    val weaponTypeResistance: Double, // br.com.dhionata.weapon.Weapon Type Resistance (percentage)
     val cyborgDmgBuff: Double = 0.0,  // Bonus contra Cyborgs
     val entityDmgMult: Double = 1.0,  // Multiplicador contra entidades específicas
     val hp: Int = 125,             // HP inicial
@@ -54,7 +54,7 @@ data class Set(
             hp = 500
         )
 
-        val `Demoman`: Set = Set(
+        val Demoman: Set = Set(
             "Demoman (CO-OP)",
             350,
             0.0,
@@ -132,7 +132,7 @@ data class Set(
             hp = 300
         )
 
-        val `Screamer`: Set = Set(
+        val Screamer: Set = Set(
             "Screamer",
             1680,
             0.0,
