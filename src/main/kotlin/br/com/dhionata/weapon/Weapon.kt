@@ -48,19 +48,38 @@ data class Weapon(
         val minDamageDistStr = if (distanceToMinDamage.isInfinite()) "Infinita" else "${"%.2f".format(distanceToMinDamage)}m"
 
         return "Nome: $name | Dano: $damage | Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
-            BigDecimal(bodyMultiplier).setScale(
-                2, RoundingMode.HALF_UP
-            )
+            BigDecimal(bodyMultiplier).setScale(2, RoundingMode.HALF_UP)
         } | Alcance: ${
-            BigDecimal(range).setScale(
-                2,
-                RoundingMode.HALF_UP
-            )
-        }m | Queda/m: $damageDropPerMeter | Dano Mín.: $minDamage @ $minDamageDistStr $oneHitKillInfo| TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
+            BigDecimal(range).setScale(2, RoundingMode.HALF_UP)
+        }m | Queda/m: ${
+            BigDecimal(damageDropPerMeter).setScale(2, RoundingMode.HALF_UP)
+        } | Dano Mín.: $minDamage @ $minDamageDistStr $oneHitKillInfo | TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
             BigDecimal(ttk.first().second).setScale(3, RoundingMode.HALF_UP)
         }], Corpo[${ttk.elementAt(1).first} em ${
             BigDecimal(ttk.elementAt(1).second).setScale(3, RoundingMode.HALF_UP)
         }], Média[${ttk.last().first} em ${BigDecimal(ttk.last().second).setScale(3, RoundingMode.HALF_UP)}]"
+    }
+
+    fun attachments(
+        name: String,
+        fireRateAddPercentage: Double? = null,
+        damageAdd: Double? = null,
+        headMultiplierAddPercentage: Double? = null,
+        bodyMultiplierAddPercentage: Double? = null,
+        rangeAdd: Double? = null,
+        damageDropPerMeterAddPercentage: Double? = null,
+    ): Weapon {
+        addMods(
+            name,
+            fireRateAddPercentage,
+            damageAdd,
+            headMultiplierAddPercentage,
+            bodyMultiplierAddPercentage,
+            rangeAdd,
+            damageDropPerMeterAddPercentage
+        )
+
+        return this
     }
 
     /**
