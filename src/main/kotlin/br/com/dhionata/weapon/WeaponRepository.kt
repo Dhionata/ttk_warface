@@ -215,7 +215,7 @@ object WeaponRepository {
             .addMods("Damage", damageAdd = 9.0)
             .addMods("Range", rangeAdd = 2.0)
             .attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("Magpul", 105.0, 1010.0, 4.0, 1.42, 10.2, 2.6, 52.0)
+        Weapon("Magpul (Gold)", 105.0, 1010.0, 4.0, 1.48, 10.5, 2.6, 52.0)
             .addMods("Rate of Fire", 8.0)
             .addMods("Body Damage", bodyMultiplierAddPercentage = 13.0)
             .addMods("Range", rangeAdd = 3.0)
@@ -282,7 +282,7 @@ object WeaponRepository {
             .addMods("Body Damage", bodyMultiplierAddPercentage = 8.0)
             .addMods("Triple Threat", -10.0, 15.0)
             .addMods("Range", rangeAdd = 1.5),
-        Weapon("PPSH-41 Modern", 150.0, 620.0, 6.0, 1.45, 13.4, 2.25, 44.0)
+        Weapon("PPSH-41 Modern", 150.0, 645.0, 6.0, 1.45, 13.4, 2.25, 44.0)
             .addMods("Rate of Fire", 10.0, 2.0, rangeAdd = 0.15)
             .addMods("Damage", damageAdd = 3.0, rangeAdd = 2.5)
             .addMods("Range", damageAdd = 2.0, rangeAdd = 0.15)
@@ -453,9 +453,19 @@ object WeaponRepository {
             .addMods("Range", rangeAdd = 6.0)
             .addMods("Damage Drop", rangeAdd = 1.0, damageDropPerMeterAddPercentage = -50.0)
             .addMods("Reload Speed", rangeAdd = 1.0)
-            .addMods("")
-        //br.com.dhionata.weapon.Weapon("VP9", 170.0, 434.0, 3.8, 1.3),
-        //br.com.dhionata.weapon.Weapon("Mateba", 375.0, 158.0, 6.0, 1.25)
+            .addMods("Jump Precision", rangeAdd = 1.0)
+            .addMods("Rate of Fire", 10.0, rangeAdd = 1.0)
+            .addMods("Recoil", rangeAdd = 1.0),
+        Weapon("H&K VP9 Match", 180.0, 350.0, 3.8, 1.3, 8.0, 3.0, 40.0)
+            .addMods("Range", 1.5, rangeAdd = 3.0)
+            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0)
+            .addMods("Rate of Fire", 10.0, rangeAdd = 0.2)
+            .addMods("Spread", 1.5, rangeAdd = 0.2)
+            .addMods("Recoil", 1.5, rangeAdd = 0.2)
+            .addMods("Aim Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Magazine Capacity", 1.5, rangeAdd = 0.2)
+            .addMods("Reload Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Switch Speed", 1.5, rangeAdd = 0.2)
     )
 
     val sniperWeapons: List<Weapon> = listOf(

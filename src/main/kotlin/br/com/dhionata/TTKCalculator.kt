@@ -137,8 +137,9 @@ object TTKCalculator {
             } tiro(s)"
         )
         println(
-            "Melhor TTK para o Corpo: ${bestBodyWeapon.name} com TTK de ${"%.3f".format(bestBodyWeapon.ttk.elementAt(1).second)} segundos em ${
-                bulletsToKillWithProtectionInt(bestBodyWeapon, debug = debug)
+            "Melhor TTK para o Corpo: ${bestBodyWeapon.name} com TTK de ${"%.3f".format(bestBodyWeapon.ttk.elementAt(1).second)} segundos em${
+                bulletsToKillWithProtectionInt
+                    (bestBodyWeapon, debug = debug)
             } tiros(s)"
         )
         println(

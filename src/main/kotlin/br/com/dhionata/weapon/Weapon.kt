@@ -47,7 +47,7 @@ data class Weapon(
         }
         val minDamageDistStr = if (distanceToMinDamage.isInfinite()) "Infinita" else "${"%.2f".format(distanceToMinDamage)}m"
 
-        return "Nome: $name | Dano: $damage | Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
+        return "Nome: $name | Dano: ${BigDecimal(damage).setScale(2, RoundingMode.HALF_UP)} | Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
             BigDecimal(bodyMultiplier).setScale(2, RoundingMode.HALF_UP)
         } | Alcance: ${
             BigDecimal(range).setScale(2, RoundingMode.HALF_UP)
