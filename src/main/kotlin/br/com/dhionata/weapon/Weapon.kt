@@ -15,6 +15,11 @@ data class Weapon(
     var range: Double,
     var damageDropPerMeter: Double,
     var minDamage: Double,
+    val pellets: Int = 1,
+    var spreadMin: Double = 0.0,
+    var spreadMax: Double = 0.0,
+    var zoomSpreadMin: Double = 0.0,
+    var zoomSpreadMax: Double = 0.0,
     val ttk: MutableList<Pair<Int, Double>> = mutableListOf(),
     private val mods: MutableSet<String> = mutableSetOf(),
 ) {
@@ -27,6 +32,21 @@ data class Weapon(
 
     val fireRate: Int
         get() = _fireRate.roundToInt()
+
+    val hipAccuracy: Int
+        get() = calculateAccuracy(spreadMin, spreadMax)
+
+    val aimAccuracy: Int
+        get() = calculateAccuracy(zoomSpreadMin, zoomSpreadMax)
+
+    private fun calculateAccuracy(min: Double, max: Double): Int {
+        val sum = min + max
+        return when {
+            sum <= 20 -> ((40 - sum) / 0.4).roundToInt()
+            sum <= 60 -> (50 - (sum - 20)).roundToInt()
+            else -> (10 - ((sum - 60) * 0.165)).roundToInt()
+        }
+    }
 
     override fun toString(): String {
         val maxHeadDist = TTKCalculator.calculateMaxDistanceForKill(this, true)
@@ -47,13 +67,21 @@ data class Weapon(
         }
         val minDamageDistStr = if (distanceToMinDamage.isInfinite()) "Infinita" else "${"%.2f".format(distanceToMinDamage)}m"
 
-        return "Nome: $name | Dano: ${BigDecimal(damage).setScale(2, RoundingMode.HALF_UP)} | Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
+        val accuracyInfo = if (spreadMin > 0 || spreadMax > 0) {
+            "| Precisão: Hip[$hipAccuracy], Aim[$aimAccuracy] "
+        } else {
+            ""
+        }
+
+        val pelletsInfo = if (pellets > 1) "| Pellets: $pellets " else ""
+
+        return "Nome: $name | Dano: ${BigDecimal(damage).setScale(2, RoundingMode.HALF_UP)} $pelletsInfo| Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
             BigDecimal(bodyMultiplier).setScale(2, RoundingMode.HALF_UP)
         } | Alcance: ${
             BigDecimal(range).setScale(2, RoundingMode.HALF_UP)
         }m | Queda/m: ${
             BigDecimal(damageDropPerMeter).setScale(2, RoundingMode.HALF_UP)
-        } | Dano Mín.: $minDamage @ $minDamageDistStr $oneHitKillInfo | TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
+        } | Dano Mín.: $minDamage @ $minDamageDistStr $oneHitKillInfo$accuracyInfo| TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
             BigDecimal(ttk.first().second).setScale(3, RoundingMode.HALF_UP)
         }], Corpo[${ttk.elementAt(1).first} em ${
             BigDecimal(ttk.elementAt(1).second).setScale(3, RoundingMode.HALF_UP)
@@ -68,6 +96,8 @@ data class Weapon(
         bodyMultiplierAddPercentage: Double? = null,
         rangeAdd: Double? = null,
         damageDropPerMeterAddPercentage: Double? = null,
+        spreadAddPercentage: Double? = null,
+        zoomSpreadAddPercentage: Double? = null,
     ): Weapon {
         addMods(
             name,
@@ -76,7 +106,9 @@ data class Weapon(
             headMultiplierAddPercentage,
             bodyMultiplierAddPercentage,
             rangeAdd,
-            damageDropPerMeterAddPercentage
+            damageDropPerMeterAddPercentage,
+            spreadAddPercentage,
+            zoomSpreadAddPercentage
         )
 
         return this
@@ -94,6 +126,8 @@ data class Weapon(
         bodyMultiplierAddPercentage: Double? = null,
         rangeAdd: Double? = null,
         damageDropPerMeterAddPercentage: Double? = null,
+        spreadAddPercentage: Double? = null,
+        zoomSpreadAddPercentage: Double? = null,
     ): Weapon {
         if (fireRateAddPercentage != null) {
             _fireRate += _fireRate * fireRateAddPercentage / 100.0
@@ -112,6 +146,14 @@ data class Weapon(
         }
         if (damageDropPerMeterAddPercentage != null) {
             damageDropPerMeter += damageDropPerMeter * (damageDropPerMeterAddPercentage / 100.0)
+        }
+        if (spreadAddPercentage != null) {
+            spreadMin += spreadMin * (spreadAddPercentage / 100.0)
+            spreadMax += spreadMax * (spreadAddPercentage / 100.0)
+        }
+        if (zoomSpreadAddPercentage != null) {
+            zoomSpreadMin += zoomSpreadMin * (zoomSpreadAddPercentage / 100.0)
+            zoomSpreadMax += zoomSpreadMax * (zoomSpreadAddPercentage / 100.0)
         }
 
         updateTTK()

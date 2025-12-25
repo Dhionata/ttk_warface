@@ -38,9 +38,21 @@ object TTKCalculator {
 
         val effectiveDamage = if (distance > 0) weapon.getEffectiveDamage(distance) else weapon.damage
 
-        val finalDamage = calculateDamageInt(
-            effectiveDamage, damageMultiplier, weapon.set.absorption, resistance = weapon.set.resistance, weaponTypeResistance = weapon.set.weaponTypeResistance
+        // Cálculo de dano por pellet
+        val damagePerPellet = effectiveDamage / weapon.pellets
+        
+        // Calcula o dano de UM pellet. Passamos pellets=1 para que a absorção seja aplicada integralmente a este pellet.
+        val singlePelletDamage = calculateDamageInt(
+            damagePerPellet, 
+            damageMultiplier, 
+            weapon.set.absorption, 
+            pellets = 1, 
+            resistance = weapon.set.resistance, 
+            weaponTypeResistance = weapon.set.weaponTypeResistance
         )
+        
+        // O dano final é a soma do dano de todos os pellets
+        val finalDamage = singlePelletDamage * weapon.pellets
 
         if (finalDamage <= 0) return Int.MAX_VALUE // Retorna um número alto se o dano for zero ou negativo
 
@@ -54,6 +66,8 @@ object TTKCalculator {
                 println(if (isHeadshot) "Headshot" else "Corpo")
                 println("Tiro ${shots + 1}:")
                 println(" - Dano Efetivo da Arma: $effectiveDamage")
+                println(" - Pellets: ${weapon.pellets}")
+                println(" - Dano por Pellet: $singlePelletDamage")
                 println(" - Dano Total (arredondado): $finalDamage")
                 println(" - Dano à Armadura: $armorDamage")
                 println(" - Dano à Saúde: $healthDamage")
@@ -198,14 +212,21 @@ object TTKCalculator {
         }
 
         val damageBeforeResistance = requiredFinalDamage / resistanceFactor
-
-        val damageBeforeAbsorption = damageBeforeResistance + weapon.set.absorption
+        
+        // Ajuste para pellets na distância máxima
+        // DanoTotal = (DanoBase - AbsorçãoTotal)
+        // Onde AbsorçãoTotal = Absorção * Pellets
+        // Então DanoBase = DanoTotal + AbsorçãoTotal
+        
+        val totalAbsorption = weapon.set.absorption * weapon.pellets
+        val damageBeforeAbsorption = damageBeforeResistance + totalAbsorption
 
         val requiredWeaponDamage = damageBeforeAbsorption / damageMultiplier
 
         if (debug) {
             println("Multiplicador Total: $damageMultiplier")
             println("Fator de Resistência: $resistanceFactor")
+            println("Absorção Total (considerando ${weapon.pellets} pellets): $totalAbsorption")
             println("Dano Base Necessário na Arma: $requiredWeaponDamage")
             println("Dano Atual da Arma: ${weapon.damage}")
         }
