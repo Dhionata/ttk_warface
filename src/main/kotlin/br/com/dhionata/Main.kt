@@ -38,6 +38,7 @@ fun main() {
             WeaponRepository.fuzileiroWeapons,
             WeaponRepository.engenheiroWeapons,
             WeaponRepository.sniperWeapons,
+            WeaponRepository.medicWeapons,
             WeaponRepository.pistolas
         )
     }

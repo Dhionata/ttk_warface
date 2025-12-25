@@ -111,14 +111,15 @@ object WeaponPresenter {
         fuzileiroWeapons: List<Weapon>,
         engenheiroWeapons: List<Weapon>,
         sniperWeapons: List<Weapon>,
+        medicWeapons: List<Weapon>,
         pistolas: List<Weapon>,
         debug: Boolean = false,
     ) {
-        if (fuzileiroWeapons.isEmpty() && engenheiroWeapons.isEmpty() && sniperWeapons.isEmpty() && pistolas.isEmpty()) {
+        if (fuzileiroWeapons.isEmpty() && engenheiroWeapons.isEmpty() && sniperWeapons.isEmpty() && medicWeapons.isEmpty() && pistolas.isEmpty()) {
             println("Nenhuma arma para analisar.")
             return
         }
-        val currentSet = (fuzileiroWeapons + engenheiroWeapons + sniperWeapons + pistolas).firstOrNull()?.set
+        val currentSet = (fuzileiroWeapons + engenheiroWeapons + sniperWeapons + medicWeapons + pistolas).firstOrNull()?.set
         println("\n=== Detalhes para o conjunto ===\n\n==== ${currentSet?.name} ====")
 
         val bodyComparator = compareBy<Weapon> { it.ttk[1].second }.thenBy { it.ttk.first().second }.thenBy { it.ttk.last().second }
@@ -134,14 +135,15 @@ object WeaponPresenter {
             printSortedWeapons("\n=== Classe Fuzileiro ===\n", fuzileiroWeapons, comparator)
             printSortedWeapons("\n=== Classe Engenheiro ===\n", engenheiroWeapons, comparator)
             printSortedWeapons("\n=== Classe Sniper ===\n", sniperWeapons, comparator)
+            printSortedWeapons("\n=== Classe Médico ===\n", medicWeapons, comparator)
             printSortedWeapons("\n=== Pistolas ===\n", pistolas, comparator)
         }
 
-        val allPrimaryWeapons = fuzileiroWeapons + engenheiroWeapons + sniperWeapons
+        val allPrimaryWeapons = fuzileiroWeapons + engenheiroWeapons + sniperWeapons + medicWeapons
         mapOf(
-            "\n=== Fuzileiro + Engenheiro + Sniper ===\n\n==== TTK na cabeça ====" to headComparator,
-            "\n=== Fuzileiro + Engenheiro + Sniper ===\n\n==== TTK no corpo ====" to bodyComparator,
-            "\n=== Fuzileiro + Engenheiro + Sniper ===\n\n==== TTK Médio ====" to averageComparator
+            "\n=== Fuzileiro + Engenheiro + Sniper + Médico ===\n\n==== TTK na cabeça ====" to headComparator,
+            "\n=== Fuzileiro + Engenheiro + Sniper + Médico ===\n\n==== TTK no corpo ====" to bodyComparator,
+            "\n=== Fuzileiro + Engenheiro + Sniper + Médico ===\n\n==== TTK Médio ====" to averageComparator
         ).forEach { (title, comparator) ->
             printSortedWeapons(title, allPrimaryWeapons, comparator)
         }
@@ -150,10 +152,11 @@ object WeaponPresenter {
         printBestTTKForClass("Fuzileiro", fuzileiroWeapons, debug)
         printBestTTKForClass("Engenheiro", engenheiroWeapons, debug)
         printBestTTKForClass("Sniper", sniperWeapons, debug)
+        printBestTTKForClass("Médico", medicWeapons, debug)
         printBestTTKForClass("Pistolas", pistolas, debug)
 
         if (currentSet != null) {
-            println("\n==== Tempo médio de resistência contra Fuzi. + Eng. + Sniper com o conjunto ${currentSet.name}")
+            println("\n==== Tempo médio de resistência contra Fuzi. + Eng. + Sniper + Méd. com o conjunto ${currentSet.name}")
             printAverageStats("\n=== Cabeça ===", allPrimaryWeapons, { it.ttk.first().first }, { it.ttk.first().second })
             printAverageStats("\n=== Corpo ===", allPrimaryWeapons, { it.ttk[1].first }, { it.ttk[1].second })
         }
@@ -162,6 +165,7 @@ object WeaponPresenter {
             "Fuzileiro" to fuzileiroWeapons,
             "Engenheiro" to engenheiroWeapons,
             "Sniper" to sniperWeapons,
+            "Médico" to medicWeapons,
             "Pistolas" to pistolas
         )
 
