@@ -3,280 +3,846 @@ package br.com.dhionata.weapon
 object WeaponRepository {
 
     val fuzileiroWeapons: List<Weapon> = listOf(
-        Weapon("AK Alpha (Light Bullets)", 100.0, 800.0, 6.5, 1.0, 17.0, 1.1, 75.0).addMods("Damage", damageAdd = 4.0).addMods("Range", rangeAdd = 4.0)
-            .addMods("Range of Fire", 6.0).attachments("AK Alpha Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("AK Alpha (Quad)", 100.0, 800.0, 6.5, 1.0, 17.0, 1.1, 75.0).addMods("Damage", damageAdd = 4.0).addMods("Range", rangeAdd = 4.0).addMods("Range of Fire", 6.0)
-            .addMods("Quad", -35.0, 50.0, rangeAdd = 3.0).attachments("AK Alpha Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("AK-12", 105.0, 735.0, 7.0, 1.25, 22.0, 1.0, 82.0).addMods("Rate of Fire", 10.0, 1.5).addMods("Damage", damageAdd = 3.0)
-            .addMods("Range", damageAdd = 1.5, rangeAdd = 12.0).addMods("Spread", damageAdd = 1.5).addMods("Recoil", damageAdd = 1.5).addMods("Aim Speed", damageAdd = 1.5)
-            .addMods("Magazine Capacity", damageAdd = 1.5).addMods("Reload Speed", damageAdd = 1.5).addMods("Switch Speed", damageAdd = 1.5)
+        Weapon("AK Alpha (Light Bullets)", 100.0, 800.0, 6.5, 1.0, 17.0, 1.1, 75.0)
+            .addMods("Damage", damageAdd = 4.0)
+            .addMods("Range", rangeAdd = 4.0)
+            .addMods("Range of Fire", 6.0)
+            .attachments("AK Alpha Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("AK Alpha (Quad)", 100.0, 800.0, 6.5, 1.0, 17.0, 1.1, 75.0)
+            .addMods("Damage", damageAdd = 4.0)
+            .addMods("Range", rangeAdd = 4.0)
+            .addMods("Range of Fire", 6.0)
+            .addMods("Quad", -35.0, 50.0, rangeAdd = 3.0)
+            .attachments("AK Alpha Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("AK-12", 105.0, 735.0, 7.0, 1.25, 22.0, 1.0, 82.0)
+            .addMods("Rate of Fire", 10.0, 1.5)
+            .addMods("Damage", damageAdd = 3.0)
+            .addMods("Range", damageAdd = 1.5, rangeAdd = 12.0)
+            .addMods("Spread", damageAdd = 1.5)
+            .addMods("Recoil", damageAdd = 1.5)
+            .addMods("Aim Speed", damageAdd = 1.5)
+            .addMods("Magazine Capacity", damageAdd = 1.5)
+            .addMods("Reload Speed", damageAdd = 1.5)
+            .addMods("Switch Speed", damageAdd = 1.5)
             .attachments("AK-12 Special Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Beretta ARX160", 120.0, 810.0, 4.0, 1.4, 22.0, 1.0, 90.0).addMods("Rate of Fire", 10.0).addMods("Damage", 1.0, 3.0).addMods("Range", 1.0, rangeAdd = 6.0)
-            .addMods("Spread", 1.0).addMods("Recoil", 1.0).addMods("Aim Speed", 1.0).addMods("Magazine Capacity", 1.0).addMods("Reload Speed", 1.0)
-            .addMods("Switch Speed", 1.0).attachments("Assault Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Carmel (Mod Dano, Cadência e Corporal)", 96.0, 720.0, 7.0, 1.07, 20.0, 1.0, 77.0).addMods("Heavy Metal", -27.5, 70.0, rangeAdd = 10.0)
-            .addMods("Rate of Fire", 6.0).addMods("Body Damage", bodyMultiplierAddPercentage = 12.0)
+        Weapon("Beretta ARX160", 120.0, 810.0, 4.0, 1.4, 22.0, 1.0, 90.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Damage", 1.0, 3.0)
+            .addMods("Range", 1.0, rangeAdd = 6.0)
+            .addMods("Spread", 1.0)
+            .addMods("Recoil", 1.0)
+            .addMods("Aim Speed", 1.0)
+            .addMods("Magazine Capacity", 1.0)
+            .addMods("Reload Speed", 1.0)
+            .addMods("Switch Speed", 1.0)
+            .attachments("Assault Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("Carmel (Mod Dano, Cadência e Corporal)", 96.0, 720.0, 7.0, 1.07, 20.0, 1.0, 77.0)
+            .addMods("Heavy Metal", -27.5, 70.0, rangeAdd = 10.0)
+            .addMods("Rate of Fire", 6.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 12.0)
             .attachments("IWI Carmel Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Carmel (Mod Cadência [normal e especial] e Corporal)", 96.0, 720.0, 7.0, 1.07, 20.0, 1.0, 77.0).addMods(
-            "Suppressive Fire", 45.0, headMultiplierAddPercentage = -45.0
-        ).addMods("Rate of Fire", 6.0).addMods("Body Damage", bodyMultiplierAddPercentage = 12.0)
+        Weapon("Carmel (Mod Cadência [normal e especial] e Corporal)", 96.0, 720.0, 7.0, 1.07, 20.0, 1.0, 77.0)
+            .addMods("Suppressive Fire", 45.0, headMultiplierAddPercentage = -45.0)
+            .addMods("Rate of Fire", 6.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 12.0)
             .attachments("IWI Carmel Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Cobalt (Mod Cadência [normal], +2 Corporal)", 95.0, 735.0, 7.0, 1.05, 18.0, 1.2, 76.0).addMods("Rate of Fire", 5.2)
-            .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0).addMods("Explosive Bullets", bodyMultiplierAddPercentage = 40.0, rangeAdd = 12.0)
+        Weapon("Cobalt (Mod Cadência [normal], +2 Corporal)", 95.0, 735.0, 7.0, 1.05, 18.0, 1.2, 76.0)
+            .addMods("Rate of Fire", 5.2)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0)
+            .addMods("Explosive Bullets", bodyMultiplierAddPercentage = 40.0, rangeAdd = 12.0)
             .attachments("Pro Muzzle Brake", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Cobalt (Mod Cadência [especial] e Corporal)", 95.0, 735.0, 7.0, 1.05, 18.0, 1.2, 76.0).addMods("Rate of Fire", 40.0, headMultiplierAddPercentage = -32.0)
-            .addMods("Rate of Fire", 5.2).addMods("Rate of Fire", bodyMultiplierAddPercentage = 10.0).attachments("Pro Muzzle Brake", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Kord (Mod de Recoil)", 175.0, 640.0, 6.0, 1.15, 25.0, 1.0, 90.0).addMods("Rate of Fire", 10.0).addMods("Accurate Shot", -26.0),
-        Weapon("Kord", 175.0, 640.0, 6.0, 1.15, 25.0, 1.0, 90.0).addMods("Rate of Fire", 10.0),
-        Weapon("PKM Zenit", 145.0, 440.0, 5.5, 1.0, 22.0, 1.2, 85.0).addMods("Rate of Fire", 6.0).addMods("Reduced Magazine Capacity", 70.0, -40.0)
+        Weapon("Cobalt (Mod Cadência [especial] e Corporal)", 95.0, 735.0, 7.0, 1.05, 18.0, 1.2, 76.0)
+            .addMods("Rate of Fire", 40.0, headMultiplierAddPercentage = -32.0)
+            .addMods("Rate of Fire", 5.2)
+            .addMods("Rate of Fire", bodyMultiplierAddPercentage = 10.0)
+            .attachments("Pro Muzzle Brake", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("Kord (Mod de Recoil)", 175.0, 640.0, 6.0, 1.15, 25.0, 1.0, 90.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Accurate Shot", -26.0),
+        Weapon("Kord", 175.0, 640.0, 6.0, 1.15, 25.0, 1.0, 90.0)
+            .addMods("Rate of Fire", 10.0),
+        Weapon("PKM Zenit", 145.0, 440.0, 5.5, 1.0, 22.0, 1.2, 85.0)
+            .addMods("Rate of Fire", 6.0)
+            .addMods("Reduced Magazine Capacity", 70.0, -40.0)
             .addMods("Body Damage", bodyMultiplierAddPercentage = 6.0),
-        Weapon("QBZ-191", 106.0, 720.0, 7.0, 1.12, 24.0, 1.0, 86.0).addMods("Rate of Fire", 8.0).addMods("Body Damage", bodyMultiplierAddPercentage = 13.0),
-        Weapon("STK Gold", 110.0, 865.0, 4.0, 1.25, 17.0, 1.0, 84.0).addMods("Rate of Fire", 8.0).addMods("Body Damage", bodyMultiplierAddPercentage = 13.0)
+        Weapon("QBZ-191", 106.0, 720.0, 7.0, 1.12, 24.0, 1.0, 86.0)
+            .addMods("Rate of Fire", 8.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 13.0),
+        Weapon("STK Gold", 110.0, 865.0, 4.0, 1.25, 17.0, 1.0, 84.0)
+            .addMods("Rate of Fire", 8.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 13.0)
             .addMods("Heavy Metal", -42.0, 60.0, bodyMultiplierAddPercentage = -10.0, rangeAdd = 14.0),
-        Weapon("FN SCAR-H", 175.0, 540.0, 7.0, 1.24, 24.0, 1.0, 92.0).addMods("Rate of Fire", 10.0, 2.5).addMods("Damage", 1.0, 5.0).addMods("Range", 1.0, 2.5, rangeAdd = 6.0)
-            .addMods("Spread", 1.0, 2.5).addMods("Recoil", 1.0, 2.5).addMods("Aim Speed", 1.0, 2.5).addMods("Magazine Capacity", 1.0, 2.5).addMods("Reload Speed", 1.0, 2.5)
-            .addMods("Switch Speed", 1.0, 2.5).attachments("Assault Suppressor", -20.0),
-        Weapon("AN-94", 125.0, 700.0, 7.0, 1.8, 20.0, 1.0, 90.0).addMods("Rate of Fire", 10.0, 1.0).addMods("Range", damageAdd = 1.0, rangeAdd = 12.0)
-            .addMods("Limbs Damage", damageAdd = 1.0).addMods("Spread", damageAdd = 1.0).addMods("Recoil", damageAdd = 1.0).addMods("Aim Speed", damageAdd = 1.0)
-            .addMods("Magazine Capacity", damageAdd = 1.0).addMods("Reload Speed", damageAdd = 1.0).addMods("Switch Speed", damageAdd = 1.0),
-        Weapon("MPAR-556", 120.0, 850.0, 4.0, 1.4, 20.0, 1.0, 86.0).addMods("Rate of Fire", 10.0).addMods("Damage", 1.0, 3.0).addMods("Range", 1.0, rangeAdd = 6.0)
-            .addMods("Spread", 1.0).addMods("Recoil", 1.0).addMods("Aim Speed", 1.0).addMods("Magazine Capacity", 1.0).addMods("Reload Speed", 1.0)
-            .addMods("Switch Speed", 1.0).attachments("MPAR-556 Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("As-Val", 105.0, 765.0, 7.0, 1.25, 22.0, 1.0, 80.0).addMods("Rate of Fire", 10.0, 1.5).addMods("Damage", damageAdd = 3.0)
-            .addMods("Range", damageAdd = 1.5, rangeAdd = 12.0).addMods("Spread", damageAdd = 1.5).addMods("Recoil", damageAdd = 1.5).addMods("Aim Speed", damageAdd = 1.5)
-            .addMods("Magazine Capacity", damageAdd = 1.5).addMods("Reload Speed", damageAdd = 1.5).addMods("Switch Speed", damageAdd = 1.5)
+        Weapon("FN SCAR-H", 175.0, 540.0, 7.0, 1.24, 24.0, 1.0, 92.0)
+            .addMods("Rate of Fire", 10.0, 2.5)
+            .addMods("Damage", 1.0, 5.0)
+            .addMods("Range", 1.0, 2.5, rangeAdd = 6.0)
+            .addMods("Spread", 1.0, 2.5)
+            .addMods("Recoil", 1.0, 2.5)
+            .addMods("Aim Speed", 1.0, 2.5)
+            .addMods("Magazine Capacity", 1.0, 2.5)
+            .addMods("Reload Speed", 1.0, 2.5)
+            .addMods("Switch Speed", 1.0, 2.5)
+            .attachments("Assault Suppressor", -20.0),
+        Weapon("AN-94", 125.0, 700.0, 7.0, 1.8, 20.0, 1.0, 90.0)
+            .addMods("Rate of Fire", 10.0, 1.0)
+            .addMods("Range", damageAdd = 1.0, rangeAdd = 12.0)
+            .addMods("Limbs Damage", damageAdd = 1.0)
+            .addMods("Spread", damageAdd = 1.0)
+            .addMods("Recoil", damageAdd = 1.0)
+            .addMods("Aim Speed", damageAdd = 1.0)
+            .addMods("Magazine Capacity", damageAdd = 1.0)
+            .addMods("Reload Speed", damageAdd = 1.0)
+            .addMods("Switch Speed", damageAdd = 1.0),
+        Weapon("MPAR-556", 120.0, 850.0, 4.0, 1.4, 20.0, 1.0, 86.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Damage", 1.0, 3.0)
+            .addMods("Range", 1.0, rangeAdd = 6.0)
+            .addMods("Spread", 1.0)
+            .addMods("Recoil", 1.0)
+            .addMods("Aim Speed", 1.0)
+            .addMods("Magazine Capacity", 1.0)
+            .addMods("Reload Speed", 1.0)
+            .addMods("Switch Speed", 1.0)
+            .attachments("MPAR-556 Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("As-Val", 105.0, 765.0, 7.0, 1.25, 22.0, 1.0, 80.0)
+            .addMods("Rate of Fire", 10.0, 1.5)
+            .addMods("Damage", damageAdd = 3.0)
+            .addMods("Range", damageAdd = 1.5, rangeAdd = 12.0)
+            .addMods("Spread", damageAdd = 1.5)
+            .addMods("Recoil", damageAdd = 1.5)
+            .addMods("Aim Speed", damageAdd = 1.5)
+            .addMods("Magazine Capacity", damageAdd = 1.5)
+            .addMods("Reload Speed", damageAdd = 1.5)
+            .addMods("Switch Speed", damageAdd = 1.5)
             .attachments("AS Val Silencer", rangeAdd = -4.0, damageDropPerMeterAddPercentage = 100.0),
-        Weapon("A-545", 106.0, 735.0, 7.0, 1.18, 22.0, 1.0, 87.0).addMods("Rate of Fire", 10.0, 1.5).addMods("Damage", damageAdd = 3.0)
-            .addMods("Range", damageAdd = 1.5, rangeAdd = 12.0).addMods("Spread", damageAdd = 1.5).addMods("Recoil", 1.5).addMods("Aim Speed", damageAdd = 1.5)
-            .addMods("Magazine Capacity", damageAdd = 1.5).addMods("Reload Speed", damageAdd = 1.5).addMods("Switch Speed", damageAdd = 1.5)
+        Weapon("A-545", 106.0, 735.0, 7.0, 1.18, 22.0, 1.0, 87.0)
+            .addMods("Rate of Fire", 10.0, 1.5)
+            .addMods("Damage", damageAdd = 3.0)
+            .addMods("Range", damageAdd = 1.5, rangeAdd = 12.0)
+            .addMods("Spread", damageAdd = 1.5)
+            .addMods("Recoil", 1.5)
+            .addMods("Aim Speed", damageAdd = 1.5)
+            .addMods("Magazine Capacity", damageAdd = 1.5)
+            .addMods("Reload Speed", damageAdd = 1.5)
+            .addMods("Switch Speed", damageAdd = 1.5)
             .attachments("A-545 Muzzle Brake", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("M16A3 Custom", 108.0, 730.0, 7.0, 1.24, 21.0, 1.0, 81.0).addMods("Rate of Fire", 10.0, 1.5).addMods("Damage", damageAdd = 3.0)
-            .addMods("Range", damageAdd = 1.5, rangeAdd = 12.0).addMods("Spread", damageAdd = 1.5).addMods("Recoil", damageAdd = 1.5).addMods("Aim Speed", damageAdd = 1.5)
-            .addMods("Magazine Capacity", damageAdd = 1.5).addMods("Switch Speed", damageAdd = 1.5).attachments("Assault Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("FN Evolys", 140.0, 875.0, 6.0, 1.25, 24.0, 1.25, 90.0).addMods("Rate of Fire", 10.0).addMods("Range", 1.0, rangeAdd = 12.0).addMods("Spread", 1.0)
-            .addMods("Spread Attack", 1.0).addMods("Recoil", 1.0).addMods("Aim Speed", 1.0).addMods("Magazine Capacity", 1.0).addMods("Reload Speed", 1.0)
+        Weapon("M16A3 Custom", 108.0, 730.0, 7.0, 1.24, 21.0, 1.0, 81.0)
+            .addMods("Rate of Fire", 10.0, 1.5)
+            .addMods("Damage", damageAdd = 3.0)
+            .addMods("Range", damageAdd = 1.5, rangeAdd = 12.0)
+            .addMods("Spread", damageAdd = 1.5)
+            .addMods("Recoil", damageAdd = 1.5)
+            .addMods("Aim Speed", damageAdd = 1.5)
+            .addMods("Magazine Capacity", damageAdd = 1.5)
+            .addMods("Switch Speed", damageAdd = 1.5)
+            .attachments("Assault Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("FN Evolys", 140.0, 875.0, 6.0, 1.25, 24.0, 1.25, 90.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Range", 1.0, rangeAdd = 12.0)
+            .addMods("Spread", 1.0)
+            .addMods("Spread Attack", 1.0)
+            .addMods("Recoil", 1.0)
+            .addMods("Aim Speed", 1.0)
+            .addMods("Magazine Capacity", 1.0)
+            .addMods("Reload Speed", 1.0)
             .addMods("Switch Speed", 1.0),
-        Weapon("Type 97", 106.0, 740.0, 7.0, 1.18, 22.5, 1.0, 86.0).addMods("Recoil", damageAdd = 1.5).addMods("Speed", damageAdd = 1.5)
-            .addMods("Switch Speed", damageAdd = 1.5).addMods("Aim Speed", damageAdd = 1.5).addMods("Range", damageAdd = 1.5).addMods("Spread", damageAdd = 1.5)
-            .addMods("Rate of Fire", 10.0, 1.5).addMods("Magazine Capacity", damageAdd = 1.5).addMods("Damage", damageAdd = 3.0),
-        Weapon("ASh-12", 175.0, 570.0, 7.0, 1.24, 22.0, 1.0, 90.0).addMods("Damage", 1.0, 5.0).addMods("Range", 1.0, 2.5, rangeAdd = 6.0).addMods("Rate of Fire", 10.0, 2.5)
-            .addMods("Spread", 1.0, 2.5).addMods("Recoil", 1.0, 2.5).addMods("Aim Speed").addMods("Magazine Capacity", 1.0, 2.5).addMods("Reload Speed", 1.0, 2.5)
+        Weapon("Type 97", 106.0, 740.0, 7.0, 1.18, 22.5, 1.0, 86.0)
+            .addMods("Recoil", damageAdd = 1.5)
+            .addMods("Speed", damageAdd = 1.5)
+            .addMods("Switch Speed", damageAdd = 1.5)
+            .addMods("Aim Speed", damageAdd = 1.5)
+            .addMods("Range", damageAdd = 1.5)
+            .addMods("Spread", damageAdd = 1.5)
+            .addMods("Rate of Fire", 10.0, 1.5)
+            .addMods("Magazine Capacity", damageAdd = 1.5)
+            .addMods("Damage", damageAdd = 3.0),
+        Weapon("ASh-12", 175.0, 570.0, 7.0, 1.24, 22.0, 1.0, 90.0)
+            .addMods("Damage", 1.0, 5.0)
+            .addMods("Range", 1.0, 2.5, rangeAdd = 6.0)
+            .addMods("Rate of Fire", 10.0, 2.5)
+            .addMods("Spread", 1.0, 2.5)
+            .addMods("Recoil", 1.0, 2.5)
+            .addMods("Aim Speed")
+            .addMods("Magazine Capacity", 1.0, 2.5)
+            .addMods("Reload Speed", 1.0, 2.5)
             .addMods("Switch Speed", 1.0, 2.5),
-        Weapon("M249 Para", 140.0, 810.0, 6.0, 1.25, 25.0, 1.25, 90.0).addMods("Range", 1.0, rangeAdd = 12.0).addMods("Rate of Fire", 10.0).addMods("Spread", 1.0)
-            .addMods("Spread Attack", 1.0).addMods("Recoil", 1.0).addMods("Aim Speed", 1.0).addMods("Magazine Capacity", 1.0).addMods("Reload Speed", 1.0)
-            .addMods("Switch Speed", 1.0).attachments("Assault Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("M249 Para", 140.0, 810.0, 6.0, 1.25, 25.0, 1.25, 90.0)
+            .addMods("Range", 1.0, rangeAdd = 12.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Spread", 1.0)
+            .addMods("Spread Attack", 1.0)
+            .addMods("Recoil", 1.0)
+            .addMods("Aim Speed", 1.0)
+            .addMods("Magazine Capacity", 1.0)
+            .addMods("Reload Speed", 1.0)
+            .addMods("Switch Speed", 1.0)
+            .attachments("Assault Suppressor", damageDropPerMeterAddPercentage = -20.0),
         //br.com.dhionata.weapon.Weapon("Harms CQR", 123.0, 971.0, 4.0, 1.40)
     )
 
     val engenheiroWeapons: List<Weapon> = listOf(
-        Weapon("Tavor CTAR-21", 100.0, 975.0, 4.0, 1.6, 11.0, 2.8, 40.0).addMods("Rate of Fire", 10.0, 1.0).addMods("Damage", 1.0, 3.0)
-            .addMods("Range", 1.0, 1.0, rangeAdd = 2.5).addMods("Spread", 1.0, 1.0).addMods("Recoil", 1.0, 1.0).addMods("Aim Speed", 1.0, 1.0)
-            .addMods("Magazine Capacity", 1.0, 1.0).addMods("Reload Speed", 1.0, 1.0).addMods("Switch Speed", 1.0, 1.0)
+        Weapon("Tavor CTAR-21", 100.0, 975.0, 4.0, 1.6, 11.0, 2.8, 40.0)
+            .addMods("Rate of Fire", 10.0, 1.0)
+            .addMods("Damage", 1.0, 3.0)
+            .addMods("Range", 1.0, 1.0, rangeAdd = 2.5)
+            .addMods("Spread", 1.0, 1.0)
+            .addMods("Recoil", 1.0, 1.0)
+            .addMods("Aim Speed", 1.0, 1.0)
+            .addMods("Magazine Capacity", 1.0, 1.0)
+            .addMods("Reload Speed", 1.0, 1.0)
+            .addMods("Switch Speed", 1.0, 1.0)
             .attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("Honey Badger", 128.0, 785.0, 6.0, 1.24, 11.5, 1.65, 35.0).addMods("Rate of Fire", 10.0, 1.5, rangeAdd = 0.25)
-            .addMods("Damage", damageAdd = 3.0, rangeAdd = 0.25).addMods("Range", damageAdd = 1.5, rangeAdd = 3.0).addMods("Spread", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Recoil", damageAdd = 1.5, rangeAdd = 0.25).addMods("Aim Speed", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Magazine Capacity", damageAdd = 1.5, rangeAdd = 0.25).addMods("Reload Speed", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Switch Speed", damageAdd = 1.5, rangeAdd = 0.25).attachments("Honey Badger Silencer", rangeAdd = -1.0, damageDropPerMeterAddPercentage = 35.0),
-        Weapon("Kriss Super V Custom (Precisão)", 100.0, 800.0, 4.5, 1.1, 10.5, 2.8, 38.0).addMods("Rate of Fire", 5.0).addMods("Damage", damageAdd = 9.0)
-            .addMods("Deadly Precision", damageAdd = 16.0, headMultiplierAddPercentage = 20.0, rangeAdd = 2.0).addMods("Range", rangeAdd = 2.0)
+        Weapon("Honey Badger", 128.0, 785.0, 6.0, 1.24, 11.5, 1.65, 35.0)
+            .addMods("Rate of Fire", 10.0, 1.5, rangeAdd = 0.25)
+            .addMods("Damage", damageAdd = 3.0, rangeAdd = 0.25)
+            .addMods("Range", damageAdd = 1.5, rangeAdd = 3.0)
+            .addMods("Spread", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Recoil", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Aim Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Magazine Capacity", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Reload Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Switch Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .attachments("Honey Badger Silencer", rangeAdd = -1.0, damageDropPerMeterAddPercentage = 35.0),
+        Weapon("Kriss Super V Custom (Precisão)", 100.0, 800.0, 4.5, 1.1, 10.5, 2.8, 38.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Damage", damageAdd = 9.0)
+            .addMods("Deadly Precision", damageAdd = 16.0, headMultiplierAddPercentage = 20.0, rangeAdd = 2.0)
+            .addMods("Range", rangeAdd = 2.0)
             .attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("Kriss Super V Custom (Light Bullets)", 100.0, 800.0, 4.5, 1.1, 10.5, 2.8, 38.0).addMods("Rate of Fire", 5.0).addMods("Light Bullets", 40.0)
-            .addMods("Damage", damageAdd = 9.0).addMods("Range", rangeAdd = 2.0).attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("Magpul (Gold)", 105.0, 1010.0, 4.0, 1.48, 10.5, 2.6, 52.0).addMods("Rate of Fire", 8.0).addMods("Body Damage", bodyMultiplierAddPercentage = 13.0)
-            .addMods("Range", rangeAdd = 3.0).addMods("Spread and Range", rangeAdd = 0.7)
+        Weapon("Kriss Super V Custom (Light Bullets)", 100.0, 800.0, 4.5, 1.1, 10.5, 2.8, 38.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Light Bullets", 40.0)
+            .addMods("Damage", damageAdd = 9.0)
+            .addMods("Range", rangeAdd = 2.0)
+            .attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0),
+        Weapon("Magpul (Gold)", 105.0, 1010.0, 4.0, 1.48, 10.5, 2.6, 52.0)
+            .addMods("Rate of Fire", 8.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 13.0)
+            .addMods("Range", rangeAdd = 3.0)
+            .addMods("Spread and Range", rangeAdd = 0.7)
             .attachments("Default Suppressor", rangeAdd = 1.0, damageDropPerMeterAddPercentage = -10.0),
-        Weapon("PP-2011", 125.0, 790.0, 6.0, 1.26, 10.0, 2.1, 54.0).addMods("Rate of Fire", 6.8).addMods("Body Damage", bodyMultiplierAddPercentage = 4.0)
-            .addMods("Range", rangeAdd = 3.0).addMods("Spread and Range", rangeAdd = 0.7).attachments("Saiga 9 mm Turbo Suppressor", damageDropPerMeterAddPercentage = -28.0),
-        Weapon("CSV-9 Comodo", 92.0, 980.0, 4.8, 1.2, 8.2, 3.7, 48.0).addMods("No Alternative", -13.0, 29.0, 25.0, rangeAdd = 3.5)
-            .addMods("Body Damage", bodyMultiplierAddPercentage = 8.0).addMods("Range", rangeAdd = 3.0).addMods("Spread and Range", rangeAdd = 0.7)
+        Weapon("PP-2011", 125.0, 790.0, 6.0, 1.26, 10.0, 2.1, 54.0)
+            .addMods("Rate of Fire", 6.8)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0)
+            .addMods("Range", rangeAdd = 3.0)
+            .addMods("Spread and Range", rangeAdd = 0.7)
+            .attachments("Saiga 9 mm Turbo Suppressor", damageDropPerMeterAddPercentage = -28.0),
+        Weapon("CSV-9 Comodo", 92.0, 980.0, 4.8, 1.2, 8.2, 3.7, 48.0)
+            .addMods("No Alternative", -13.0, 29.0, 25.0, rangeAdd = 3.5)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 8.0)
+            .addMods("Range", rangeAdd = 3.0)
+            .addMods("Spread and Range", rangeAdd = 0.7)
             .attachments("WDR Nero 556 Muzzle Brake", rangeAdd = 0.5, damageDropPerMeterAddPercentage = -10.0),
-        Weapon("Famae SAF-200", 125.0, 750.0, 6.0, 1.3, 11.5, 2.1, 41.0).addMods("Rate of Fire", 10.0, 1.5, rangeAdd = 3.0).addMods("Damage", damageAdd = 3.0, rangeAdd = 0.25)
-            .addMods("Range", damageAdd = 1.5, rangeAdd = 3.0).addMods("Spread", damageAdd = 1.5, rangeAdd = 0.25).addMods("Recoil", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Aim Speed", damageAdd = 1.5, rangeAdd = 0.25).addMods("Magazine Capacity", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Reload Speed", damageAdd = 1.5, rangeAdd = 0.25).addMods("Switch Speed", damageAdd = 1.5, rangeAdd = 0.25)
+        Weapon("Famae SAF-200", 125.0, 750.0, 6.0, 1.3, 11.5, 2.1, 41.0)
+            .addMods("Rate of Fire", 10.0, 1.5, rangeAdd = 3.0)
+            .addMods("Damage", damageAdd = 3.0, rangeAdd = 0.25)
+            .addMods("Range", damageAdd = 1.5, rangeAdd = 3.0)
+            .addMods("Spread", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Recoil", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Aim Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Magazine Capacity", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Reload Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Switch Speed", damageAdd = 1.5, rangeAdd = 0.25)
             .attachments("SI OPPRESSOR Universal Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("CZ Scorpion", 128.0, 740.0, 6.0, 1.28, 11.5, 2.1, 41.0).addMods("Rate of Fire", 10.0, 1.5, rangeAdd = 0.25).addMods("Damage", damageAdd = 3.0, rangeAdd = 0.25)
-            .addMods("Range", damageAdd = 1.5, rangeAdd = 3.0).addMods("Spread", damageAdd = 1.5, rangeAdd = 0.25).addMods("Recoil", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Aim Speed", damageAdd = 1.5, rangeAdd = 0.25).addMods("Magazine Capacity", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Reload Speed", damageAdd = 1.5, rangeAdd = 0.25).addMods("Switch Speed", damageAdd = 1.5, rangeAdd = 0.25)
+        Weapon("CZ Scorpion", 128.0, 740.0, 6.0, 1.28, 11.5, 2.1, 41.0)
+            .addMods("Rate of Fire", 10.0, 1.5, rangeAdd = 0.25)
+            .addMods("Damage", damageAdd = 3.0, rangeAdd = 0.25)
+            .addMods("Range", damageAdd = 1.5, rangeAdd = 3.0)
+            .addMods("Spread", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Recoil", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Aim Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Magazine Capacity", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Reload Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Switch Speed", damageAdd = 1.5, rangeAdd = 0.25)
             .attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("SR-3M", 104.0, 985.0, 4.0, 1.6, 10.5, 2.7, 50.0).addMods("Rate of Fire", 10.0, 1.0).addMods("Damage", 1.0, 3.0).addMods("Range", 1.0, 1.0, rangeAdd = 2.5)
-            .addMods("Spread", 1.0, 1.0).addMods("Recoil", 1.0, 1.0).addMods("Aim Speed", 1.0, 1.0).addMods("Magazine Capacity", 1.0, 1.0).addMods("Reload Speed", 1.0, 1.0)
-            .addMods("Switch Speed", 1.0, 1.0).attachments("SR-3M Muzzle Brake", damageDropPerMeterAddPercentage = -25.0),
-        Weapon("AMB-17", 125.0, 745.0, 6.0, 1.3, 13.0, 1.25, 42.0).addMods("Rate of Fire", 10.0, 1.5, rangeAdd = 0.25).addMods("Damage", damageAdd = 3.0, rangeAdd = 0.25)
-            .addMods("Range", damageAdd = 1.5, rangeAdd = 3.0).addMods("Spread", damageAdd = 1.5, rangeAdd = 0.25).addMods("Recoil", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Aim Speed", damageAdd = 1.5, rangeAdd = 0.25).addMods("Magazine Capacity", damageAdd = 1.5, rangeAdd = 0.25)
-            .addMods("Reload Speed", damageAdd = 1.5, rangeAdd = 0.25).addMods("Switch Speed", damageAdd = 1.5, rangeAdd = 0.25)
+        Weapon("SR-3M", 104.0, 985.0, 4.0, 1.6, 10.5, 2.7, 50.0)
+            .addMods("Rate of Fire", 10.0, 1.0)
+            .addMods("Damage", 1.0, 3.0)
+            .addMods("Range", 1.0, 1.0, rangeAdd = 2.5)
+            .addMods("Spread", 1.0, 1.0)
+            .addMods("Recoil", 1.0, 1.0)
+            .addMods("Aim Speed", 1.0, 1.0)
+            .addMods("Magazine Capacity", 1.0, 1.0)
+            .addMods("Reload Speed", 1.0, 1.0)
+            .addMods("Switch Speed", 1.0, 1.0)
+            .attachments("SR-3M Muzzle Brake", damageDropPerMeterAddPercentage = -25.0),
+        Weapon("AMB-17", 125.0, 745.0, 6.0, 1.3, 13.0, 1.25, 42.0)
+            .addMods("Rate of Fire", 10.0, 1.5, rangeAdd = 0.25)
+            .addMods("Damage", damageAdd = 3.0, rangeAdd = 0.25)
+            .addMods("Range", damageAdd = 1.5, rangeAdd = 3.0)
+            .addMods("Spread", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Recoil", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Aim Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Magazine Capacity", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Reload Speed", damageAdd = 1.5, rangeAdd = 0.25)
+            .addMods("Switch Speed", damageAdd = 1.5, rangeAdd = 0.25)
             .attachments("AMB-17 Silencer", rangeAdd = -2.0, damageDropPerMeterAddPercentage = 35.0),
-        Weapon("Taurus CT9 G2 (Triple Threat)", 100.0, 815.0, 6.2, 1.05, 11.0, 1.9, 52.0).addMods("Rate of Fire", 3.0)
-            .addMods("Body Damage", bodyMultiplierAddPercentage = 8.0).addMods("Triple Threat", -10.0, 15.0).addMods("Range", rangeAdd = 1.5),
-        Weapon("PPSH-41 Modern", 150.0, 645.0, 6.0, 1.45, 13.4, 2.25, 44.0).addMods("Rate of Fire", 10.0, 2.0, rangeAdd = 0.15)
-            .addMods("Damage", damageAdd = 3.0, rangeAdd = 2.5).addMods("Range", damageAdd = 2.0, rangeAdd = 0.15).addMods("Spread", damageAdd = 2.0, rangeAdd = 0.15)
-            .addMods("Recoil", damageAdd = 2.0, rangeAdd = 0.15).addMods("Aim Speed", damageAdd = 2.0, rangeAdd = 0.15)
-            .addMods("Magazine Capacity", damageAdd = 2.0, rangeAdd = 0.15).addMods("Reload Speed", damageAdd = 2.0, rangeAdd = 0.15)
+        Weapon("Taurus CT9 G2 (Triple Threat)", 100.0, 815.0, 6.2, 1.05, 11.0, 1.9, 52.0)
+            .addMods("Rate of Fire", 3.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 8.0)
+            .addMods("Triple Threat", -10.0, 15.0)
+            .addMods("Range", rangeAdd = 1.5),
+        Weapon("PPSH-41 Modern", 150.0, 645.0, 6.0, 1.45, 13.4, 2.25, 44.0)
+            .addMods("Rate of Fire", 10.0, 2.0, rangeAdd = 0.15)
+            .addMods("Damage", damageAdd = 3.0, rangeAdd = 2.5)
+            .addMods("Range", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Spread", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Recoil", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Aim Speed", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Magazine Capacity", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Reload Speed", damageAdd = 2.0, rangeAdd = 0.15)
             .addMods("Switch Speed", damageAdd = 2.0, rangeAdd = 0.15),
-        Weapon("Scar-L PDW", 150.0, 630.0, 5.5, 1.45, 13.5, 2.5, 45.0).addMods("Rate of Fire", 10.0, 2.0, rangeAdd = 0.15).addMods("Damage", damageAdd = 3.0, rangeAdd = 2.5)
-            .addMods("Range", damageAdd = 2.0, rangeAdd = 0.15).addMods("Spead", damageAdd = 2.0, rangeAdd = 0.15).addMods("Recoil", damageAdd = 2.0, rangeAdd = 0.15)
-            .addMods("Aim Speed", damageAdd = 2.0, rangeAdd = 0.15).addMods("Magazine Capacity", damageAdd = 2.0, rangeAdd = 0.15)
-            .addMods("Reload Speed", damageAdd = 2.0, rangeAdd = 0.15).addMods("Switch Speed", damageAdd = 2.0, rangeAdd = 0.15)
+        Weapon("Scar-L PDW", 150.0, 630.0, 5.5, 1.45, 13.5, 2.5, 45.0)
+            .addMods("Rate of Fire", 10.0, 2.0, rangeAdd = 0.15)
+            .addMods("Damage", damageAdd = 3.0, rangeAdd = 2.5)
+            .addMods("Range", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Spead", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Recoil", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Aim Speed", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Magazine Capacity", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Reload Speed", damageAdd = 2.0, rangeAdd = 0.15)
+            .addMods("Switch Speed", damageAdd = 2.0, rangeAdd = 0.15)
             .attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("XM8 Compact", 105.0, 940.0, 4.0, 1.66, 10.5, 2.6, 53.0).addMods("Rate of Fire", 10.0, 1.0).addMods("Damage", 1.0, 3.0)
-            .addMods("Range", 1.0, 1.0, rangeAdd = 2.5).addMods("Spread", 1.0, 1.0).addMods("Recoil", 1.0, 1.0).addMods("Aim Speed", 1.0, 1.0)
-            .addMods("Magazine Capacity", 1.0, 1.0).addMods("Reload Speed", 1.0, 1.0).addMods("Switch Speed", 1.0, 1.0)
+        Weapon("XM8 Compact", 105.0, 940.0, 4.0, 1.66, 10.5, 2.6, 53.0)
+            .addMods("Rate of Fire", 10.0, 1.0)
+            .addMods("Damage", 1.0, 3.0)
+            .addMods("Range", 1.0, 1.0, rangeAdd = 2.5)
+            .addMods("Spread", 1.0, 1.0)
+            .addMods("Recoil", 1.0, 1.0)
+            .addMods("Aim Speed", 1.0, 1.0)
+            .addMods("Magazine Capacity", 1.0, 1.0)
+            .addMods("Reload Speed", 1.0, 1.0)
+            .addMods("Switch Speed", 1.0, 1.0)
             .attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("Micro-Roni CAA", 105.0, 945.0, 4.00, 1.66, 10.2, 2.7, 54.0).addMods("Rate of Fire", 10.0, 1.0).addMods("Damage", 1.0, 3.0)
-            .addMods("Range", 1.0, 1.0, rangeAdd = 2.0).addMods("Spread", 1.0, 1.0).addMods("Recoil", 1.0, 1.0).addMods("Aim Speed", 1.0, 1.0)
-            .addMods("Magazine Capacity", 1.0, 1.0).addMods("Reload Speed", 1.0, 1.0).addMods("Switch Speed", 1.0, 1.0)
+        Weapon("Micro-Roni CAA", 105.0, 945.0, 4.00, 1.66, 10.2, 2.7, 54.0)
+            .addMods("Rate of Fire", 10.0, 1.0)
+            .addMods("Damage", 1.0, 3.0)
+            .addMods("Range", 1.0, 1.0, rangeAdd = 2.0)
+            .addMods("Spread", 1.0, 1.0)
+            .addMods("Recoil", 1.0, 1.0)
+            .addMods("Aim Speed", 1.0, 1.0)
+            .addMods("Magazine Capacity", 1.0, 1.0)
+            .addMods("Reload Speed", 1.0, 1.0)
+            .addMods("Switch Speed", 1.0, 1.0)
     )
 
     val pistolas: List<Weapon> = listOf(
-        Weapon("Taurus Raging Hunter (Deadeye)", 350.0, 160.0, 6.0, 1.10, 16.0, 4.0, 120.0).addMods("Rate of Fire", 5.0).addMods("Range", rangeAdd = 6.0)
-            .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0).addMods("Deadeye", -10.0, damageDropPerMeterAddPercentage = -100.0),
-        Weapon("Taurus Raging Hunter (High Noon)", 350.0, 160.0, 6.0, 1.10, 16.0, 4.0, 120.0).addMods("Rate of Fire", 5.0).addMods("Range", rangeAdd = 6.0)
-            .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0).addMods("High Noon", 55.0, -90.0, rangeAdd = -8.0),
-        Weapon("SIG Sauer P226 (Hide!)", 200.0, 275.0, 4.0, 1.3, 6.7, 3.0, 32.0).addMods("Rate of Fire", 8.0).addMods("Damage", damageAdd = 26.0)
-            .addMods("Range", rangeAdd = 2.5).attachments("Custom Tactical Silencer", damageDropPerMeterAddPercentage = -50.0),
-        Weapon("SIG Sauer P226 (Expanding Bullets)", 200.0, 275.0, 4.0, 1.3, 6.7, 3.0, 32.0).addMods("Rate of Fire", 8.0).addMods("Damage", damageAdd = 26.0)
-            .addMods("Range", rangeAdd = 2.5).addMods("Expanding Bullets", -30.0, 80.0).attachments("Custom Tactical Silencer", damageDropPerMeterAddPercentage = -50.0),
-        Weapon("Maxim 9", 220.0, 290.0, 3.5, 1.15, 10.0, 4.0, 40.0).addMods("Range", 1.5, rangeAdd = 3.0)
-            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0).addMods("Rate of Fire", 10.0, rangeAdd = 0.2)
-            .addMods("Spread", 1.5, rangeAdd = 0.2).addMods("Recoil", 1.5, rangeAdd = 0.2).addMods("Aim Speed", 1.5, rangeAdd = 0.2)
-            .addMods("Magazine Capacity", 1.5, rangeAdd = 0.2).addMods("Reload Speed", 1.5, rangeAdd = 0.2).addMods("Switch Speed", 1.5, rangeAdd = 0.2),
-        Weapon("ST Kinetics (On The Run)", 108.0, 950.0, 5.0, 1.1, 5.0, 4.0, 32.0).addMods("Rate of Fire", 12.0).addMods("Body Damage", bodyMultiplierAddPercentage = 16.0)
+        Weapon("Taurus Raging Hunter (Deadeye)", 350.0, 160.0, 6.0, 1.10, 16.0, 4.0, 120.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Range", rangeAdd = 6.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0)
+            .addMods("Deadeye", -10.0, damageDropPerMeterAddPercentage = -100.0),
+        Weapon("Taurus Raging Hunter (High Noon)", 350.0, 160.0, 6.0, 1.10, 16.0, 4.0, 120.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Range", rangeAdd = 6.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0)
+            .addMods("High Noon", 55.0, -90.0, rangeAdd = -8.0),
+        Weapon("SIG Sauer P226 (Hide!)", 200.0, 275.0, 4.0, 1.3, 6.7, 3.0, 32.0)
+            .addMods("Rate of Fire", 8.0)
+            .addMods("Damage", damageAdd = 26.0)
+            .addMods("Range", rangeAdd = 2.5)
+            .attachments("Custom Tactical Silencer", damageDropPerMeterAddPercentage = -50.0),
+        Weapon("SIG Sauer P226 (Expanding Bullets)", 200.0, 275.0, 4.0, 1.3, 6.7, 3.0, 32.0)
+            .addMods("Rate of Fire", 8.0)
+            .addMods("Damage", damageAdd = 26.0)
+            .addMods("Range", rangeAdd = 2.5)
+            .addMods("Expanding Bullets", -30.0, 80.0)
+            .attachments("Custom Tactical Silencer", damageDropPerMeterAddPercentage = -50.0),
+        Weapon("Maxim 9", 220.0, 290.0, 3.5, 1.15, 10.0, 4.0, 40.0)
+            .addMods("Range", 1.5, rangeAdd = 3.0)
+            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0)
+            .addMods("Rate of Fire", 10.0, rangeAdd = 0.2)
+            .addMods("Spread", 1.5, rangeAdd = 0.2)
+            .addMods("Recoil", 1.5, rangeAdd = 0.2)
+            .addMods("Aim Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Magazine Capacity", 1.5, rangeAdd = 0.2)
+            .addMods("Reload Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Switch Speed", 1.5, rangeAdd = 0.2),
+        Weapon("ST Kinetics (On The Run)", 108.0, 950.0, 5.0, 1.1, 5.0, 4.0, 32.0)
+            .addMods("Rate of Fire", 12.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 16.0)
             .attachments("Ultradyne Nighthawk Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("ST Kinetics (With Two Hands)", 108.0, 950.0, 5.0, 1.1, 5.0, 4.0, 32.0).addMods("Rate of Fire", 12.0).addMods("Body Damage", bodyMultiplierAddPercentage = 16.0)
-            .addMods("With Two Hands", 7.0, -15.0, -20.0).addMods("2X Weapons", 100.0).attachments("Ultradyne Nighthawk Suppressor", damageDropPerMeterAddPercentage = -30.0),
-        Weapon("Taurus Judge", 680.0, 100.0, 3.0, 1.4, 3.5, 56.0, 140.0).addMods("Rate of Fire", 10.0, 0.6).addMods("Damage", damageAdd = 1.2)
-            .addMods("Range", damageAdd = 0.6).addMods("Damage Drop", damageAdd = 0.6, damageDropPerMeterAddPercentage = -15.0).addMods("Spread", damageAdd = 0.6)
-            .addMods("Recoil", damageAdd = 0.6).addMods("Aim Speed", damageAdd = 0.6).addMods("Reload Speed", damageAdd = 0.6).addMods("Switch Speed", damageAdd = 0.6)
+        Weapon("ST Kinetics (With Two Hands)", 108.0, 950.0, 5.0, 1.1, 5.0, 4.0, 32.0)
+            .addMods("Rate of Fire", 12.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 16.0)
+            .addMods("With Two Hands", 7.0, -15.0, -20.0)
+            .addMods("2X Weapons", 100.0)
+            .attachments("Ultradyne Nighthawk Suppressor", damageDropPerMeterAddPercentage = -30.0),
+        Weapon("Taurus Judge", 680.0, 100.0, 3.0, 1.4, 3.5, 56.0, 140.0)
+            .addMods("Rate of Fire", 10.0, 0.6)
+            .addMods("Damage", damageAdd = 1.2)
+            .addMods("Range", damageAdd = 0.6)
+            .addMods("Damage Drop", damageAdd = 0.6, damageDropPerMeterAddPercentage = -15.0)
+            .addMods("Spread", damageAdd = 0.6)
+            .addMods("Recoil", damageAdd = 0.6)
+            .addMods("Aim Speed", damageAdd = 0.6)
+            .addMods("Reload Speed", damageAdd = 0.6)
+            .addMods("Switch Speed", damageAdd = 0.6)
             .addMods("Range", damageAdd = 0.6, rangeAdd = 1.0),
-        Weapon("Mauser (Prohibited Assembly)", 175.0, 400.0, 3.8, 1.05, 8.0, 1.5, 35.0).addMods("Rate of Fire", 5.0).addMods("Damage", damageAdd = 20.0)
-            .addMods("Prohibited Assembly", 45.0, -40.0, rangeAdd = -2.0).addMods("Range", rangeAdd = 2.5),
-        Weapon("Mauser (With Two Hands)", 175.0, 400.0, 3.8, 1.05, 8.0, 1.5, 35.0).addMods("Rate of Fire", 5.0).addMods("Damage", damageAdd = 20.0)
-            .addMods("With Two Hands", damageAdd = -20.0, headMultiplierAddPercentage = -10.0, rangeAdd = -4.0).addMods("Range", rangeAdd = 2.5).addMods("2X Weapons", 100.0),
-        Weapon("Desert Eagle", 275.0, 240.0, 4.25, 1.35, 11.0, 3.25, 50.0).addMods("Rate of Fire", 10.0, rangeAdd = 0.2).addMods("Range", 1.5, rangeAdd = 3.0)
-            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0).addMods("Spread", 1.5, rangeAdd = 0.2).addMods("Recoil", 1.5, rangeAdd = 0.2)
-            .addMods("Aim Speed", 1.5, rangeAdd = 0.2).addMods("Magazine", 1.5, rangeAdd = 0.2).addMods("Reload Speed", 1.5, rangeAdd = 0.2)
-            .addMods("Switch Speed", 1.5, rangeAdd = 0.2).attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("M1911A1 (Hide!)", 200.0, 290.0, 6.0, 1.1, 12.0, 3.0, 60.0).addMods("Hide!", 20.0, 30.0).addMods("Rate of Fire", 5.0).addMods("Range", rangeAdd = 2.5)
-            .addMods("Damage", damageAdd = 20.0).attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("M1911A1 (One is Enough)", 200.0, 290.0, 6.0, 1.1, 12.0, 3.0, 60.0).addMods("One is Enough", -50.0, 160.0).addMods("Rate of Fire", 5.0)
-            .addMods("Range", rangeAdd = 2.5).addMods("Damage", damageAdd = 20.0).attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Glock 18c", 108.0, 800.0, 5.0, 1.25, 5.5, 3.75, 28.0).addMods("Rate of Fire", 10.0, 1.0)
-            .addMods("Damage Drop", 1.0, 1.0, damageDropPerMeterAddPercentage = -25.0).addMods("Spread", 1.0, 1.0).addMods("Recoil", 1.0, 1.0).addMods("Aim Speed", 1.0, 1.0)
-            .addMods("Magazine Capacity", 1.0, 1.0).addMods("Reload Speed", 1.0, 1.0).addMods("Range", 1.0, 1.0, rangeAdd = 3.0).addMods("Switch Speed", 1.0, 1.0)
+        Weapon("Mauser (Prohibited Assembly)", 175.0, 400.0, 3.8, 1.05, 8.0, 1.5, 35.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Damage", damageAdd = 20.0)
+            .addMods("Prohibited Assembly", 45.0, -40.0, rangeAdd = -2.0)
+            .addMods("Range", rangeAdd = 2.5),
+        Weapon("Mauser (With Two Hands)", 175.0, 400.0, 3.8, 1.05, 8.0, 1.5, 35.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Damage", damageAdd = 20.0)
+            .addMods("With Two Hands", damageAdd = -20.0, headMultiplierAddPercentage = -10.0, rangeAdd = -4.0)
+            .addMods("Range", rangeAdd = 2.5)
+            .addMods("2X Weapons", 100.0),
+        Weapon("Desert Eagle", 275.0, 240.0, 4.25, 1.35, 11.0, 3.25, 50.0)
+            .addMods("Rate of Fire", 10.0, rangeAdd = 0.2)
+            .addMods("Range", 1.5, rangeAdd = 3.0)
+            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0)
+            .addMods("Spread", 1.5, rangeAdd = 0.2)
+            .addMods("Recoil", 1.5, rangeAdd = 0.2)
+            .addMods("Aim Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Magazine", 1.5, rangeAdd = 0.2)
+            .addMods("Reload Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Switch Speed", 1.5, rangeAdd = 0.2)
             .attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Makarov (Golden Bullets)", 240.0, 240.0, 4.0, 1.3, 12.0, 3.0, 40.0).addMods("Rate of Fire", 5.0).addMods("Damage", damageAdd = 5.0)
-            .addMods("Golden Bullets", -38.0, 100.0).addMods("Range", rangeAdd = 1.5).attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Makarov (Blockbuster)", 240.0, 240.0, 4.0, 1.3, 12.0, 3.0, 40.0).addMods("Rate of Fire", 5.0).addMods("Damage", damageAdd = 5.0)
-            .addMods("Range", rangeAdd = 1.5).addMods("Blockbuster", 15.0).attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("S&W M&P R8", 275.0, 225.0, 4.25, 1.35, 11.5, 3.1, 50.0).addMods("Range", 1.5, rangeAdd = 3.0)
-            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0).addMods("Rate of Fire", 10.0, rangeAdd = 0.2)
-            .addMods("Spread", 1.5, rangeAdd = 0.2).addMods("Recoil", 1.5, rangeAdd = 0.2).addMods("Aim Speed", 1.5, rangeAdd = 0.2)
-            .addMods("Magazine Capacity", 1.5, rangeAdd = 0.2).addMods("Reload Speed", 1.5, rangeAdd = 0.2).addMods("Switch Speed", 1.5, rangeAdd = 0.2),
-        Weapon("Mateba", 375.0, 158.0, 6.0, 1.25, 18.0, 10.0, 150.0).addMods("Spread", rangeAdd = 1.0).addMods("Aim Speed", rangeAdd = 1.0)
-            .addMods("Switch Speed", rangeAdd = 1.0).addMods("Range", rangeAdd = 6.0).addMods("Damage Drop", rangeAdd = 1.0, damageDropPerMeterAddPercentage = -50.0)
-            .addMods("Reload Speed", rangeAdd = 1.0).addMods("Jump Precision", rangeAdd = 1.0).addMods("Rate of Fire", 10.0, rangeAdd = 1.0).addMods("Recoil", rangeAdd = 1.0),
-        Weapon("H&K VP9 Match", 180.0, 350.0, 3.8, 1.3, 8.0, 3.0, 40.0).addMods("Range", 1.5, rangeAdd = 3.0)
-            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0).addMods("Rate of Fire", 10.0, rangeAdd = 0.2)
-            .addMods("Spread", 1.5, rangeAdd = 0.2).addMods("Recoil", 1.5, rangeAdd = 0.2).addMods("Aim Speed", 1.5, rangeAdd = 0.2)
-            .addMods("Magazine Capacity", 1.5, rangeAdd = 0.2).addMods("Reload Speed", 1.5, rangeAdd = 0.2).addMods("Switch Speed", 1.5, rangeAdd = 0.2)
+        Weapon("M1911A1 (Hide!)", 200.0, 290.0, 6.0, 1.1, 12.0, 3.0, 60.0)
+            .addMods("Hide!", 20.0, 30.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Range", rangeAdd = 2.5)
+            .addMods("Damage", damageAdd = 20.0)
+            .attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("M1911A1 (One is Enough)", 200.0, 290.0, 6.0, 1.1, 12.0, 3.0, 60.0)
+            .addMods("One is Enough", -50.0, 160.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Range", rangeAdd = 2.5)
+            .addMods("Damage", damageAdd = 20.0)
+            .attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("Glock 18c", 108.0, 800.0, 5.0, 1.25, 5.5, 3.75, 28.0)
+            .addMods("Rate of Fire", 10.0, 1.0)
+            .addMods("Damage Drop", 1.0, 1.0, damageDropPerMeterAddPercentage = -25.0)
+            .addMods("Spread", 1.0, 1.0)
+            .addMods("Recoil", 1.0, 1.0)
+            .addMods("Aim Speed", 1.0, 1.0)
+            .addMods("Magazine Capacity", 1.0, 1.0)
+            .addMods("Reload Speed", 1.0, 1.0)
+            .addMods("Range", 1.0, 1.0, rangeAdd = 3.0)
+            .addMods("Switch Speed", 1.0, 1.0)
+            .attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("Makarov (Golden Bullets)", 240.0, 240.0, 4.0, 1.3, 12.0, 3.0, 40.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Damage", damageAdd = 5.0)
+            .addMods("Golden Bullets", -38.0, 100.0)
+            .addMods("Range", rangeAdd = 1.5)
+            .attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("Makarov (Blockbuster)", 240.0, 240.0, 4.0, 1.3, 12.0, 3.0, 40.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Damage", damageAdd = 5.0)
+            .addMods("Range", rangeAdd = 1.5)
+            .addMods("Blockbuster", 15.0)
+            .attachments("Pistol Suppressor", damageDropPerMeterAddPercentage = -20.0),
+        Weapon("S&W M&P R8", 275.0, 225.0, 4.25, 1.35, 11.5, 3.1, 50.0)
+            .addMods("Range", 1.5, rangeAdd = 3.0)
+            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0)
+            .addMods("Rate of Fire", 10.0, rangeAdd = 0.2)
+            .addMods("Spread", 1.5, rangeAdd = 0.2)
+            .addMods("Recoil", 1.5, rangeAdd = 0.2)
+            .addMods("Aim Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Magazine Capacity", 1.5, rangeAdd = 0.2)
+            .addMods("Reload Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Switch Speed", 1.5, rangeAdd = 0.2),
+        Weapon("Mateba", 375.0, 158.0, 6.0, 1.25, 18.0, 10.0, 150.0)
+            .addMods("Spread", rangeAdd = 1.0)
+            .addMods("Aim Speed", rangeAdd = 1.0)
+            .addMods("Switch Speed", rangeAdd = 1.0)
+            .addMods("Range", rangeAdd = 6.0)
+            .addMods("Damage Drop", rangeAdd = 1.0, damageDropPerMeterAddPercentage = -50.0)
+            .addMods("Reload Speed", rangeAdd = 1.0)
+            .addMods("Jump Precision", rangeAdd = 1.0)
+            .addMods("Rate of Fire", 10.0, rangeAdd = 1.0)
+            .addMods("Recoil", rangeAdd = 1.0),
+        Weapon("H&K VP9 Match", 180.0, 350.0, 3.8, 1.3, 8.0, 3.0, 40.0)
+            .addMods("Range", 1.5, rangeAdd = 3.0)
+            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0)
+            .addMods("Rate of Fire", 10.0, rangeAdd = 0.2)
+            .addMods("Spread", 1.5, rangeAdd = 0.2)
+            .addMods("Recoil", 1.5, rangeAdd = 0.2)
+            .addMods("Aim Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Magazine Capacity", 1.5, rangeAdd = 0.2)
+            .addMods("Reload Speed", 1.5, rangeAdd = 0.2)
+            .addMods("Switch Speed", 1.5, rangeAdd = 0.2)
     )
 
     val sniperWeapons: List<Weapon> = listOf(
-        Weapon("FN SCAR Creedmoor", 250.0, 370.0, 5.0, 1.40, 50.0, 1.0, 150.0).addMods("Rate of Fire", fireRateAddPercentage = 25.0).addMods("Spread", 1.5)
-            .addMods("Recoil", 1.5).addMods("Aim Speed", 1.5).addMods("Sway Decrease", 1.5).addMods("Magazine Capacity", 1.5).addMods("Reload Speed", 1.5)
-            .addMods("Switch Speed", 1.5).addMods("Sprint Speed", 1.5),
-        Weapon("AS50", 725.0, 50.0, 5.5, 1.15, 32.0, 150.0, 300.0).addMods("Rate of Fire", 25.0, rangeAdd = 1.0).addMods("Spread", rangeAdd = 1.0)
-            .addMods("Recoil", rangeAdd = 1.0).addMods("Aim Speed", rangeAdd = 1.0).addMods("Sway Decrease", rangeAdd = 1.0).addMods("Magazine Capacity", rangeAdd = 1.0)
-            .addMods("Reload Speed", rangeAdd = 1.0).addMods("Switch Speed", rangeAdd = 1.0).addMods("Sprint Speed", rangeAdd = 1.0),
-        Weapon("ATA Arms Turqua", 725.0, 54.9, 5.0, 1.15, 36.0, 150.0, 400.0).addMods("Rate of Fire (Bolt Action)", 25.0, rangeAdd = 1.0).addMods("Spread", 1.0)
-            .addMods("Recoil", rangeAdd = 1.0).addMods("Aim Speed", rangeAdd = 1.0).addMods("Sway Decrease", rangeAdd = 1.0).addMods("Magazine Capacity", rangeAdd = 1.0)
-            .addMods("Reload Speed", rangeAdd = 1.0).addMods("Switch Speed", rangeAdd = 1.0).addMods("Sprint Speed", rangeAdd = 1.0)
+        Weapon("FN SCAR Creedmoor", 250.0, 370.0, 5.0, 1.40, 50.0, 1.0, 150.0)
+            .addMods("Rate of Fire", fireRateAddPercentage = 25.0)
+            .addMods("Spread", 1.5)
+            .addMods("Recoil", 1.5)
+            .addMods("Aim Speed", 1.5)
+            .addMods("Sway Decrease", 1.5)
+            .addMods("Magazine Capacity", 1.5)
+            .addMods("Reload Speed", 1.5)
+            .addMods("Switch Speed", 1.5)
+            .addMods("Sprint Speed", 1.5),
+        Weapon("AS50", 725.0, 50.0, 5.5, 1.15, 32.0, 150.0, 300.0)
+            .addMods("Rate of Fire", 25.0, rangeAdd = 1.0)
+            .addMods("Spread", rangeAdd = 1.0)
+            .addMods("Recoil", rangeAdd = 1.0)
+            .addMods("Aim Speed", rangeAdd = 1.0)
+            .addMods("Sway Decrease", rangeAdd = 1.0)
+            .addMods("Magazine Capacity", rangeAdd = 1.0)
+            .addMods("Reload Speed", rangeAdd = 1.0)
+            .addMods("Switch Speed", rangeAdd = 1.0)
+            .addMods("Sprint Speed", rangeAdd = 1.0),
+        Weapon("ATA Arms Turqua", 725.0, 54.9, 5.0, 1.15, 36.0, 150.0, 400.0)
+            .addMods("Rate of Fire (Bolt Action)", 25.0, rangeAdd = 1.0)
+            .addMods("Spread", 1.0)
+            .addMods("Recoil", rangeAdd = 1.0)
+            .addMods("Aim Speed", rangeAdd = 1.0)
+            .addMods("Sway Decrease", rangeAdd = 1.0)
+            .addMods("Magazine Capacity", rangeAdd = 1.0)
+            .addMods("Reload Speed", rangeAdd = 1.0)
+            .addMods("Switch Speed", rangeAdd = 1.0)
+            .addMods("Sprint Speed", rangeAdd = 1.0)
             .attachments("XTS MZ 1019XP Knurled Brake Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("McMillan CS5 (Gold)", 725.0, 54.4, 5.0, 1.15, 37.5, 150.0, 400.0).addMods("Rate of Fire (Bolt Action)", 25.0, rangeAdd = 1.0).addMods("Spread", rangeAdd = 1.0)
-            .addMods("Recoil", rangeAdd = 1.0).addMods("Aim Speed", rangeAdd = 1.0).addMods("Sway Decrease", rangeAdd = 1.0).addMods("Magazine Capacity", rangeAdd = 1.0)
-            .addMods("Reload Speed", rangeAdd = 1.0).addMods("Switch Speed", rangeAdd = 1.0).addMods("Sprint Speed", rangeAdd = 1.0),
-        Weapon("AX308", 800.0, 37.43, 5.0, 1.15, 99.0, 1.0, 325.0).addMods("Rate of Fire (Bolt Action)", 15.0),
-        Weapon("PGM Ultima Ratio", 800.0, 35.44, 5.0, 1.15, 70.0, 1.0, 380.0).addMods("Rate of Fire (Bolt Action)", 15.0),
-        Weapon("CheyTac M200", 800.0, 37.67, 5.0, 1.15, 70.0, 1.0, 355.0).addMods("Rate of Fire (Bolt Action)", 15.0),
-        Weapon("Sabatti STR", 800.0, 38.39, 5.0, 1.15, 60.0, 2.0, 355.0).addMods("Damage", damageAdd = 80.0).addMods("Rate of Fire (Bolt-Action", 8.0),
-        Weapon("SVCh-54", 240.0, 320.0, 5.0, 1.15, 50.0, 1.0, 200.0).addMods("Rate of Fire", 5.0).addMods("Body Damage", bodyMultiplierAddPercentage = 10.0)
+        Weapon("McMillan CS5 (Gold)", 725.0, 54.4, 5.0, 1.15, 37.5, 150.0, 400.0)
+            .addMods("Rate of Fire (Bolt Action)", 25.0, rangeAdd = 1.0)
+            .addMods("Spread", rangeAdd = 1.0)
+            .addMods("Recoil", rangeAdd = 1.0)
+            .addMods("Aim Speed", rangeAdd = 1.0)
+            .addMods("Sway Decrease", rangeAdd = 1.0)
+            .addMods("Magazine Capacity", rangeAdd = 1.0)
+            .addMods("Reload Speed", rangeAdd = 1.0)
+            .addMods("Switch Speed", rangeAdd = 1.0)
+            .addMods("Sprint Speed", rangeAdd = 1.0),
+        Weapon("AX308", 800.0, 37.43, 5.0, 1.15, 99.0, 1.0, 325.0)
+            .addMods("Rate of Fire (Bolt Action)", 15.0),
+        Weapon("PGM Ultima Ratio", 800.0, 35.44, 5.0, 1.15, 70.0, 1.0, 380.0)
+            .addMods("Rate of Fire (Bolt Action)", 15.0),
+        Weapon("CheyTac M200", 800.0, 37.67, 5.0, 1.15, 70.0, 1.0, 355.0)
+            .addMods("Rate of Fire (Bolt Action)", 15.0),
+        Weapon("Sabatti STR", 800.0, 38.39, 5.0, 1.15, 60.0, 2.0, 355.0)
+            .addMods("Damage", damageAdd = 80.0)
+            .addMods("Rate of Fire (Bolt-Action", 8.0),
+        Weapon("SVCh-54", 240.0, 320.0, 5.0, 1.15, 50.0, 1.0, 200.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0)
             .addMods("Trinity", -89.0, 560.0),
     )
 
 
     // Todas as precisões estão considerando o Slide como padrão, já que é o comportamento mais comum para o médico.
     val medicWeapons: List<Weapon> = listOf(
-        Weapon("Fabarm P.S.S.10", 621.0, 185.0, 1.5, 1.0, 5.0, 74.7, 207.0, 9, 6.48, 12.24, 5.04, 8.16).attachments(
-            "Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0
-        ),
-        Weapon("Remington 870 RAS", 648.0, 86.89, 1.5, 1.0, 6.5, 72.0, 216.0, 9, 4.8, 10.56, 3.0, 6.6).attachments(
-            "Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0
-        ),
-        Weapon("Sentry 12", 900.0, 90.15, 2.0, 1.0, 6.5, 100.0, 350.0, 10, 4.0, 13.2, 2.5, 9.9).attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
-            .attachments("Sentry 12 Sight", spreadAddPercentage = -20.0),
-        Weapon("Typhoon F12", 1020.0, 200.0, 1.7, 1.05, 4.8, 96.0, 252.0, 12, 5.04, 13.68, 3.6, 5.472).attachments(
-            "Typhoon F12 Special Suppressor", damageDropPerMeterAddPercentage = -20.0
-        ),
-        Weapon("Benelli M2 SP", 816.0, 200.0, 1.5, 1.0, 5.0, 120.0, 312.0, 12, 5.85, 13.05, 5.2, 11.6).attachments(
-            "Benelli M2 SP Suppressor", spreadAddPercentage = -10.0
-        ).attachments("Benelli M2 SP Grip", spreadAddPercentage = -15.0).attachments("Benelli M2 SP Sight", spreadAddPercentage = -10.0),
-        Weapon("Kalashnikov USA KHAOS", 960.0, 120.0, 1.75, 1.15, 4.0, 75.2, 240.0, 8, 3.536, 8.5, 2.184, 5.25).attachments("Sutaev Muzzle Brake", spreadAddPercentage = -6.0),
-        Weapon("Sidewinder Venom", 920.0, 119.92, 1.6, 1.05, 5.0, 80.0, 300.0, 10, 5.184, 10.8, 2.016, 6.0).attachments(
-            "Shotgun Suppressor",
-            damageDropPerMeterAddPercentage = -20.0
-        ).attachments("Venom Wraptor Grip", 8.5, spreadAddPercentage = 11.0, zoomSpreadAddPercentage = 11.0),
-        Weapon("Kalashnikov USA Komrad 12", 852.0, 190.0, 1.42, 1.06, 6.0, 132.0, 240.0, 12, 5.184, 11.52, 2.88, 6.4).attachments(
-            "Shotgun Suppressor", damageDropPerMeterAddPercentage
-            = -20.0
-        ).attachments("Kord Sight", spreadAddPercentage = -20.0),
-        Weapon("GForce Arms Huckleberry", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0, 1, 2.8, 4.0, 0.21, 0.3).attachments("Laser Sight", spreadAddPercentage = -10.0),
-        Weapon("PA Garibaldi 12GA", 1400.0, 122.45, 2.0, 1.15, 5.5, 126.0, 434.0, 14, 2.442, 7.26, 1.665, 4.95).attachments("CCT Muzzle Brake", spreadAddPercentage = -20.0),
-        Weapon("Browning Cynergy CX", 2464.0, 285.0, 2.4, 1.4, 3.0, 252.0, 560.0, 28, 10.8, 14.4, 7.8, 10.4).attachments(
-            "VOMZ Pilad PF 1x25 3 MOA",
-            spreadAddPercentage = -10.0
-        ),
-        Weapon("MAG-7", 1300.0, 123.71, 2.0, 1.22, 5.7, 123.5, 279.5, 13, 3.3, 6.9, 2.75, 5.75).attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Chiappa Triple Threat", 2380.0, 270.0, 2.35, 1.35, 4.0, 229.6, 476.0, 28, 12.15, 15.3, 8.775, 11.05).attachments(
-            "Triple Threat Suppressor",
-            damageDropPerMeterAddPercentage = -20.0, spreadAddPercentage = -20.0
-        ),
-        Weapon("Kalashnikov MP-155 Ultima", 1200.0, 220.0, 1.6, 1.12, 5.5, 103.2, 392.0, 16, 3.68, 8.96, 2.3, 5.6).attachments(
-            "Shotgun Suppressor", damageDropPerMeterAddPercentage
-            = -20.0
-        ),
-        Weapon("Panzer Arms BP-12", 1104.0, 215.0, 1.6, 1.12, 6.0, 96.0, 448.0, 16, 4.64, 8.8, 2.03, 3.85).attachments("Iron Sight", spreadAddPercentage = -20.0),
-        Weapon("USAS-12", 1120.0, 285.0, 1.7, 1.12, 5.0, 96.0, 416.0, 16, 6.6, 10.8, 4.4, 7.2).attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        Weapon("Winchester SXP", 2000.0, 92.31, 2.5, 1.6, 5.5, 190.0, 350.0, 20, 10.2, 14.76, 9.36, 12.96).attachments(
-            "Winchester SXP Choke",
-            damageDropPerMeterAddPercentage = 20.0
-        ),
-        Weapon("Saiga Bullpup", 1200.0, 220.0, 1.7, 1.15, 5.5, 144.0, 320.0, 16, 4.55, 6.3, 1.625, 2.25).attachments(
-            "Shotgun Suppressor", damageDropPerMeterAddPercentage =
-                -20.0
-        ),
-        Weapon("Marlin 1894 Custom", 750.0, 113.21, 3.0, 1.15, 11.0, 135.0, 200.0, 1, 3.6, 10.8, 0.04, 0.12).attachments(
-            "Shotgun Suppressor",
-            damageDropPerMeterAddPercentage = -20.0
-        ),
-        Weapon("Kral Arms Compact", 1246.0 * 2, 130.0, 2.35, 1.55, 4.6, 115.5, 266.0, 14, 6.86, 12.6, 7.35, 13.5).attachments(
-            "Truglo Titan Choke",
-            damageDropPerMeterAddPercentage = -10.0, rangeAdd = 0.5
-        ).attachments("Ryker Grip", spreadAddPercentage = -12.0),
-        Weapon("Kel-Tec KSG", 1980.0, 93.23, 2.5, 1.6, 6.0, 184.0, 360.0, 20, 9.676, 13.12, 9.44, 12.8).attachments(
-            "Shotgun Suppressor",
-            damageDropPerMeterAddPercentage = -20.0
-        ),
-        Weapon("Winchester 1887", 1887.0, 105.26, 2.5, 1.87, 4.0, 187.0, 320.79, 17, 6.4, 8.0, 6.0, 7.5),
-        Weapon("PA EG240", 1188.0, 205.0, 1.6, 1.15, 5.4, 122.4, 450.0, 18, 5.25, 8.25, 2.8, 4.4).attachments(
-            "GG TD F12 Muzzle Brake", damageDropPerMeterAddPercentage =
-                -10.0, rangeAdd = 0.5
-        ),
-        Weapon("Fabarm XLR5 Prestige", 1190.0, 222.0, 1.6, 1.15, 5.5, 113.22, 493.0, 17, 4.8, 9.6, 2.1, 4.2).attachments(
-            "Shotgun Suppressor",
-            damageDropPerMeterAddPercentage = -20.0
-        )
+        Weapon("Fabarm P.S.S.10 (Full Control)", 621.0, 185.0, 1.5, 1.0, 5.0, 74.7, 207.0, 9, 6.48, 12.24, 5.04, 8.16)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Full Control", 30.0)
+            .addMods("Damage", damageAdd = 9.0, spreadAddPercentage = 12.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 10.0)
+            .addMods("Spread", spreadAddPercentage = -40.0)
+            .addMods("Sprint Speed", -10.0),
+        Weapon("Fabarm P.S.S.10 (Trauma Shells)", 621.0, 185.0, 1.5, 1.0, 5.0, 74.7, 207.0, 9, 6.48, 12.24, 5.04, 8.16)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Trauma Shells", -30.0, 18.0, spreadAddPercentage = -20.0)
+            .addMods("Damage", damageAdd = 9.0, spreadAddPercentage = 12.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 10.0)
+            .addMods("Spread", spreadAddPercentage = -40.0)
+            .addMods("Sprint Speed", -10.0),
+        Weapon("Remington 870 RAS (Lightweight Mechanism)", 648.0, 86.89, 1.5, 1.0, 6.5, 72.0, 216.0, 9, 4.8, 10.56, 3.0, 6.6)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Lightweight Mechanism", 25.0)
+            .addMods("Damage", damageAdd = 27.0, spreadAddPercentage = 10.0, damageDropPerMeterAddPercentage = 20.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 15.0, spreadAddPercentage = 5.0)
+            .addMods("Spread", spreadAddPercentage = -35.0, damageDropPerMeterAddPercentage = 8.0)
+            .addMods("Sprint Speed", spreadAddPercentage = 10.0),
+        Weapon("Sentry 12 (Lead Slug)", 900.0, 90.15, 2.0, 1.0, 6.5, 100.0, 350.0, 10, 4.0, 13.2, 2.5, 9.9)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .attachments("Sentry 12 Sight", spreadAddPercentage = -20.0)
+            .addMods(
+                "Lead Slug",
+                pellets = 1,
+                damageAdd = 510.0,
+                minDamageAdd = 165.0,
+                rangeAdd = 2.0,
+                spreadAddPercentage = -35.0,
+                zoomSpreadAddPercentage = -70.0,
+                damageDropPerMeterAddPercentage = 31.0,
+                fireRateAddPercentage = -10.0
+            ).addMods("Damage", damageAdd = 10.0, damageDropPerMeterAddPercentage = 10.0, spreadAddPercentage = 10.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 10.0, spreadAddPercentage = 5.0)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageDropPerMeterAddPercentage = 8.0)
+            .addMods("Sprint Speed", spreadAddPercentage = 10.0),
+        Weapon("Sentry 12 (Small Fraction)", 900.0, 90.15, 2.0, 1.0, 6.5, 100.0, 350.0, 10, 4.0, 13.2, 2.5, 9.9)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .attachments("Sentry 12 Sight", spreadAddPercentage = -20.0)
+            .addMods("Small Fraction", 28.6)
+            .addMods("Damage", damageAdd = 10.0, damageDropPerMeterAddPercentage = 10.0, spreadAddPercentage = 10.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 10.0, spreadAddPercentage = 5.0)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageDropPerMeterAddPercentage = 8.0)
+            .addMods("Sprint Speed", spreadAddPercentage = 10.0),
+        Weapon("Typhoon F12 (Assault!)", 1020.0, 200.0, .7, 1.05, 4.8, 96.0, 252.0, 12, 5.04, 13.68, 3.6, 5.472)
+            .attachments("Typhoon F12 Special Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Assault!", 120.0, -24.0)
+            .addMods("Range", rangeAdd = 2.2, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 10.0)
+            .addMods("Spread", spreadAddPercentage = -40.0)
+            .addMods("Magazine Capacity", spreadAddPercentage = 5.0)
+            .addMods("Sprint Speed", -10.0),
+        Weapon("Typhoon F12 (Aimed Fire)", 1020.0, 200.0, 1.7, 1.05, 4.8, 96.0, 252.0, 12, 5.04, 13.68, 3.6, 5.472)
+            .attachments("Typhoon F12 Special Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Aimed Fire", -40.0, 13.0, spreadAddPercentage = -18.0)
+            .addMods("Range", rangeAdd = 2.2, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 10.0)
+            .addMods("Spread", spreadAddPercentage = -40.0)
+            .addMods("Magazine Capacity", spreadAddPercentage = 5.0)
+            .addMods("Sprint Speed", -10.0),
+        Weapon("Benelli M2 SP (Aimed Fire)", 816.0, 200.0, 1.5, 1.0, 5.0, 120.0, 312.0, 12, 5.85, 13.05, 5.2, 11.6)
+            .attachments("Benelli M2 SP Suppressor", spreadAddPercentage = -10.0)
+            .attachments("Benelli M2 SP Grip", spreadAddPercentage = -15.0)
+            .attachments("Benelli M2 SP Sight", spreadAddPercentage = -10.0)
+            .addMods("Aimed Fire", -35.0, 22.0, minDamageAdd = 4.0, spreadAddPercentage = -10.0, pelletsAdd = -2)
+            .addMods("Damage", damageAdd = 4.0, spreadAddPercentage = 6.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 5.0, spreadAddPercentage = 5.0)
+            .addMods("Spread", spreadAddPercentage = -12.0),
+        Weapon("Benelli M2 SP (For Change!)", 816.0, 200.0, 1.5, 1.0, 5.0, 120.0, 312.0, 12, 5.85, 13.05, 5.2, 11.6)
+            .attachments("Benelli M2 SP Suppressor", spreadAddPercentage = -10.0)
+            .attachments("Benelli M2 SP Grip", spreadAddPercentage = -15.0)
+            .attachments("Benelli M2 SP Sight", spreadAddPercentage = -10.0)
+            .addMods("For Change!", pelletsAdd = 8, damageAdd = -22.0, minDamageAdd = -2.0, rangeAdd = -1.0, spreadAddPercentage = 40.0)
+            .addMods("Damage", damageAdd = 4.0, spreadAddPercentage = 6.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 5.0, spreadAddPercentage = 5.0)
+            .addMods("Spread", spreadAddPercentage = -12.0),
+        Weapon("Kalashnikov USA KHAOS (Weighty Answer)", 960.0, 120.0, 1.75, 1.15, 4.0, 75.2, 240.0, 8, 3.536, 8.5, 2.184, 5.25)
+            .attachments("Sutaev Muzzle Brake", spreadAddPercentage = -6.0)
+            .addMods("Weighty Answer", damageAdd = 938.0, spreadAddPercentage = -20.0, rangeAdd = -0.75)
+            .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 8.0)
+            .addMods("Spread and Range", rangeAdd = 0.6, spreadAddPercentage = -18.0),
+        Weapon("Kalashnikov USA KHAOS (Trickster)", 960.0, 120.0, 1.75, 1.15, 4.0, 75.2, 240.0, 8, 3.536, 8.5, 2.184, 5.25)
+            .attachments("Sutaev Muzzle Brake", spreadAddPercentage = -6.0)
+            .addMods("Trickster", spreadAddPercentage = -20.0)
+            .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 8.0)
+            .addMods("Spread and Range", rangeAdd = 0.6, spreadAddPercentage = -18.0),
+        Weapon("Sidewinder Venom (Weighted Slug)", 920.0, 119.92, 1.6, 1.05, 5.0, 80.0, 300.0, 10, 5.184, 10.8, 2.016, 6.0)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .attachments("Venom Wraptor Grip", 8.5, spreadAddPercentage = 11.0, zoomSpreadAddPercentage = 11.0)
+            .addMods(
+                "Weighted Slug",
+                pellets = 1,
+                damageAdd = 600.0,
+                minDamageAdd = 165.0,
+                spreadAddPercentage = -70.0,
+                zoomSpreadAddPercentage = -70.0,
+                damageDropPerMeterAddPercentage = 45.0
+            )
+            .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 8.0)
+            .addMods("Spread and Range", rangeAdd = 0.6, spreadAddPercentage = -18.0),
+        Weapon("Sidewinder Venom (Trickster)", 920.0, 119.92, 1.6, 1.05, 5.0, 80.0, 300.0, 10, 5.184, 10.8, 2.016, 6.0)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .attachments("Venom Wraptor Grip", 8.5, spreadAddPercentage = 11.0, zoomSpreadAddPercentage = 11.0)
+            .addMods("Trickster", spreadAddPercentage = -20.0)
+            .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 8.0)
+            .addMods("Spread and Range", rangeAdd = 0.6, spreadAddPercentage = -18.0),
+        Weapon("Kalashnikov USA Komrad 12 (Unhinged)", 852.0, 190.0, 1.42, 1.06, 6.0, 132.0, 240.0, 12, 5.184, 11.52, 2.88, 6.4)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .attachments("Kord Sight", spreadAddPercentage = -20.0)
+            .addMods("Unhinged", 100.0, -28.0, minDamageAdd = -4.0, spreadAddPercentage = 40.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 6.0, spreadAddPercentage = 6.0)
+            .addMods("Spread", spreadAddPercentage = -20.0),
+        Weapon("Kalashnikov USA Komrad 12 (For All Money)", 852.0, 190.0, 1.42, 1.06, 6.0, 132.0, 240.0, 12, 5.184, 11.52, 2.88, 6.4)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .attachments("Kord Sight", spreadAddPercentage = -20.0)
+            .addMods("For All Money", pelletsAdd = 4, damageAdd = -4.5, spreadAddPercentage = 20.0)
+            .addMods("Unhinged", 100.0, -28.0, minDamageAdd = -4.0, spreadAddPercentage = 40.0)
+            .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
+            .addMods("Rate of Fire", 6.0, spreadAddPercentage = 6.0)
+            .addMods("Spread", spreadAddPercentage = -20.0),
+        Weapon("GForce Arms Huckleberry (Packed Shells)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0, 1, 2.8, 4.0, 0.21, 0.3)
+            .attachments("Laser Sight", spreadAddPercentage = -10.0)
+            .addMods("Packed Shells", pellets = 10, damageDropPerMeterAddPercentage = -75.0, damageAdd = -692.0, minDamageAdd = -200.0, zoomSpreadAddPercentage = 700.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 8.0)
+            .addMods("Spread adn Range", rangeAdd = 1.5, spreadAddPercentage = -18.0),
+        Weapon("GForce Arms Huckleberry (Lightweight Ammo)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0, 1, 2.8, 4.0, 0.21, 0.3)
+            .attachments("Laser Sight", spreadAddPercentage = -10.0)
+            .addMods("Lightweight Ammo", 60.0, damageAdd = -300.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 8.0)
+            .addMods("Spread adn Range", rangeAdd = 1.5, spreadAddPercentage = -18.0),
+        Weapon("PA Garibaldi 12GA (Clarity of Actions)", 1400.0, 122.45, 2.0, 1.15, 5.5, 126.0, 434.0, 14, 2.442, 7.26, 1.665, 4.95)
+            .attachments("CCT Muzzle Brake", spreadAddPercentage = -20.0)
+            .addMods("Clarity of Actions", 16.0)
+            .addMods("Rate of Fire", 12.5, spreadAddPercentage = 5.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 6.0)
+            .addMods("Spread and Range", rangeAdd = 0.8, spreadAddPercentage = -10.0),
+        Weapon("PA Garibaldi 12GA (Trickster)", 1400.0, 122.45, 2.0, 1.15, 5.5, 126.0, 434.0, 14, 2.442, 7.26, 1.665, 4.95)
+            .attachments("CCT Muzzle Brake", spreadAddPercentage = -20.0)
+            .addMods("Trickster", spreadAddPercentage = -15.0)
+            .addMods("Rate of Fire", 12.5, spreadAddPercentage = 5.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 6.0)
+            .addMods("Spread and Range", rangeAdd = 0.8, spreadAddPercentage = -10.0),
+        Weapon("Browning Cynergy CX", 2464.0, 285.0, 2.4, 1.4, 3.0, 252.0, 560.0, 28, 10.8, 14.4, 7.8, 10.4)
+            .attachments("VOMZ Pilad PF 1x25 3 MOA", spreadAddPercentage = -10.0)
+            .addMods("Range", rangeAdd = 2.0)
+            .addMods("Rate of Fire", 30.0)
+            .addMods("Spread", spreadAddPercentage = -15.0),
+        Weapon("MAG-7", 1300.0, 123.71, 2.0, 1.22, 5.7, 123.5, 279.5, 13, 3.3, 6.9, 2.75, 5.75)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Damage", damageAdd = 2.0 * 13)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = 0.5 * 13)
+            .addMods("Rate of Fire", 12.0, damageAdd = 0.5 * 13)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = 0.5 * 13)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = 0.5 * 13)
+            .addMods("Recoil", damageAdd = 0.5 * 13)
+            .addMods("Aim Speed", damageAdd = 0.5 * 13)
+            .addMods("Reload Speed", damageAdd = 0.5 * 13)
+            .addMods("Switch Speed", damageAdd = 0.5 * 13),
+        Weapon("Chiappa Triple Threat", 2380.0, 270.0, 2.35, 1.35, 4.0, 229.6, 476.0, 28, 12.15, 15.3, 8.775, 11.05)
+            .attachments("Triple Threat Suppressor", damageDropPerMeterAddPercentage = -20.0, spreadAddPercentage = -20.0)
+            .addMods("Range", 1.25, rangeAdd = 1.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Spread", 1.25, spreadAddPercentage = -15.0)
+            .addMods("Jump Accuracy", 1.25)//, spreadAddPercentage = -10.0)
+            .addMods("Slide Accuracy", 1.25, spreadAddPercentage = -10.0)
+            .addMods("Recoil", 1.25)
+            .addMods("Aim Speed", 1.25)
+            .addMods("Reload", 1.25)
+            .addMods("Switch Speed", 1.25),
+        Weapon("Kalashnikov MP-155 Ultima", 1200.0, 220.0, 1.6, 1.12, 5.5, 103.2, 392.0, 16, 3.68, 8.96, 2.3, 5.6)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Damage", damageAdd = 1.0 * 16)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .25 * 16)
+            .addMods("Rate of Fire", 15.0, damageAdd = .25 * 16)
+            .addMods("Spread", damageAdd = .25 * 16, spreadAddPercentage = -15.0)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = 0.25 * 16)
+            .addMods("Recoil", damageAdd = .25 * 16)
+            .addMods("Aim Speed", .25 * 16)
+            .addMods("Reload Speed", .25 * 16)
+            .addMods("Switch Speed", damageAdd = .25 * 16),
+        Weapon("Panzer Arms BP-12", 1104.0, 215.0, 1.6, 1.12, 6.0, 96.0, 448.0, 16, 4.64, 8.8, 2.03, 3.85)
+            .attachments("Iron Sight", spreadAddPercentage = -20.0)
+            .addMods("Damage", damageAdd = 1.0 * 16)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .25 * 16)
+            .addMods("Rate of Fire", 15.0, .25 * 16)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .25 * 16)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = 0.25 * 16)
+            .addMods("Recoil", damageAdd = .25 * 16)
+            .addMods("Aim Speed", damageAdd = .25 * 16)
+            .addMods("Reload Speed", damageAdd = .25 * 16)
+            .addMods("Switch Speed", damageAdd = .25 * 16),
+        Weapon("USAS-12", 1120.0, 285.0, 1.7, 1.12, 5.0, 96.0, 416.0, 16, 6.6, 10.8, 4.4, 7.2)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Damage", damageAdd = 1.0 * 16)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .25 * 16)
+            .addMods("Rate of Fire", 15.0, .25 * 16)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .25 * 16)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = .25 * 16)
+            .addMods("Recoil", damageAdd = .25 * 16)
+            .addMods("Aim Speed", damageAdd = .25 * 16)
+            .addMods("Reload Speed", damageAdd = .25 * 16)
+            .addMods("Switch Speed", damageAdd = .25 * 16),
+        Weapon("Winchester SXP", 2000.0, 92.31, 2.5, 1.6, 5.5, 190.0, 350.0, 20, 10.2, 14.76, 9.36, 12.96)
+            .attachments("Winchester SXP Choke", damageDropPerMeterAddPercentage = 20.0)
+            .addMods("Damage", damageAdd = 2.0 * 20)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .5 * 20)
+            .addMods("Rate of Fire", 12.0, damageAdd = .5 * 20)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .5 * 20)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = .5 * 20)
+            .addMods("Recoil", damageAdd = .5 * 20)
+            .addMods("Aim Speed", damageAdd = .5 * 20)
+            .addMods("Reload Speed", .5 * 20)
+            .addMods("Switch Speed", damageAdd = .5 * 20),
+        Weapon("Saiga Bullpup", 1200.0, 220.0, 1.7, 1.15, 5.5, 144.0, 320.0, 16, 4.55, 6.3, 1.625, 2.25)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Damage", damageAdd = 1.0 * 16)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .25 * 16)
+            .addMods("Rate of Fire", 15.0, .25 * 16)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .25 * 16)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = .25 * 16)
+            .addMods("Recoil", damageAdd = .25 * 16)
+            .addMods("Aim Speed", damageAdd = .25 * 16)
+            .addMods("Reload Speed", .25 * 16)
+            .addMods("Switch Speed", damageAdd = .25 * 16),
+        Weapon("Marlin 1894 Custom", 750.0, 113.21, 3.0, 1.15, 11.0, 135.0, 200.0, 1, 3.6, 10.8, 0.04, 0.12)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Range", 1.5, rangeAdd = 2.0)
+            .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0)
+            .addMods("Rate of Fire", 12.0, rangeAdd = .2)
+            .addMods("Spread", 1.5, spreadAddPercentage = -15.0, rangeAdd = .2)
+            .addMods("Slide Accuracy", 1.5, spreadAddPercentage = -10.0, rangeAdd = .2)
+            .addMods("Recoil", 1.5, rangeAdd = .2)
+            .addMods("Aim Speed", 1.5, rangeAdd = .2)
+            .addMods("Reload Speed", 1.5, rangeAdd = .2)
+            .addMods("Switch Speed", 1.5, rangeAdd = .2),
+        Weapon("Kral Arms Compact", 1246.0 * 2, 130.0, 2.35, 1.55, 4.6, 115.5, 266.0, 14, 6.86, 12.6, 7.35, 13.5)
+            .attachments("Truglo Titan Choke", damageDropPerMeterAddPercentage = -10.0, rangeAdd = 0.5)
+            .attachments("Ryker Grip", spreadAddPercentage = -12.0)
+            .addMods("Range", 1.25, 0.35 * 14, rangeAdd = 1.0)
+            .addMods("Rate of Fire", 20.0, damageAdd = .35 * 14)
+            .addMods("Spread", 1.25, .35 * 14, spreadAddPercentage = -15.0)
+            .addMods("Jump Accuracy", 1.25, .35 * 14, spreadAddPercentage = -10.0)
+            .addMods("Recoil", 1.25, .35 * 14)
+            .addMods("Aim Speed", 1.25, .35 * 14)
+            .addMods("Magazine Capacity", 1.25, .35 * 14)
+            .addMods("Reload Speed", 1.25, .35 * 14)
+            .addMods("Switch Speed", 1.25, .35 * 14),
+        Weapon("Kel-Tec KSG", 1980.0, 93.23, 2.5, 1.6, 6.0, 184.0, 360.0, 20, 9.676, 13.12, 9.44, 12.8)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Damage", damageAdd = 2.0 * 20)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .5 * 20)
+            .addMods("Rate of Fire", 12.0, damageAdd = .5 * 20)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .5 * 20)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = .5 * 20)
+            .addMods("Recoil", damageAdd = .5 * 20)
+            .addMods("Aim Speed", damageAdd = .5 * 20)
+            .addMods("Reload Speed", damageAdd = .5 * 20)
+            .addMods("Switch Speed", .5 * 20),
+        Weapon("Winchester 1887", 1887.0, 105.26, 2.5, 1.87, 4.0, 187.0, 320.79, 17, 6.4, 8.0, 6.0, 7.5)
+            .addMods("Damage", damageAdd = 2.0 * 17)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .5 * 17)
+            .addMods("Rate of Fire", 12.0, damageAdd = .5 * 17)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .5 * 17)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = .5 * 17)
+            .addMods("Recoil", damageAdd = .5 * 17)
+            .addMods("Aim Speed", damageAdd = .5 * 17)
+            .addMods("Reload Speed", damageAdd = .5 * 17)
+            .addMods("Switch Speed", damageAdd = .5 * 17),
+        Weapon("PA EG240", 1188.0, 205.0, 1.6, 1.15, 5.4, 122.4, 450.0, 18, 5.25, 8.25, 2.8, 4.4)
+            .attachments("GG TD F12 Muzzle Brake", damageDropPerMeterAddPercentage = -10.0, rangeAdd = 0.5)
+            .addMods("Damage", 1.0 * 18)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .25 * 18)
+            .addMods("Rate of Fire", 15.0, damageAdd = .25 * 18)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .25 * 18)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = .25 * 18)
+            .addMods("Recoil", damageAdd = .25 * 18)
+            .addMods("Aim Speed", damageAdd = .25 * 18)
+            .addMods("Reload Speed", damageAdd = .25 * 18)
+            .addMods("Switch Speed", damageAdd = .25 * 18),
+        Weapon("Fabarm XLR5 Prestige", 1190.0, 222.0, 1.6, 1.15, 5.5, 113.22, 493.0, 17, 4.8, 9.6, 2.1, 4.2)
+            .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Damage", damageAdd = 1.0 * 17)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .25 * 17)
+            .addMods("Rate of Fire", 15.0, damageAdd = .25 * 17)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .25 * 17)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = .25 * 17)
+            .addMods("Recoil", damageAdd = .25 * 17)
+            .addMods("Aim Speed", damageAdd = .25 * 17)
+            .addMods("Reload Speed", damageAdd = .25 * 17)
+            .addMods("Switch Speed", damageAdd = .25 * 17)
     )
 }

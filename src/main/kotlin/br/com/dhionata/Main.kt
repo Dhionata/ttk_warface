@@ -32,6 +32,7 @@ fun main() {
         WeaponRepository.fuzileiroWeapons.forEach { it.set = set }
         WeaponRepository.engenheiroWeapons.forEach { it.set = set }
         WeaponRepository.sniperWeapons.forEach { it.set = set }
+        WeaponRepository.medicWeapons.forEach { it.set = set }
         WeaponRepository.pistolas.forEach { it.set = set }
         WeaponPresenter.printDetailedAllWeaponsInfo(
             WeaponRepository.fuzileiroWeapons,

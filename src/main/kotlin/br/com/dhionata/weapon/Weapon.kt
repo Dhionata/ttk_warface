@@ -15,7 +15,7 @@ data class Weapon(
     var range: Double,
     var damageDropPerMeter: Double,
     var minDamage: Double,
-    val pellets: Int = 1,
+    var pellets: Int = 1,
     var spreadMin: Double = 0.0,
     var spreadMax: Double = 0.0,
     var zoomSpreadMin: Double = 0.0,
@@ -98,6 +98,9 @@ data class Weapon(
         damageDropPerMeterAddPercentage: Double? = null,
         spreadAddPercentage: Double? = null,
         zoomSpreadAddPercentage: Double? = null,
+        pellets: Int? = null,
+        pelletsAdd: Int? = null,
+        minDamageAdd: Double? = null,
     ): Weapon {
         addMods(
             name,
@@ -108,7 +111,10 @@ data class Weapon(
             rangeAdd,
             damageDropPerMeterAddPercentage,
             spreadAddPercentage,
-            zoomSpreadAddPercentage
+            zoomSpreadAddPercentage,
+            pellets,
+            pelletsAdd,
+            minDamageAdd
         )
 
         return this
@@ -128,7 +134,24 @@ data class Weapon(
         damageDropPerMeterAddPercentage: Double? = null,
         spreadAddPercentage: Double? = null,
         zoomSpreadAddPercentage: Double? = null,
+        pellets: Int? = null,
+        pelletsAdd: Int? = null,
+        minDamageAdd: Double? = null,
     ): Weapon {
+        if (pellets != null) {
+            // Se o número de pellets mudar, ajustamos o dano base para refletir o dano por pellet antigo
+            if (this.pellets > 0) {
+                this.damage = this.damage / this.pellets * pellets
+            }
+            this.pellets = pellets
+        }
+
+        if (pelletsAdd != null && this.pellets > 1) {
+            val newPellets = this.pellets + pelletsAdd
+            this.damage = this.damage / this.pellets * newPellets
+            this.pellets = newPellets
+        }
+
         if (fireRateAddPercentage != null) {
             _fireRate += _fireRate * fireRateAddPercentage / 100.0
         }
@@ -154,6 +177,9 @@ data class Weapon(
         if (zoomSpreadAddPercentage != null) {
             zoomSpreadMin += zoomSpreadMin * (zoomSpreadAddPercentage / 100.0)
             zoomSpreadMax += zoomSpreadMax * (zoomSpreadAddPercentage / 100.0)
+        }
+        if (minDamageAdd != null) {
+            this.minDamage += minDamageAdd
         }
 
         updateTTK()
