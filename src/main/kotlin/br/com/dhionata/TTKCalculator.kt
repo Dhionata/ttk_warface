@@ -1,112 +1,192 @@
 package br.com.dhionata
 
 import br.com.dhionata.weapon.Weapon
+import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
 object TTKCalculator {
 
-    private fun calculateDamageInt(
-        weaponDamage: Double,
+    // Constantes para simulação de alvo (em metros)
+    private const val HEAD_RADIUS = 0.15
+    private const val BODY_RADIUS = 0.35
+
+    /**
+     * Calcula o dano de UM ÚNICO projétil/pellet.
+     * Retorna Double para manter precisão antes da soma total.
+     */
+    private fun calculateSinglePelletDamage(
+        weaponDamagePerPellet: Double, // Dano total da arma / numero de pellets
         damageMultiplier: Double,
         absorption: Double,
-        pellets: Int = 1,
+        pellets: Int,
         resistance: Double,
         weaponTypeResistance: Double,
-    ): Int {
-        val effectiveAbsorption = absorption / pellets
-        val baseDamage = weaponDamage * damageMultiplier - effectiveAbsorption
-        if (baseDamage <= 0) return 0
-        val finalDamage = baseDamage * (1 - resistance) * (1 - weaponTypeResistance)
-        return finalDamage.roundToInt()
+    ): Double {
+        // Regra da Wiki: Absorption é dividida pelo número de pellets
+        val effectiveAbsorption = absorption / pellets.toDouble()
+
+        val baseDamage = (weaponDamagePerPellet * damageMultiplier) - effectiveAbsorption
+
+        if (baseDamage <= 0) return 0.0
+
+        return baseDamage * (1 - resistance) * (1 - weaponTypeResistance)
     }
 
+    // Fator de conversão: Quanto 1 ponto de Spread abre o cone em metros por metro de distância.
+    // Ajuste este valor para calibrar a "realidade" do jogo.
+    // 0.014 é um valor empírico para Warface.
+    private const val SPREAD_FACTOR = 1
+
+    private fun calculateHitRate(
+        distance: Double,
+        spread: Double,
+        isHeadshot: Boolean,
+    ): Double {
+        if (distance <= 1.5) return 1.0 // Até 1.5m consideramos acerto total (cano no peito)
+        if (spread <= 0.0) return 1.0
+
+        // Cálculo do raio do cone de dispersão nessa distância
+        val spreadRadius = distance * (spread * SPREAD_FACTOR)
+
+        // Raio do alvo (Cabeça ou Corpo)
+        val targetRadius = if (isHeadshot) HEAD_RADIUS else BODY_RADIUS
+
+        // Se o alvo é maior que o espalhamento, 100% dos pellets acertam
+        if (targetRadius >= spreadRadius) return 1.0
+
+        // Se o espalhamento é maior, calculamos a proporção
+        val hitRatio = (targetRadius * targetRadius) / (spreadRadius * spreadRadius)
+
+        return min(1.0, max(0.0, hitRatio))
+    }
+
+    /**
+     * Função Principal: Retorna o número de TIROS (cliques) para matar.
+     * Retorna INT, como no seu código original.
+     */
     fun bulletsToKillWithProtectionInt(
         weapon: Weapon,
         isHeadshot: Boolean = false,
         debug: Boolean = false,
         distance: Double = 0.0,
     ): Int {
-        var remainingArmor = weapon.set.armor
-        var remainingHealth = weapon.set.hp
-        var shots = 0
+        // Dados do Alvo
+        var remainingArmor = weapon.set.armor.toDouble()
+        var remainingHealth = weapon.set.hp.toDouble()
 
+        // Multiplicadores
         val equipmentProtection = if (isHeadshot) weapon.set.headProtection else weapon.set.bodyProtection
-
         val damageMultiplier =
             ((if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier) * weapon.set.entityDmgMult * (1 + weapon.set.cyborgDmgBuff)) - equipmentProtection
 
+        // Dano Base na Distância
         val effectiveDamage = if (distance > 0) weapon.getEffectiveDamage(distance) else weapon.damage
 
-        // Cálculo de dano por pellet
-        val damagePerPellet = effectiveDamage / weapon.pellets
-        
-        // Calcula o dano de UM pellet. Passamos pellets=1 para que a absorção seja aplicada integralmente a este pellet.
-        val singlePelletDamage = calculateDamageInt(
-            damagePerPellet, 
-            damageMultiplier, 
-            weapon.set.absorption, 
-            pellets = 1, 
-            resistance = weapon.set.resistance, 
-            weaponTypeResistance = weapon.set.weaponTypeResistance
+        // --- Lógica Diferenciada: Shotgun vs Rifle ---
+        val totalPellets = weapon.pellets
+        val damagePerPellet = effectiveDamage / totalPellets
+
+        // 1. Calcula dano de 1 pellet sofrendo absorção (Absorção / QuantidadePellets)
+        val singlePelletDamage = calculateSinglePelletDamage(
+            damagePerPellet,
+            damageMultiplier,
+            weapon.set.absorption,
+            totalPellets,
+            weapon.set.resistance,
+            weapon.set.weaponTypeResistance
         )
-        
-        // O dano final é a soma do dano de todos os pellets
-        val finalDamage = singlePelletDamage * weapon.pellets
 
-        if (finalDamage <= 0) return Int.MAX_VALUE // Retorna um número alto se o dano for zero ou negativo
+        // 2. Define quantos pellets acertam
+        // Se for arma de 1 bala (Rifle, SMG, Slug), HitRate é sempre 1.0 (comportamento original)
+        // Se for Shotgun, calcula baseado na dispersão.
+        val hitRate = if (totalPellets > 1) {
+            val spreadVal = if (distance == 0.0) weapon.spreadMin else weapon.hipAccuracy.toDouble()
+            val usedSpread = if (weapon.zoomSpreadMin > 0 && weapon.zoomSpreadMin < weapon.spreadMin) weapon.zoomSpreadMin else weapon.spreadMin
+            calculateHitRate(distance, usedSpread, isHeadshot)
+        } else {
+            1.0
+        }
 
-        val armorDamage = (finalDamage * 80) / 100
-        val healthDamage = finalDamage - armorDamage
+        // Dano total do disparo (soma dos pellets que acertaram)
+        val finalDamagePerShot = (singlePelletDamage * totalPellets * hitRate).roundToInt()
+
+        if (finalDamagePerShot <= 0) return Int.MAX_VALUE
+
+        // --- Simulação dos Tiros ---
+        var shots = 0
+
+        // Definição de absorção da armadura (Geralmente 80%, exceto SEDs 99% ou casos raros)
+        val armorAbsorptionRatio = if (weapon.name.contains("SED", true)) 0.99 else 0.80
 
         while (remainingHealth > 0) {
-            if (debug) {
-                println("------------------------------")
-                println("Arma: ${weapon.name} @ ${distance}m")
-                println(if (isHeadshot) "Headshot" else "Corpo")
-                println("Tiro ${shots + 1}:")
-                println(" - Dano Efetivo da Arma: $effectiveDamage")
-                println(" - Pellets: ${weapon.pellets}")
-                println(" - Dano por Pellet: $singlePelletDamage")
-                println(" - Dano Total (arredondado): $finalDamage")
-                println(" - Dano à Armadura: $armorDamage")
-                println(" - Dano à Saúde: $healthDamage")
-                println(" - Armadura Antes do Tiro: $remainingArmor")
-                println(" - Saúde Antes do Tiro: $remainingHealth")
-            }
-
-            remainingArmor -= armorDamage
-            if (remainingArmor < 0) {
-                remainingHealth += remainingArmor
-                remainingArmor = 0
-            }
-
-            remainingHealth -= healthDamage
-
-            if (debug) {
-                println(" - Armadura Após o Tiro: $remainingArmor")
-                println(" - Saúde Após o Tiro: $remainingHealth")
-                println("------------------------------")
-            }
             shots++
+
+            // Verifica se ainda tem armadura para absorver o tiro ATUAL
+            val currentShotArmorDamage: Int
+            val currentShotHealthDamage: Int
+
+            if (remainingArmor > 0) {
+                // Tem armadura: Aplica a regra 80/20
+                val absorbAmount = (finalDamagePerShot * armorAbsorptionRatio).roundToInt()
+
+                // Se o dano à armadura for maior que a armadura restante, o excedente NÃO vai pra vida (regra padrão Warface simples),
+                // mas a armadura zera. O tiro seguinte pegará na carne.
+                if (remainingArmor - absorbAmount < 0) {
+                    currentShotArmorDamage = remainingArmor.toInt() // Quebra a armadura toda
+                    // O dano à vida é os 20% fixos + (opcionalmente) o excedente se a mecânica for penetration
+                    // Vamos manter o padrão: recebe o dano de HP calculado originalmente
+                    currentShotHealthDamage = finalDamagePerShot - absorbAmount
+                } else {
+                    currentShotArmorDamage = absorbAmount
+                    currentShotHealthDamage = finalDamagePerShot - absorbAmount
+                }
+            } else {
+                // Sem armadura: 100% dano na vida
+                currentShotArmorDamage = 0
+                currentShotHealthDamage = finalDamagePerShot
+            }
+
+            remainingArmor -= currentShotArmorDamage
+            if (remainingArmor < 0) remainingArmor = 0.0
+
+            remainingHealth -= currentShotHealthDamage
+
+            if (debug) {
+                println("Tiro $shots | Dano Total: $finalDamagePerShot | Armor Dmg: $currentShotArmorDamage | HP Dmg: $currentShotHealthDamage | Restante -> Armor: $remainingArmor HP: $remainingHealth")
+            }
+
+            if (shots > 200) return Int.MAX_VALUE
         }
 
         return shots
     }
 
+    /**
+     * Calcula o TTK retornando o PAR (Tiros, Tempo).
+     * Mantém compatibilidade com o resto do seu código.
+     */
     fun calculateTTKWithProtectionInt(
         weapon: Weapon,
         isHeadshot: Boolean,
         debug: Boolean = false,
     ): Pair<Int, Double> {
         val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug, 0.0)
+
+        if (shotsNeeded == Int.MAX_VALUE) {
+            return Pair(shotsNeeded, Double.POSITIVE_INFINITY)
+        }
+
         val shotsPerSecond = weapon.fireRate / 60.0
-        val totalTime = shotsNeeded / shotsPerSecond
-        return Pair(shotsNeeded, totalTime)
+
+        // Cálculo de tempo clássico (Ciclo completo)
+        val timeToKill = shotsNeeded / shotsPerSecond
+
+        return Pair(shotsNeeded, timeToKill)
     }
 
     /**
-     * Calcula o TTK (Time To Kill) de uma arma a uma distância específica.
+     * Mesma lógica, mas permitindo passar uma distância customizada.
      */
     fun calculateTTKAtDistance(
         weapon: Weapon,
@@ -115,12 +195,48 @@ object TTKCalculator {
         debug: Boolean = false,
     ): Pair<Int, Double> {
         val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug, distance)
+
         if (shotsNeeded == Int.MAX_VALUE) {
             return Pair(shotsNeeded, Double.POSITIVE_INFINITY)
         }
+
         val shotsPerSecond = weapon.fireRate / 60.0
-        val totalTime = shotsNeeded / shotsPerSecond
-        return Pair(shotsNeeded, totalTime)
+        val timeToKill = shotsNeeded / shotsPerSecond
+
+        return Pair(shotsNeeded, timeToKill)
+    }
+
+    fun calculateMaxDistanceForKill(
+        weapon: Weapon,
+        isHeadshot: Boolean,
+        debug: Boolean = false,
+    ): Double {
+        val hp = weapon.set.hp.toDouble()
+        val armor = weapon.set.armor.toDouble()
+        val equipmentProtection = if (isHeadshot) weapon.set.headProtection else weapon.set.bodyProtection
+        val baseMultiplier = if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier
+        val damageMultiplier = (baseMultiplier * weapon.set.entityDmgMult * (1 + weapon.set.cyborgDmgBuff)) - equipmentProtection
+
+        if (damageMultiplier <= 0) return 0.0
+
+        val damageForKill = min(hp * 5.0, hp + armor)
+
+        val resistanceFactor = (1 - weapon.set.resistance) * (1 - weapon.set.weaponTypeResistance)
+        if (resistanceFactor <= 0) return 0.0
+
+        val damageBeforeResistance = damageForKill / resistanceFactor
+
+        val damageBeforeAbsorption = damageBeforeResistance + weapon.set.absorption
+
+        val requiredWeaponDamage = damageBeforeAbsorption / damageMultiplier
+
+        if (weapon.damage < requiredWeaponDamage) return 0.0
+        if (weapon.minDamage >= requiredWeaponDamage) return Double.POSITIVE_INFINITY
+
+        val allowedDrop = weapon.damage - requiredWeaponDamage
+        val distAdd = allowedDrop / weapon.damageDropPerMeter
+
+        return weapon.range + distAdd
     }
 
     fun printWeaponTTKWithProtection(
@@ -166,92 +282,5 @@ object TTKCalculator {
         println("===================================")
 
         return Triple(bestHeadWeapon, bestBodyWeapon, bestTTKMediaWeapon)
-    }
-
-    /**
-     * Calcula a distância máxima para matar com um tiro na cabeça ou no corpo.
-     * Considera a mecânica de 80% de dano na armadura e 20% na vida.
-     */
-    fun calculateMaxDistanceForKill(
-        weapon: Weapon,
-        isHeadshot: Boolean,
-        debug: Boolean = false,
-    ): Double {
-        val hp = weapon.set.hp.toDouble()
-        val armor = weapon.set.armor.toDouble()
-
-        val equipmentProtection = if (isHeadshot) weapon.set.headProtection else weapon.set.bodyProtection
-        val baseMultiplier = if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier
-        val damageMultiplier = (baseMultiplier * weapon.set.entityDmgMult * (1 + weapon.set.cyborgDmgBuff)) - equipmentProtection
-
-        if (damageMultiplier <= 0) {
-            if (debug) println("Multiplicador de dano <= 0. Impossível matar.")
-            return 0.0
-        }
-
-        val damageForPassthroughKill = hp * 5.0
-
-        val damageForDepletionKill = hp + armor
-
-        val requiredFinalDamage = min(damageForPassthroughKill, damageForDepletionKill)
-
-        if (debug) {
-            println("------------------------------")
-            println("Cálculo de Distância Máxima para: ${weapon.name} (${if (isHeadshot) "Cabeça" else "Corpo"})")
-            println("Vida: $hp, Armadura: $armor")
-            println("Dano para matar via 20% (HP*5): $damageForPassthroughKill")
-            println("Dano para matar via Depleção (HP+Armor): $damageForDepletionKill")
-            println("Dano Final Necessário (menor dos dois): $requiredFinalDamage")
-        }
-
-        val resistanceFactor = (1 - weapon.set.resistance) * (1 - weapon.set.weaponTypeResistance)
-
-        if (resistanceFactor <= 0) {
-            if (debug) println("Resistência total do alvo é 100%. Impossível matar.")
-            return 0.0
-        }
-
-        val damageBeforeResistance = requiredFinalDamage / resistanceFactor
-        
-        // Ajuste para pellets na distância máxima
-        // DanoTotal = (DanoBase - AbsorçãoTotal)
-        // Onde AbsorçãoTotal = Absorção * Pellets
-        // Então DanoBase = DanoTotal + AbsorçãoTotal
-        
-        val totalAbsorption = weapon.set.absorption * weapon.pellets
-        val damageBeforeAbsorption = damageBeforeResistance + totalAbsorption
-
-        val requiredWeaponDamage = damageBeforeAbsorption / damageMultiplier
-
-        if (debug) {
-            println("Multiplicador Total: $damageMultiplier")
-            println("Fator de Resistência: $resistanceFactor")
-            println("Absorção Total (considerando ${weapon.pellets} pellets): $totalAbsorption")
-            println("Dano Base Necessário na Arma: $requiredWeaponDamage")
-            println("Dano Atual da Arma: ${weapon.damage}")
-        }
-
-        if (weapon.damage < requiredWeaponDamage) {
-            if (debug) println("Arma não atinge o dano necessário nem à queima-roupa.")
-            return 0.0
-        }
-
-        if (weapon.minDamage >= requiredWeaponDamage) {
-            if (debug) println("Dano mínimo da arma é suficiente. Alcance infinito.")
-            return Double.POSITIVE_INFINITY
-        }
-
-        val allowedDamageDrop = weapon.damage - requiredWeaponDamage
-        val additionalDistance = allowedDamageDrop / weapon.damageDropPerMeter
-        val maxDistance = weapon.range + additionalDistance
-
-        if (debug) {
-            println("Queda de Dano Permitida: $allowedDamageDrop")
-            println("Distância Adicional: $additionalDistance")
-            println("Distância Máxima Total: $maxDistance")
-            println("------------------------------")
-        }
-
-        return maxDistance
     }
 }

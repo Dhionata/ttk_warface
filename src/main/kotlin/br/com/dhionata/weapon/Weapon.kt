@@ -17,9 +17,9 @@ data class Weapon(
     var minDamage: Double,
     var pellets: Int = 1,
     var spreadMin: Double = 0.0,
-    var spreadMax: Double = 0.0,
+    private var spreadMax: Double = 0.0,
     var zoomSpreadMin: Double = 0.0,
-    var zoomSpreadMax: Double = 0.0,
+    private var zoomSpreadMax: Double = 0.0,
     val ttk: MutableList<Pair<Int, Double>> = mutableListOf(),
     private val mods: MutableSet<String> = mutableSetOf(),
 ) {
@@ -36,7 +36,7 @@ data class Weapon(
     val hipAccuracy: Int
         get() = calculateAccuracy(spreadMin, spreadMax)
 
-    val aimAccuracy: Int
+    private val aimAccuracy: Int
         get() = calculateAccuracy(zoomSpreadMin, zoomSpreadMax)
 
     private fun calculateAccuracy(min: Double, max: Double): Int {
@@ -96,6 +96,7 @@ data class Weapon(
         bodyMultiplierAddPercentage: Double? = null,
         rangeAdd: Double? = null,
         damageDropPerMeterAddPercentage: Double? = null,
+        damageAddDropPerMeter: Double? = null,
         spreadAddPercentage: Double? = null,
         zoomSpreadAddPercentage: Double? = null,
         pellets: Int? = null,
@@ -110,6 +111,7 @@ data class Weapon(
             bodyMultiplierAddPercentage,
             rangeAdd,
             damageDropPerMeterAddPercentage,
+            damageAddDropPerMeter,
             spreadAddPercentage,
             zoomSpreadAddPercentage,
             pellets,
@@ -132,6 +134,7 @@ data class Weapon(
         bodyMultiplierAddPercentage: Double? = null,
         rangeAdd: Double? = null,
         damageDropPerMeterAddPercentage: Double? = null,
+        damageAddDropPerMeter: Double? = null,
         spreadAddPercentage: Double? = null,
         zoomSpreadAddPercentage: Double? = null,
         pellets: Int? = null,
@@ -170,6 +173,11 @@ data class Weapon(
         if (damageDropPerMeterAddPercentage != null) {
             damageDropPerMeter += damageDropPerMeter * (damageDropPerMeterAddPercentage / 100.0)
         }
+
+        if (damageAddDropPerMeter != null) {
+            damageDropPerMeter += damageAddDropPerMeter
+        }
+
         if (spreadAddPercentage != null) {
             spreadMin += spreadMin * (spreadAddPercentage / 100.0)
             spreadMax += spreadMax * (spreadAddPercentage / 100.0)

@@ -641,7 +641,7 @@ object WeaponRepository {
                 minDamageAdd = 165.0,
                 spreadAddPercentage = -70.0,
                 zoomSpreadAddPercentage = -70.0,
-                damageDropPerMeterAddPercentage = 45.0
+                damageAddDropPerMeter = 45.0
             )
             .addMods("Rate of Fire", 3.0, spreadAddPercentage = 5.0)
             .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)

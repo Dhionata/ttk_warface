@@ -95,7 +95,7 @@ object WeaponPresenter {
             println("Distância | TTK Cabeça | TTK Corpo")
             println("----------|------------|----------")
 
-            for (distance in 5..maxDistance step 5) {
+            for (distance in 0..maxDistance) {
                 val ttkHead = TTKCalculator.calculateTTKAtDistance(weapon, true, distance.toDouble()).second
                 val ttkBody = TTKCalculator.calculateTTKAtDistance(weapon, false, distance.toDouble()).second
 
