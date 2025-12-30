@@ -177,7 +177,7 @@ object WeaponRepository {
             .addMods("Reload Speed", 1.0)
             .addMods("Switch Speed", 1.0)
             .attachments("Assault Suppressor", damageDropPerMeterAddPercentage = -20.0),
-        //br.com.dhionata.weapon.Weapon("Harms CQR", 123.0, 971.0, 4.0, 1.40)
+        Weapon("Harms CQR", 120.0, 815.0, 4.0, 1.4, 22.0, 1.0, 90.0).attachments("HArms CQR Suppressor", damageDropPerMeterAddPercentage = -20.0)
     )
 
     val engenheiroWeapons: List<Weapon> = listOf(
@@ -523,6 +523,7 @@ object WeaponRepository {
             .addMods("Rate of Fire", 5.0)
             .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0)
             .addMods("Trinity", -89.0, 560.0),
+        Weapon("Bushmaster BA50", 800.0, 41.56, 5.0, 1.15, 99.0, 1.0, 380.0)
     )
 
 
