@@ -88,7 +88,7 @@ object WeaponPresenter {
     private fun printWeaponTTKEvolution(className: String, weapons: List<Weapon>, maxDistance: Int = 120) {
         if (weapons.isEmpty()) return
 
-        println("\n=== Evolução do TTK por Distância (a cada 5m) - $className ===")
+        println("\n=== Evolução do TTK por Distância - $className ===")
 
         weapons.forEach { weapon ->
             println("\nArma: ${weapon.name}")
