@@ -154,8 +154,6 @@ object TTKCalculator {
             if (debug) {
                 println("Tiro $shots | Dano Total: $finalDamagePerShot | Armor Dmg: $currentShotArmorDamage | HP Dmg: $currentShotHealthDamage | Restante -> Armor: $remainingArmor HP: $remainingHealth")
             }
-
-            if (shots > 200) return Int.MAX_VALUE
         }
 
         return shots
@@ -170,7 +168,7 @@ object TTKCalculator {
         isHeadshot: Boolean,
         debug: Boolean = false,
     ): Pair<Int, Double> {
-        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug, 0.0)
+        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug)
 
         if (shotsNeeded == Int.MAX_VALUE) {
             return Pair(shotsNeeded, Double.POSITIVE_INFINITY)
@@ -272,9 +270,7 @@ object TTKCalculator {
         )
         println(
             "Melhor TTK Médio (Cabeça e Corpo): ${bestTTKMediaWeapon.name} com TTK Médio de ${"%.3f".format(bestTTKMediaWeapon.ttk.last().second)} segundos em ${
-                (bulletsToKillWithProtectionInt(
-                    bestTTKMediaWeapon, true, debug
-                ) + bulletsToKillWithProtectionInt(bestTTKMediaWeapon, debug = debug)) / 2
+                (bulletsToKillWithProtectionInt(bestTTKMediaWeapon, true, debug) + bulletsToKillWithProtectionInt(bestTTKMediaWeapon, debug = debug)) / 2
             } tiro(s)"
         )
         println("===================================")

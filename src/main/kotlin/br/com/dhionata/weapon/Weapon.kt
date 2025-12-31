@@ -2,8 +2,7 @@ package br.com.dhionata.weapon
 
 import br.com.dhionata.Set
 import br.com.dhionata.TTKCalculator
-import java.math.BigDecimal
-import java.math.RoundingMode
+import br.com.dhionata.formatValue
 import kotlin.math.roundToInt
 
 data class Weapon(
@@ -75,17 +74,17 @@ data class Weapon(
 
         val pelletsInfo = if (pellets > 1) "| Pellets: $pellets " else ""
 
-        return "Nome: $name | Dano: ${BigDecimal(damage).setScale(2, RoundingMode.HALF_UP)} $pelletsInfo| Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
-            BigDecimal(bodyMultiplier).setScale(2, RoundingMode.HALF_UP)
+        return "Nome: $name | Dano: ${formatValue(damage)} $pelletsInfo| Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
+            formatValue(bodyMultiplier)
         } | Alcance: ${
-            BigDecimal(range).setScale(2, RoundingMode.HALF_UP)
+            formatValue(range)
         }m | Queda/m: ${
-            BigDecimal(damageDropPerMeter).setScale(2, RoundingMode.HALF_UP)
+            formatValue(damageDropPerMeter)
         } | Dano Mín.: $minDamage @ $minDamageDistStr $oneHitKillInfo$accuracyInfo| TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
-            BigDecimal(ttk.first().second).setScale(3, RoundingMode.HALF_UP)
+            formatValue(ttk.first().second, 3)
         }], Corpo[${ttk.elementAt(1).first} em ${
-            BigDecimal(ttk.elementAt(1).second).setScale(3, RoundingMode.HALF_UP)
-        }], Média[${ttk.last().first} em ${BigDecimal(ttk.last().second).setScale(3, RoundingMode.HALF_UP)}]"
+            formatValue(ttk.elementAt(1).second, 3)
+        }], Média[${ttk.last().first} em ${formatValue(ttk.last().second, 3)}]"
     }
 
     fun attachments(
@@ -143,15 +142,25 @@ data class Weapon(
     ): Weapon {
         if (pellets != null) {
             // Se o número de pellets mudar, ajustamos o dano base para refletir o dano por pellet antigo
-            if (this.pellets > 0) {
-                this.damage = this.damage / this.pellets * pellets
-            }
+            // A lógica anterior estava incorreta para a Huckleberry Packed Shells, pois ela muda de 1 pellet (slug) para 10 pellets (buckshot)
+            // e o dano total é ajustado explicitamente pelo damageAdd.
+            // Se pellets for definido explicitamente, apenas atualizamos o valor, assumindo que o dano será corrigido por damageAdd se necessário.
             this.pellets = pellets
         }
 
-        if (pelletsAdd != null && this.pellets > 1) {
-            val newPellets = this.pellets + pelletsAdd
-            this.damage = this.damage / this.pellets * newPellets
+        if (pelletsAdd != null && this.pellets > 0) {
+            // Se estamos adicionando pellets a uma arma que já tem pellets, assumimos que o dano total aumenta proporcionalmente
+            // a menos que damageAdd seja usado para corrigir.
+            // No entanto, para evitar comportamentos inesperados com mods complexos,
+            // vamos confiar que o usuário configurou damageAdd corretamente se o dano por pellet mudar.
+            // Para o caso simples de "mais pellets do mesmo tipo", o dano aumenta.
+            val oldPellets = this.pellets
+            val newPellets = oldPellets + pelletsAdd
+
+            // Se não houver damageAdd explícito, ajustamos o dano proporcionalmente
+            if (damageAdd == null) {
+                this.damage = this.damage / oldPellets * newPellets
+            }
             this.pellets = newPellets
         }
 
@@ -173,11 +182,6 @@ data class Weapon(
         if (damageDropPerMeterAddPercentage != null) {
             damageDropPerMeter += damageDropPerMeter * (damageDropPerMeterAddPercentage / 100.0)
         }
-
-        if (damageAddDropPerMeter != null) {
-            damageDropPerMeter += damageAddDropPerMeter
-        }
-
         if (spreadAddPercentage != null) {
             spreadMin += spreadMin * (spreadAddPercentage / 100.0)
             spreadMax += spreadMax * (spreadAddPercentage / 100.0)

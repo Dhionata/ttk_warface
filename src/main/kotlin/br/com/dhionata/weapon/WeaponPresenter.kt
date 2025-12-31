@@ -1,8 +1,7 @@
 package br.com.dhionata.weapon
 
 import br.com.dhionata.TTKCalculator
-import java.math.BigDecimal
-import java.math.RoundingMode
+import br.com.dhionata.formatValue
 
 object WeaponPresenter {
 
@@ -29,11 +28,11 @@ object WeaponPresenter {
 
         println("== Tiros ==")
         val averageShots = weapons.map(shotsSelector).average()
-        println(BigDecimal(averageShots).setScale(2, RoundingMode.HALF_UP))
+        println(formatValue(averageShots))
 
         println("== Tempo ==")
         val averageTime = weapons.map(timeSelector).average()
-        println("${BigDecimal(averageTime).setScale(2, RoundingMode.HALF_UP)}\n")
+        println(formatValue(averageTime) + "\n")
     }
 
     private fun printTTKRanksByDistance(className: String, weapons: List<Weapon>, isHeadshot: Boolean, maxDistance: Int = 120) {
