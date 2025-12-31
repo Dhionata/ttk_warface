@@ -72,8 +72,8 @@ object TTKCalculator {
         distance: Double = 0.0,
     ): Int {
         // Dados do Alvo
-        var remainingArmor = weapon.set.armor.toDouble()
-        var remainingHealth = weapon.set.hp.toDouble()
+        var remainingArmor = weapon.set.armor
+        var remainingHealth = weapon.set.hp
 
         // Multiplicadores
         val equipmentProtection = if (isHeadshot) weapon.set.headProtection else weapon.set.bodyProtection
@@ -101,7 +101,6 @@ object TTKCalculator {
         // Se for arma de 1 bala (Rifle, SMG, Slug), HitRate é sempre 1.0 (comportamento original)
         // Se for Shotgun, calcula baseado na dispersão.
         val hitRate = if (totalPellets > 1) {
-            val spreadVal = if (distance == 0.0) weapon.spreadMin else weapon.hipAccuracy.toDouble()
             val usedSpread = if (weapon.zoomSpreadMin > 0 && weapon.zoomSpreadMin < weapon.spreadMin) weapon.zoomSpreadMin else weapon.spreadMin
             calculateHitRate(distance, usedSpread, isHeadshot)
         } else {
@@ -209,10 +208,9 @@ object TTKCalculator {
     fun calculateMaxDistanceForKill(
         weapon: Weapon,
         isHeadshot: Boolean,
-        debug: Boolean = false,
     ): Double {
-        val hp = weapon.set.hp.toDouble()
-        val armor = weapon.set.armor.toDouble()
+        val hp = weapon.set.hp
+        val armor = weapon.set.armor
         val equipmentProtection = if (isHeadshot) weapon.set.headProtection else weapon.set.bodyProtection
         val baseMultiplier = if (isHeadshot) weapon.headMultiplier else weapon.bodyMultiplier
         val damageMultiplier = (baseMultiplier * weapon.set.entityDmgMult * (1 + weapon.set.cyborgDmgBuff)) - equipmentProtection

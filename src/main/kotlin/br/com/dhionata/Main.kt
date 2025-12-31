@@ -14,7 +14,8 @@ fun main() {
         Set.SetsAndEnemy.`Spec-Ops`,
         Set.SetsAndEnemy.`SWAT Heavy Gunner`,
         Set.SetsAndEnemy.`Alpha, Beta e Omega`,
-        Set.SetsAndEnemy.Screamer
+        Set.SetsAndEnemy.Screamer,
+        Set.SetsAndEnemy.`Fast Hybrid`
     )
 
     val setListPvp: List<Set> = listOf(
