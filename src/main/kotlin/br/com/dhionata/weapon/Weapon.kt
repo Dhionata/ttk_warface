@@ -19,6 +19,8 @@ data class Weapon(
     private var spreadMax: Double = 0.0,
     var zoomSpreadMin: Double = 0.0,
     private var zoomSpreadMax: Double = 0.0,
+    var magazineCapacity: Int = 0,
+    var reloadTime: Double = 0.0,
     val ttk: MutableList<Pair<Int, Double>> = mutableListOf(),
     private val mods: MutableSet<String> = mutableSetOf(),
 ) {
@@ -32,7 +34,7 @@ data class Weapon(
     val fireRate: Int
         get() = _fireRate.roundToInt()
 
-    val hipAccuracy: Int
+    private val hipAccuracy: Int
         get() = calculateAccuracy(spreadMin, spreadMax)
 
     private val aimAccuracy: Int
@@ -74,13 +76,16 @@ data class Weapon(
 
         val pelletsInfo = if (pellets > 1) "| Pellets: $pellets " else ""
 
-        return "Nome: $name | Dano: ${formatValue(damage)} $pelletsInfo| Cadência: $fireRate | Cabeça X $headMultiplier | Corpo X ${
+        val magazineInfo = if (magazineCapacity > 0) "| Pente: $magazineCapacity " else ""
+        val reloadInfo = if (reloadTime > 0) "| Recarga: ${formatValue(reloadTime)}ms " else ""
+
+        return "Nome: $name | Dano: ${formatValue(damage)} $pelletsInfo| Cadência: $fireRate | Cabeça X ${formatValue(headMultiplier)} | Corpo X ${
             formatValue(bodyMultiplier)
         } | Alcance: ${
             formatValue(range)
         }m | Queda/m: ${
             formatValue(damageDropPerMeter)
-        } | Dano Mín.: $minDamage @ $minDamageDistStr $oneHitKillInfo$accuracyInfo| TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
+        } | Dano Mín.: $minDamage @ $minDamageDistStr $oneHitKillInfo$accuracyInfo$magazineInfo$reloadInfo| TTK[Tiro(s) em Tempo(s)]: Cabeça[${ttk.first().first} em ${
             formatValue(ttk.first().second, 3)
         }], Corpo[${ttk.elementAt(1).first} em ${
             formatValue(ttk.elementAt(1).second, 3)
@@ -101,6 +106,8 @@ data class Weapon(
         pellets: Int? = null,
         pelletsAdd: Int? = null,
         minDamageAdd: Double? = null,
+        magazineCapacityAdd: Int? = null,
+        reloadTimeAddPercentage: Double? = null,
     ): Weapon {
         addMods(
             name,
@@ -115,7 +122,9 @@ data class Weapon(
             zoomSpreadAddPercentage,
             pellets,
             pelletsAdd,
-            minDamageAdd
+            minDamageAdd,
+            magazineCapacityAdd,
+            reloadTimeAddPercentage
         )
 
         return this
@@ -139,25 +148,17 @@ data class Weapon(
         pellets: Int? = null,
         pelletsAdd: Int? = null,
         minDamageAdd: Double? = null,
+        magazineCapacityAdd: Int? = null,
+        reloadTimeAddPercentage: Double? = null,
     ): Weapon {
         if (pellets != null) {
-            // Se o número de pellets mudar, ajustamos o dano base para refletir o dano por pellet antigo
-            // A lógica anterior estava incorreta para a Huckleberry Packed Shells, pois ela muda de 1 pellet (slug) para 10 pellets (buckshot)
-            // e o dano total é ajustado explicitamente pelo damageAdd.
-            // Se pellets for definido explicitamente, apenas atualizamos o valor, assumindo que o dano será corrigido por damageAdd se necessário.
             this.pellets = pellets
         }
 
         if (pelletsAdd != null && this.pellets > 0) {
-            // Se estamos adicionando pellets a uma arma que já tem pellets, assumimos que o dano total aumenta proporcionalmente
-            // a menos que damageAdd seja usado para corrigir.
-            // No entanto, para evitar comportamentos inesperados com mods complexos,
-            // vamos confiar que o usuário configurou damageAdd corretamente se o dano por pellet mudar.
-            // Para o caso simples de "mais pellets do mesmo tipo", o dano aumenta.
             val oldPellets = this.pellets
             val newPellets = oldPellets + pelletsAdd
 
-            // Se não houver damageAdd explícito, ajustamos o dano proporcionalmente
             if (damageAdd == null) {
                 this.damage = this.damage / oldPellets * newPellets
             }
@@ -182,6 +183,9 @@ data class Weapon(
         if (damageDropPerMeterAddPercentage != null) {
             damageDropPerMeter += damageDropPerMeter * (damageDropPerMeterAddPercentage / 100.0)
         }
+        if (damageAddDropPerMeter != null) {
+            damageDropPerMeter += damageAddDropPerMeter
+        }
         if (spreadAddPercentage != null) {
             spreadMin += spreadMin * (spreadAddPercentage / 100.0)
             spreadMax += spreadMax * (spreadAddPercentage / 100.0)
@@ -192,6 +196,12 @@ data class Weapon(
         }
         if (minDamageAdd != null) {
             this.minDamage += minDamageAdd
+        }
+        if (magazineCapacityAdd != null) {
+            this.magazineCapacity += magazineCapacityAdd
+        }
+        if (reloadTimeAddPercentage != null) {
+            this.reloadTime += this.reloadTime * (reloadTimeAddPercentage / 100.0)
         }
 
         updateTTK()

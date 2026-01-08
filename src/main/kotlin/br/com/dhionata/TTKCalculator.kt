@@ -110,7 +110,13 @@ object TTKCalculator {
         // Dano total do disparo (soma dos pellets que acertaram)
         val finalDamagePerShot = (singlePelletDamage * totalPellets * hitRate).roundToInt()
 
-        if (finalDamagePerShot <= 0) return Int.MAX_VALUE
+        if (finalDamagePerShot <= 0) {
+            if (debug) {
+                println("DEBUG: Dano final por tiro <= 0 ($finalDamagePerShot). Verifique os parâmetros do Set (Resistência > 1.0?).")
+                println("DEBUG: SinglePelletDamage=$singlePelletDamage, TotalPellets=$totalPellets, HitRate=$hitRate")
+            }
+            return Int.MAX_VALUE
+        }
 
         // --- Simulação dos Tiros ---
         var shots = 0
@@ -177,7 +183,13 @@ object TTKCalculator {
         val shotsPerSecond = weapon.fireRate / 60.0
 
         // Cálculo de tempo clássico (Ciclo completo)
-        val timeToKill = shotsNeeded / shotsPerSecond
+        var timeToKill = shotsNeeded / shotsPerSecond
+
+        // Se a arma tem capacidade de pente definida e os tiros necessários excedem a capacidade
+        if (weapon.magazineCapacity > 0 && shotsNeeded > weapon.magazineCapacity) {
+            val reloadsNeeded = (shotsNeeded - 1) / weapon.magazineCapacity
+            timeToKill += reloadsNeeded * (weapon.reloadTime / 1000.0)
+        }
 
         return Pair(shotsNeeded, timeToKill)
     }
@@ -198,7 +210,13 @@ object TTKCalculator {
         }
 
         val shotsPerSecond = weapon.fireRate / 60.0
-        val timeToKill = shotsNeeded / shotsPerSecond
+        var timeToKill = shotsNeeded / shotsPerSecond
+
+        // Se a arma tem capacidade de pente definida e os tiros necessários excedem a capacidade
+        if (weapon.magazineCapacity in 1..<shotsNeeded) {
+            val reloadsNeeded = (shotsNeeded - 1) / weapon.magazineCapacity
+            timeToKill += reloadsNeeded * (weapon.reloadTime / 1000.0)
+        }
 
         return Pair(shotsNeeded, timeToKill)
     }

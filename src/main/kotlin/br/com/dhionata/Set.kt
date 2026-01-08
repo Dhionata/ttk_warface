@@ -14,7 +14,6 @@ data class Set(
     val entityDmgMult: Double = 1.0,  // Multiplicador contra entidades específicas
     val hp: Double = 125.0,             // HP inicial
 ) {
-
     companion object SetsAndEnemy {
 
         val Sirocco: Set = Set(
@@ -95,7 +94,7 @@ data class Set(
 
         val `G15 Pteranodon`: Set = Set(
             "G15 Pteranodon",
-            .0,
+            0.0,
             0.0,
             0.0,
             0.0,
@@ -148,12 +147,12 @@ data class Set(
         val `Fast Hybrid`: Set = Set(
             "Fast Hybrid",
             0.0,
-            -70.0,
+            -0.7,
             0.0,
             0.0,
             0.0,
             0.0,
-            55.5,
+            0.555,
             0.0,
             hp = 123750.0
         )
