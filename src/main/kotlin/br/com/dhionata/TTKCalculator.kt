@@ -1,6 +1,7 @@
 package br.com.dhionata
 
 import br.com.dhionata.weapon.Weapon
+import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -119,47 +120,78 @@ object TTKCalculator {
         }
 
         // --- Simulação dos Tiros ---
-        var shots = 0
-
         // Definição de absorção da armadura (Geralmente 80%, exceto SEDs 99% ou casos raros)
         val armorAbsorptionRatio = if (weapon.name.contains("SED", true)) 0.99 else 0.80
 
-        while (remainingHealth > 0) {
-            shots++
+        if (debug) {
+            var shots = 0
+            while (remainingHealth > 0) {
+                shots++
 
-            // Verifica se ainda tem armadura para absorver o tiro ATUAL
-            val currentShotArmorDamage: Int
-            val currentShotHealthDamage: Int
+                // Verifica se ainda tem armadura para absorver o tiro ATUAL
+                val currentShotArmorDamage: Int
+                val currentShotHealthDamage: Int
 
-            if (remainingArmor > 0) {
-                // Tem armadura: Aplica a regra 80/20
-                val absorbAmount = (finalDamagePerShot * armorAbsorptionRatio).roundToInt()
+                if (remainingArmor > 0) {
+                    // Tem armadura: Aplica a regra 80/20
+                    val absorbAmount = (finalDamagePerShot * armorAbsorptionRatio).roundToInt()
 
-                // Se o dano à armadura for maior que a armadura restante, o excedente NÃO vai pra vida (regra padrão Warface simples),
-                // mas a armadura zera. O tiro seguinte pegará na carne.
-                if (remainingArmor - absorbAmount < 0) {
-                    currentShotArmorDamage = remainingArmor.toInt() // Quebra a armadura toda
-                    // O dano à vida é os 20% fixos + (opcionalmente) o excedente se a mecânica for penetration
-                    // Vamos manter o padrão: recebe o dano de HP calculado originalmente
-                    currentShotHealthDamage = finalDamagePerShot - absorbAmount
+                    // Se o dano à armadura for maior que a armadura restante, o excedente NÃO vai pra vida (regra padrão Warface simples),
+                    // mas a armadura zera. O tiro seguinte pegará na carne.
+                    if (remainingArmor - absorbAmount < 0) {
+                        currentShotArmorDamage = remainingArmor.toInt() // Quebra a armadura toda
+                        // O dano à vida é os 20% fixos + (opcionalmente) o excedente se a mecânica for penetration
+                        // Vamos manter o padrão: recebe o dano de HP calculado originalmente
+                        currentShotHealthDamage = finalDamagePerShot - absorbAmount
+                    } else {
+                        currentShotArmorDamage = absorbAmount
+                        currentShotHealthDamage = finalDamagePerShot - absorbAmount
+                    }
                 } else {
-                    currentShotArmorDamage = absorbAmount
-                    currentShotHealthDamage = finalDamagePerShot - absorbAmount
+                    // Sem armadura: 100% dano na vida
+                    currentShotArmorDamage = 0
+                    currentShotHealthDamage = finalDamagePerShot
                 }
-            } else {
-                // Sem armadura: 100% dano na vida
-                currentShotArmorDamage = 0
-                currentShotHealthDamage = finalDamagePerShot
-            }
 
-            remainingArmor -= currentShotArmorDamage
-            if (remainingArmor < 0) remainingArmor = 0.0
+                remainingArmor -= currentShotArmorDamage
+                if (remainingArmor < 0) remainingArmor = 0.0
 
-            remainingHealth -= currentShotHealthDamage
+                remainingHealth -= currentShotHealthDamage
 
-            if (debug) {
                 println("Tiro $shots | Dano Total: $finalDamagePerShot | Armor Dmg: $currentShotArmorDamage | HP Dmg: $currentShotHealthDamage | Restante -> Armor: $remainingArmor HP: $remainingHealth")
             }
+            return shots
+        }
+
+        // Otimização matemática para execução normal (sem debug)
+        var shots = 0
+
+        // Fase 1: Com Armadura
+        val absorbAmount = (finalDamagePerShot * armorAbsorptionRatio).roundToInt()
+        val damageToHealthPhase1 = finalDamagePerShot - absorbAmount
+
+        if (remainingArmor > 0 && absorbAmount > 0) {
+            val shotsToBreakArmor = ceil(remainingArmor / absorbAmount).toInt()
+            val potentialHealthDamage = shotsToBreakArmor.toDouble() * damageToHealthPhase1
+
+            if (remainingHealth <= potentialHealthDamage) {
+                // Morre antes ou no momento que a armadura quebra
+                if (damageToHealthPhase1 <= 0) {
+                    // Caso raro onde dano à vida é 0 enquanto tem armadura
+                    shots += shotsToBreakArmor
+                } else {
+                    return ceil(remainingHealth / damageToHealthPhase1).toInt()
+                }
+            } else {
+                // Sobrevive à quebra da armadura
+                shots += shotsToBreakArmor
+                remainingHealth -= potentialHealthDamage
+            }
+        }
+
+        // Fase 2: Sem Armadura (ou armadura não absorve mais)
+        if (remainingHealth > 0) {
+            shots += ceil(remainingHealth / finalDamagePerShot).toInt()
         }
 
         return shots
@@ -186,7 +218,7 @@ object TTKCalculator {
         var timeToKill = shotsNeeded / shotsPerSecond
 
         // Se a arma tem capacidade de pente definida e os tiros necessários excedem a capacidade
-        if (weapon.magazineCapacity > 0 && shotsNeeded > weapon.magazineCapacity) {
+        if (weapon.magazineCapacity in 1..<shotsNeeded) {
             val reloadsNeeded = (shotsNeeded - 1) / weapon.magazineCapacity
             timeToKill += reloadsNeeded * (weapon.reloadTime / 1000.0)
         }
