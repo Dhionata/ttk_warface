@@ -392,7 +392,14 @@ object WeaponRepository {
             .attachments("SMG Suppressor", damageDropPerMeterAddPercentage = -30.0)
             .addMods("Headhunter", 12.0, headMultiplierAddPercentage = 40.0)
             .addMods("Rate of Fire", 3.0)
-            .addMods("Body Damage", bodyMultiplierAddPercentage = 8.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 8.0),
+        Weapon("Beretta PMX (Lone Wolf)", 68.0, 1050.0, 4.5, 1.1, 7.0, 2.1, magazineCapacity = 35, minDamage = 46.0, reloadTime = 1620.0)
+            .attachments("YHM Slant Muzzle Brake", damageDropPerMeterAddPercentage = -20.0, rangeAdd = 0.5)
+            .addMods("Range", rangeAdd = 2.0)
+            .addMods("Rate of Fire", 5.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 6.0)
+            .addMods("Spread and Range", rangeAdd = 0.6)
+            .addMods("Lone Wolf", -20.0, 35.0, 50.0, rangeAdd = 4.5)
     )
 
     val pistolas: List<Weapon> = listOf(
