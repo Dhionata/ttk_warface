@@ -602,8 +602,6 @@ object WeaponRepository {
         Weapon("Bushmaster BA50", 800.0, 41.56, 5.0, 1.15, 99.0, 1.0, 380.0)
     )
 
-
-    // Todas as precisões estão considerando o Slide como padrão, já que é o comportamento mais comum para o médico.
     val medicWeapons: List<Weapon> = listOf(
         Weapon("Fabarm P.S.S.10 (Full Control)", 621.0, 185.0, 1.5, 1.0, 5.0, 74.7, 207.0, 9, 6.48, 12.24, 5.04, 8.16)
             .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)

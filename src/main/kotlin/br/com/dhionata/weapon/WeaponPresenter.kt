@@ -35,15 +35,31 @@ object WeaponPresenter {
         println(formatValue(averageTime) + "\n")
     }
 
-    private fun printTTKRanksByDistance(className: String, weapons: List<Weapon>, isHeadshot: Boolean, maxDistance: Int = 120) {
+    private fun printTTKRanksByDistance(className: String, weapons: List<Weapon>, mode: String, maxDistance: Int = 120) {
         if (weapons.isEmpty()) return
 
-        val title = if (isHeadshot) "Cabeça" else "Corpo"
+        val title = when (mode) {
+            "HEAD" -> "Cabeça"
+            "BODY" -> "Corpo"
+            "AVG" -> "Média"
+            else -> "Desconhecido"
+        }
         println("\n=== Ranking de Melhor TTK por Distância - $className ($title) ===")
 
         val ttkCache: List<List<Double>> = weapons.map { weapon ->
             (1..maxDistance).map { distance ->
-                TTKCalculator.calculateTTKAtDistance(weapon, isHeadshot, distance.toDouble()).second
+                val d = distance.toDouble()
+                when (mode) {
+                    "HEAD" -> TTKCalculator.calculateTTKAtDistance(weapon, true, d).second
+                    "BODY" -> TTKCalculator.calculateTTKAtDistance(weapon, false, d).second
+                    "AVG" -> {
+                        val head = TTKCalculator.calculateTTKAtDistance(weapon, true, d).second
+                        val body = TTKCalculator.calculateTTKAtDistance(weapon, false, d).second
+                        (head + body) / 2.0
+                    }
+
+                    else -> Double.POSITIVE_INFINITY
+                }
             }
         }
 
@@ -170,8 +186,9 @@ object WeaponPresenter {
 
         classes.forEach { (className, weapons) ->
             if (weapons.isNotEmpty()) {
-                printTTKRanksByDistance(className, weapons, isHeadshot = true)
-                printTTKRanksByDistance(className, weapons, isHeadshot = false)
+                printTTKRanksByDistance(className, weapons, "HEAD")
+                printTTKRanksByDistance(className, weapons, "BODY")
+                printTTKRanksByDistance(className, weapons, "AVG")
 
                 printWeaponTTKEvolution(className, weapons)
             }
