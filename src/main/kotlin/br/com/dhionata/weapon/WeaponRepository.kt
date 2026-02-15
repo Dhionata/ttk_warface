@@ -2,6 +2,12 @@ package br.com.dhionata.weapon
 
 object WeaponRepository {
 
+    // Como Weapon agora é um data class puro e não armazena estado de TTK,
+    // podemos retornar novas instâncias a cada chamada ou manter uma lista estática.
+    // Como os modificadores alteram a instância, é mais seguro recriar a lista ou garantir que
+    // as modificações sejam aplicadas apenas uma vez na inicialização.
+    // No código original, era uma lista estática. Vamos manter assim, pois os modificadores são aplicados na construção.
+
     val fuzileiroWeapons: List<Weapon> = listOf(
         Weapon("AK Alpha (Light Bullets)", 100.0, 800.0, 6.5, 1.0, 17.0, 1.1, 75.0, magazineCapacity = 30, reloadTime = 2600.0)
             .addMods("Damage", damageAdd = 4.0)
@@ -408,7 +414,7 @@ object WeaponRepository {
             .addMods("Aim Speed", rangeAdd = .25, damageAdd = 1.5)
             .addMods("Spread", rangeAdd = .25, damageAdd = 1.5)
             .addMods("Range", rangeAdd = 3.0, damageAdd = 1.5)
-            .addMods("Rate of Fire", 10.0, 1.5, rangeAdd = .25 )
+            .addMods("Rate of Fire", 10.0, 1.5, rangeAdd = .25)
             .addMods("Magazine Capacity", magazineCapacityAdd = 6, rangeAdd = .25, damageAdd = 1.5)
             .addMods("Damage", damageAdd = 3.0, rangeAdd = .25),
         Weapon("SIG MPX", 125.0, 780.0, 6.0, 1.3, 10.5, 2.1, 42.0, magazineCapacity = 35, reloadTime = 2250.0)
@@ -760,14 +766,26 @@ object WeaponRepository {
             .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
             .addMods("Rate of Fire", 6.0, spreadAddPercentage = 6.0)
             .addMods("Spread", spreadAddPercentage = -20.0),
-        //Weapon("GForce Arms Huckleberry (Packed Shells)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0, 1, 2.8, 4.0, 0.21, 0.3)
-        //  .attachments("Laser Sight", spreadAddPercentage = -10.0)
-        //.addMods("Packed Shells", pellets = 10, damageDropPerMeterAddPercentage = -75.0, damageAdd = -692.0, minDamageAdd = -200.0, zoomSpreadAddPercentage = 700.0)
-        //.addMods("Rate of Fire", 10.0)
-        //.addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
-        //.addMods("Limbs Damage", spreadAddPercentage = 8.0)
-        //.addMods("Spread adn Range", rangeAdd = 1.5, spreadAddPercentage = -18.0),
-        Weapon("GForce Arms Huckleberry (Lightweight Ammo)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0, 1, 2.8, 4.0, 0.21, 0.3)
+        Weapon(
+            "GForce Arms Huckleberry (Packed Shells)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0,
+            spreadMin = 2.8,
+            spreadMax = 4.0,
+            zoomSpreadMin = 0.21,
+            zoomSpreadMax = 0.3
+        )
+            .attachments("Laser Sight", spreadAddPercentage = -10.0)
+            .addMods("Packed Shells", pellets = 10, damageDropPerMeterAddPercentage = -75.0, damageAdd = -692.0, minDamageAdd = -200.0, zoomSpreadAddPercentage = 700.0)
+            .addMods("Rate of Fire", 10.0)
+            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
+            .addMods("Limbs Damage", spreadAddPercentage = 8.0)
+            .addMods("Spread adn Range", rangeAdd = 1.5, spreadAddPercentage = -18.0),
+        Weapon(
+            "GForce Arms Huckleberry (Lightweight Ammo)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0,
+            spreadMin = 2.8,
+            spreadMax = 4.0,
+            zoomSpreadMin = 0.21,
+            zoomSpreadMax = 0.3
+        )
             .attachments("Laser Sight", spreadAddPercentage = -10.0)
             .addMods("Lightweight Ammo", 60.0, damageAdd = -300.0)
             .addMods("Rate of Fire", 10.0)
@@ -868,7 +886,7 @@ object WeaponRepository {
             .addMods("Aim Speed", damageAdd = .25 * 16)
             .addMods("Reload Speed", .25 * 16)
             .addMods("Switch Speed", damageAdd = .25 * 16),
-        Weapon("Marlin 1894 Custom", 750.0, 113.21, 3.0, 1.15, 11.0, 135.0, 200.0, 1, 3.6, 10.8, 0.04, 0.12)
+        Weapon("Marlin 1894 Custom", 750.0, 113.21, 3.0, 1.15, 11.0, 135.0, 200.0, spreadMin = 3.6, spreadMax = 10.8, zoomSpreadMin = 0.04, zoomSpreadMax = 0.12)
             .attachments("Shotgun Suppressor", damageDropPerMeterAddPercentage = -20.0)
             .addMods("Range", 1.5, rangeAdd = 2.0)
             .addMods("Damage Drop", 1.5, rangeAdd = 0.2, damageDropPerMeterAddPercentage = -25.0)

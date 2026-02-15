@@ -1,4 +1,6 @@
-import br.com.dhionata.TTKCalculator
+import br.com.dhionata.Set
+import br.com.dhionata.calculator.DamageCalculator
+import br.com.dhionata.calculator.TTKCalculator
 import br.com.dhionata.weapon.WeaponRepository
 import org.junit.jupiter.api.Test
 
@@ -6,6 +8,10 @@ class TTKCalculatorTest {
 
     // Variável de classe para definir a distância máxima do teste
     private val maxDistance = 30
+    private val defaultSet = Set.SetsAndEnemy.Sirocco
+
+    // Instanciando o calculador padrão
+    private val calculator = TTKCalculator(DamageCalculator())
 
     @Test
     fun testEngenheiroWeapons() {
@@ -16,8 +22,8 @@ class TTKCalculatorTest {
             println("========================================")
             for (distance in 0..maxDistance) {
                 println("\n--- Distância: ${distance}m ---")
-                TTKCalculator.bulletsToKillWithProtectionInt(
-                    weapon, debug = true, distance = distance.toDouble()
+                calculator.calculateTTK(
+                    weapon, defaultSet, isHeadshot = false, debug = true, distance = distance.toDouble()
                 )
             }
         }
@@ -32,8 +38,8 @@ class TTKCalculatorTest {
             println("========================================")
             for (distance in 0..maxDistance) {
                 println("\n--- Distância: ${distance}m ---")
-                TTKCalculator.bulletsToKillWithProtectionInt(
-                    weapon, debug = true, distance = distance.toDouble()
+                calculator.calculateTTK(
+                    weapon, defaultSet, isHeadshot = false, debug = true, distance = distance.toDouble()
                 )
             }
         }
@@ -48,8 +54,8 @@ class TTKCalculatorTest {
             println("========================================")
             for (distance in 0..maxDistance) {
                 println("\n--- Distância: ${distance}m ---")
-                TTKCalculator.bulletsToKillWithProtectionInt(
-                    weapon, debug = true, distance = distance.toDouble()
+                calculator.calculateTTK(
+                    weapon, defaultSet, isHeadshot = false, debug = true, distance = distance.toDouble()
                 )
             }
         }
@@ -64,8 +70,8 @@ class TTKCalculatorTest {
             println("========================================")
             for (distance in 0..maxDistance) {
                 println("\n--- Distância: ${distance}m ---")
-                TTKCalculator.bulletsToKillWithProtectionInt(
-                    weapon, debug = true, distance = distance.toDouble()
+                calculator.calculateTTK(
+                    weapon, defaultSet, isHeadshot = false, debug = true, distance = distance.toDouble()
                 )
             }
         }
@@ -80,8 +86,8 @@ class TTKCalculatorTest {
             println("========================================")
             for (distance in 0..maxDistance) {
                 println("\n--- Distância: ${distance}m ---")
-                TTKCalculator.bulletsToKillWithProtectionInt(
-                    weapon, debug = true, distance = distance.toDouble()
+                calculator.calculateTTK(
+                    weapon, defaultSet, isHeadshot = false, debug = true, distance = distance.toDouble()
                 )
             }
         }
