@@ -5,13 +5,16 @@ import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
+import kotlin.math.tan
 
 object TTKCalculator {
 
     // Constantes para simulação de alvo (em metros)
-    private const val HEAD_RADIUS = 0.15
-    private const val BODY_RADIUS = 0.35
+    private const val HEAD_RADIUS = 0.13 // Cabeça (aprox. 13cm raio)
+    private const val BODY_RADIUS = 0.35 // Corpo (aprox. 35cm raio - Hitbox generosa do Warface)
 
+    // Fator de Densidade de Dispersão
+    private const val SPREAD_DENSITY_FACTOR = 3.0
     /**
      * Calcula o dano de UM ÚNICO projétil/pellet.
      * Retorna Double para manter precisão antes da soma total.
@@ -34,46 +37,50 @@ object TTKCalculator {
         return baseDamage * (1 - resistance) * (1 - weaponTypeResistance)
     }
 
-    // Fator de conversão: Quanto 1 ponto de Spread abre o cone em metros por metro de distância.
-    // Ajuste este valor para calibrar a "realidade" do jogo.
-    // 0.014 é um valor empírico para Warface.
-    private const val SPREAD_FACTOR = 1
-
+    /**
+     * Calcula a porcentagem de acerto baseada na geometria real.
+     */
     private fun calculateHitRate(
         distance: Double,
-        spread: Double,
+        spreadDegrees: Double,
         isHeadshot: Boolean,
     ): Double {
-        if (distance <= 1.5) return 1.0 // Até 1.5m consideramos acerto total (cano no peito)
-        if (spread <= 0.0) return 1.0
+        // Distância mínima (cano encostado)
+        if (distance <= 1.5) return 1.0
+        if (spreadDegrees <= 0.0) return 1.0
 
-        // Cálculo do raio do cone de dispersão nessa distância
-        val spreadRadius = distance * (spread * SPREAD_FACTOR)
+        // 1. Ajusta o ângulo (Graus) dividindo pelo fator de densidade
+        // Isso converte o "Espalhamento Total" para um "Raio Efetivo de Dano"
+        val effectiveAngle = spreadDegrees / SPREAD_DENSITY_FACTOR
 
-        // Raio do alvo (Cabeça ou Corpo)
+        // 2. Calcula o Raio do Cone em metros usando Tangente (Matemática correta)
+        val spreadRadius = distance * tan(Math.toRadians(effectiveAngle))
+
+        // 3. Define o raio do alvo
         val targetRadius = if (isHeadshot) HEAD_RADIUS else BODY_RADIUS
 
-        // Se o alvo é maior que o espalhamento, 100% dos pellets acertam
+        // 4. Se o alvo é maior que o cone, acerta tudo
         if (targetRadius >= spreadRadius) return 1.0
 
-        // Se o espalhamento é maior, calculamos a proporção
+        // 5. Proporção de Área (Chance de acerto)
         val hitRatio = (targetRadius * targetRadius) / (spreadRadius * spreadRadius)
 
         return min(1.0, max(0.0, hitRatio))
     }
 
     /**
-     * Função Principal: Retorna o número de TIROS (cliques) para matar.
-     * Retorna INT, como no seu código original.
+     * Função Principal: Retorna o número de TIROS para matar.
+     * Agora aceita o parâmetro isAiming para diferenciar Hipfire (Quadril) de ADS (Mira).
      */
     fun bulletsToKillWithProtectionInt(
         weapon: Weapon,
         isHeadshot: Boolean = false,
+        isAiming: Boolean = false, // <--- NOVO PARÂMETRO (Padrão false = Hipfire)
         debug: Boolean = false,
         distance: Double = 0.0,
     ): Int {
         // Dados do Alvo
-        var remainingArmor = weapon.set.armor
+        val remainingArmor = weapon.set.armor
         var remainingHealth = weapon.set.hp
 
         // Multiplicadores
@@ -88,7 +95,13 @@ object TTKCalculator {
         val totalPellets = weapon.pellets
         val damagePerPellet = effectiveDamage / totalPellets
 
-        // 1. Calcula dano de 1 pellet sofrendo absorção (Absorção / QuantidadePellets)
+        if (debug && totalPellets > 1) {
+            println("--- DEBUG SHOTGUN (Dist: $distance m) ---")
+            println("Dano Total Efetivo: $effectiveDamage (Min: ${weapon.minDamage})")
+            println("Pellets: $totalPellets -> Dano/Pellet: $damagePerPellet")
+        }
+
+        // 1. Calcula dano de 1 pellet sofrendo absorção
         val singlePelletDamage = calculateSinglePelletDamage(
             damagePerPellet,
             damageMultiplier,
@@ -99,71 +112,91 @@ object TTKCalculator {
         )
 
         // 2. Define quantos pellets acertam
-        // Se for arma de 1 bala (Rifle, SMG, Slug), HitRate é sempre 1.0 (comportamento original)
-        // Se for Shotgun, calcula baseado na dispersão.
         val hitRate = if (totalPellets > 1) {
-            val usedSpread = if (weapon.zoomSpreadMin > 0 && weapon.zoomSpreadMin < weapon.spreadMin) weapon.zoomSpreadMin else weapon.spreadMin
-            calculateHitRate(distance, usedSpread, isHeadshot)
+
+            // Lógica de Seleção baseada no parâmetro isAiming
+            // Se isAiming for TRUE e a arma tiver zoom configurado, usa o Zoom.
+            // Caso contrário, usa o spreadMin (Quadril).
+            val shouldUseScope = isAiming && weapon.zoomSpreadMin > 0
+
+            val usedSpread = if (shouldUseScope) weapon.zoomSpreadMin else weapon.spreadMin
+
+            val rate = calculateHitRate(distance, usedSpread, isHeadshot)
+
+            if (debug) {
+                val modeStr = if (shouldUseScope) "MIRA (Zoom)" else "QUADRIL (Hip)"
+                println("Distância: $distance m | Modo: $modeStr")
+                println("Spread Base: ${if(shouldUseScope) weapon.zoomSpreadMin else weapon.spreadMin} | Spread Usado: $usedSpread")
+                println("HitRate: ${"%.2f".format(rate * 100)}% | Pellets Acertados: ${"%.2f".format(totalPellets * rate)}")
+            }
+            rate
         } else {
             1.0
         }
 
-        // Dano total do disparo (soma dos pellets que acertaram)
-        val finalDamagePerShot = (singlePelletDamage * totalPellets * hitRate).roundToInt()
+        // 2. Cálculo do Dano Bruto (Pellets que acertaram * Dano por Pellet)
+        val rawDamage = singlePelletDamage * totalPellets * hitRate
+
+        // --- NOVO: FATOR DE PENALIDADE DE MEMBROS A LONGA DISTÂNCIA ---
+        // A 30m, é impossível acertar apenas o tronco com uma shotgun.
+        // Se a distância for > 15m, aplicamos uma penalidade de dano de 25%
+        // para simular pellets acertando braços/pernas em vez do tronco.
+        val limbPenalty = if (distance > 15.0 && totalPellets > 1) 0.75 else 1.0
+
+        val finalDamagePerShot = (rawDamage * limbPenalty).roundToInt()
+
+        if (debug && totalPellets > 1) {
+            println("Dano Final do Tiro: $finalDamagePerShot")
+        }
 
         if (finalDamagePerShot <= 0) {
-            if (debug) {
-                println("DEBUG: Dano final por tiro <= 0 ($finalDamagePerShot). Verifique os parâmetros do Set (Resistência > 1.0?).")
-                println("DEBUG: SinglePelletDamage=$singlePelletDamage, TotalPellets=$totalPellets, HitRate=$hitRate")
-            }
+            if (debug) println("DEBUG: Dano final por tiro <= 0. Impossível matar.")
             return Int.MAX_VALUE
         }
 
-        // --- Simulação dos Tiros ---
-        // Definição de absorção da armadura (Geralmente 80%, exceto SEDs 99% ou casos raros)
+        // --- Simulação dos Tiros (Lógica de Armadura Warface) ---
         val armorAbsorptionRatio = if (weapon.name.contains("SED", true)) 0.99 else 0.80
 
+        // Modo DEBUG detalhado passo a passo
         if (debug) {
             var shots = 0
-            while (remainingHealth > 0) {
+            // Reinicia variáveis locais para simulação
+            var simArmor = remainingArmor
+            var simHealth = remainingHealth
+
+            while (simHealth > 0) {
                 shots++
+                val absorbAmount = (finalDamagePerShot * armorAbsorptionRatio).roundToInt()
 
-                // Verifica se ainda tem armadura para absorver o tiro ATUAL
-                val currentShotArmorDamage: Int
-                val currentShotHealthDamage: Int
+                val currentArmorDmg: Double
+                val currentHealthDmg: Double
 
-                if (remainingArmor > 0) {
-                    // Tem armadura: Aplica a regra 80/20
-                    val absorbAmount = (finalDamagePerShot * armorAbsorptionRatio).roundToInt()
-
-                    // Se o dano à armadura for maior que a armadura restante, o excedente NÃO vai pra vida (regra padrão Warface simples),
-                    // mas a armadura zera. O tiro seguinte pegará na carne.
-                    if (remainingArmor - absorbAmount < 0) {
-                        currentShotArmorDamage = remainingArmor.toInt() // Quebra a armadura toda
-                        // O dano à vida é os 20% fixos + (opcionalmente) o excedente se a mecânica for penetration
-                        // Vamos manter o padrão: recebe o dano de HP calculado originalmente
-                        currentShotHealthDamage = finalDamagePerShot - absorbAmount
+                if (simArmor > 0) {
+                    if (simArmor - absorbAmount < 0) {
+                        currentArmorDmg = simArmor
+                        currentHealthDmg = (finalDamagePerShot - absorbAmount).toDouble()
                     } else {
-                        currentShotArmorDamage = absorbAmount
-                        currentShotHealthDamage = finalDamagePerShot - absorbAmount
+                        currentArmorDmg = absorbAmount.toDouble()
+                        currentHealthDmg = (finalDamagePerShot - absorbAmount).toDouble()
                     }
                 } else {
-                    // Sem armadura: 100% dano na vida
-                    currentShotArmorDamage = 0
-                    currentShotHealthDamage = finalDamagePerShot
+                    currentArmorDmg = 0.0
+                    currentHealthDmg = finalDamagePerShot.toDouble()
                 }
 
-                remainingArmor -= currentShotArmorDamage
-                if (remainingArmor < 0) remainingArmor = 0.0
+                simArmor -= currentArmorDmg
+                if (simArmor < 0) simArmor = 0.0
+                simHealth -= currentHealthDmg
 
-                remainingHealth -= currentShotHealthDamage
+                println("Tiro $shots | Dano: $finalDamagePerShot | HP Restante: ${"%.1f".format(simHealth)}")
 
-                println("Tiro $shots | Dano Total: $finalDamagePerShot | Armor Dmg: $currentShotArmorDamage | HP Dmg: $currentShotHealthDamage | Restante -> Armor: $remainingArmor HP: $remainingHealth")
+                // Prevenção de loop infinito em debug
+                if (shots > 100) break
             }
             return shots
         }
 
-        // Otimização matemática para execução normal (sem debug)
+        // --- Cálculo Matemático Otimizado (Sem loop) ---
         var shots = 0
 
         // Fase 1: Com Armadura
@@ -175,13 +208,8 @@ object TTKCalculator {
             val potentialHealthDamage = shotsToBreakArmor.toDouble() * damageToHealthPhase1
 
             if (remainingHealth <= potentialHealthDamage) {
-                // Morre antes ou no momento que a armadura quebra
-                if (damageToHealthPhase1 <= 0) {
-                    // Caso raro onde dano à vida é 0 enquanto tem armadura
-                    shots += shotsToBreakArmor
-                } else {
-                    return ceil(remainingHealth / damageToHealthPhase1).toInt()
-                }
+                // Morre antes da armadura quebrar
+                return ceil(remainingHealth / damageToHealthPhase1).toInt()
             } else {
                 // Sobrevive à quebra da armadura
                 shots += shotsToBreakArmor
@@ -189,7 +217,7 @@ object TTKCalculator {
             }
         }
 
-        // Fase 2: Sem Armadura (ou armadura não absorve mais)
+        // Fase 2: Sem Armadura
         if (remainingHealth > 0) {
             shots += ceil(remainingHealth / finalDamagePerShot).toInt()
         }
@@ -233,9 +261,10 @@ object TTKCalculator {
         weapon: Weapon,
         isHeadshot: Boolean,
         distance: Double,
+        isAiming: Boolean = false, // Adicione aqui também
         debug: Boolean = false,
     ): Pair<Int, Double> {
-        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, debug, distance)
+        val shotsNeeded = bulletsToKillWithProtectionInt(weapon, isHeadshot, isAiming, debug, distance)
 
         if (shotsNeeded == Int.MAX_VALUE) {
             return Pair(shotsNeeded, Double.POSITIVE_INFINITY)

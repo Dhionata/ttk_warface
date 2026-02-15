@@ -234,14 +234,14 @@ data class Weapon(
     private fun updateTTK() {
         ttk.clear()
 
-        val headPair = TTKCalculator.calculateTTKWithProtectionInt(this, true)
-        ttk.add(Pair(headPair.first, headPair.second))
+        val (first, second) = TTKCalculator.calculateTTKWithProtectionInt(this, true)
+        ttk.add(Pair(first, second))
 
-        val bodyPair = TTKCalculator.calculateTTKWithProtectionInt(this, false)
-        ttk.add(Pair(bodyPair.first, bodyPair.second))
+        val (first1, second1) = TTKCalculator.calculateTTKWithProtectionInt(this, false)
+        ttk.add(Pair(first1, second1))
 
-        val ttkAverage = (headPair.second + bodyPair.second) / 2
-        ttk.add(Pair(((headPair.first + bodyPair.first) / 2), ttkAverage))
+        val ttkAverage = (second + second1) / 2
+        ttk.add(Pair(((first + first1) / 2), ttkAverage))
 
     }
 }

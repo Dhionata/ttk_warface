@@ -399,7 +399,20 @@ object WeaponRepository {
             .addMods("Rate of Fire", 5.0)
             .addMods("Body Damage", bodyMultiplierAddPercentage = 6.0)
             .addMods("Spread and Range", rangeAdd = 0.6)
-            .addMods("Lone Wolf", -20.0, 35.0, 50.0, rangeAdd = 4.5)
+            .addMods("Lone Wolf", -20.0, 35.0, 50.0, rangeAdd = 4.5),
+        Weapon("PPK-20", 128.0, 770.0, 6.0, 1.3, 12.5, 1.85, 50.0, magazineCapacity = 35, reloadTime = 1280.0)
+            .attachments("YHM Slant Muzzle Brake", damageDropPerMeterAddPercentage = -25.0, rangeAdd = 1.5)
+            .addMods("Reload Speed", rangeAdd = .25, reloadTimeAddPercentage = -15.0, damageAdd = 1.5)
+            .addMods("Recoil", rangeAdd = .25, damageAdd = 1.5)
+            .addMods("Switch Speed", rangeAdd = .25, damageAdd = 1.5)
+            .addMods("Aim Speed", rangeAdd = .25, damageAdd = 1.5)
+            .addMods("Spread", rangeAdd = .25, damageAdd = 1.5)
+            .addMods("Range", rangeAdd = 3.0, damageAdd = 1.5)
+            .addMods("Rate of Fire", 10.0, 1.5, rangeAdd = .25 )
+            .addMods("Magazine Capacity", magazineCapacityAdd = 6, rangeAdd = .25, damageAdd = 1.5)
+            .addMods("Damage", damageAdd = 3.0, rangeAdd = .25),
+        Weapon("SIG MPX", 125.0, 780.0, 6.0, 1.3, 10.5, 2.1, 42.0, magazineCapacity = 35, reloadTime = 2250.0)
+            .attachments("SIG MPX Copperhead Suppressor", damageDropPerMeterAddPercentage = -30.0)
     )
 
     val pistolas: List<Weapon> = listOf(
@@ -599,7 +612,9 @@ object WeaponRepository {
             .addMods("Rate of Fire", 5.0)
             .addMods("Body Damage", bodyMultiplierAddPercentage = 10.0)
             .addMods("Trinity", -89.0, 560.0),
-        Weapon("Bushmaster BA50", 800.0, 41.56, 5.0, 1.15, 99.0, 1.0, 380.0)
+        Weapon("Bushmaster BA50", 800.0, 41.56, 5.0, 1.15, 99.0, 1.0, 380.0),
+        Weapon("SKS FAB", 330.0, 300.0, 5.0, 1.25, 50.0, 1.0, 150.0, magazineCapacity = 15, reloadTime = 2.7)
+            .addMods("Rate of Fire", 15.0)
     )
 
     val medicWeapons: List<Weapon> = listOf(
@@ -745,13 +760,13 @@ object WeaponRepository {
             .addMods("Range", rangeAdd = 1.0, spreadAddPercentage = 5.0)
             .addMods("Rate of Fire", 6.0, spreadAddPercentage = 6.0)
             .addMods("Spread", spreadAddPercentage = -20.0),
-        Weapon("GForce Arms Huckleberry (Packed Shells)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0, 1, 2.8, 4.0, 0.21, 0.3)
-            .attachments("Laser Sight", spreadAddPercentage = -10.0)
-            .addMods("Packed Shells", pellets = 10, damageDropPerMeterAddPercentage = -75.0, damageAdd = -692.0, minDamageAdd = -200.0, zoomSpreadAddPercentage = 700.0)
-            .addMods("Rate of Fire", 10.0)
-            .addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
-            .addMods("Limbs Damage", spreadAddPercentage = 8.0)
-            .addMods("Spread adn Range", rangeAdd = 1.5, spreadAddPercentage = -18.0),
+        //Weapon("GForce Arms Huckleberry (Packed Shells)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0, 1, 2.8, 4.0, 0.21, 0.3)
+        //  .attachments("Laser Sight", spreadAddPercentage = -10.0)
+        //.addMods("Packed Shells", pellets = 10, damageDropPerMeterAddPercentage = -75.0, damageAdd = -692.0, minDamageAdd = -200.0, zoomSpreadAddPercentage = 700.0)
+        //.addMods("Rate of Fire", 10.0)
+        //.addMods("Body Damage", bodyMultiplierAddPercentage = 4.0, spreadAddPercentage = 8.0)
+        //.addMods("Limbs Damage", spreadAddPercentage = 8.0)
+        //.addMods("Spread adn Range", rangeAdd = 1.5, spreadAddPercentage = -18.0),
         Weapon("GForce Arms Huckleberry (Lightweight Ammo)", 800.0, 120.0, 2.0, 1.1, 4.6, 52.0, 230.0, 1, 2.8, 4.0, 0.21, 0.3)
             .attachments("Laser Sight", spreadAddPercentage = -10.0)
             .addMods("Lightweight Ammo", 60.0, damageAdd = -300.0)
@@ -918,6 +933,19 @@ object WeaponRepository {
             .addMods("Recoil", damageAdd = .25 * 17)
             .addMods("Aim Speed", damageAdd = .25 * 17)
             .addMods("Reload Speed", damageAdd = .25 * 17)
-            .addMods("Switch Speed", damageAdd = .25 * 17)
-    )
+            .addMods("Switch Speed", damageAdd = .25 * 17),
+        Weapon("Federation SPM-12", 1980.0, 85.71, 2.5, 1.6, 5.7, 195.8, 440.0, 22, 9.225, 11.48, 7.65, 9.52, 12, 3.0)
+            .attachments("Sentry 12 Suppressor", damageDropPerMeterAddPercentage = -20.0)
+            .addMods("Range", rangeAdd = 1.0, damageAdd = .5 * 22)
+            .addMods("Rate of Fire", 8.81, damageAdd = .5 * 22)
+            .addMods("Spread", spreadAddPercentage = -15.0, damageAdd = .5 * 22)
+            .addMods("Jump Accuracy", spreadAddPercentage = -10.0, damageAdd = .5 * 22)
+            .addMods("Reload Speed", reloadTimeAddPercentage = 15.0, damageAdd = .5 * 22)
+            .addMods("Aim Speed", damageAdd = .5 * 22)
+            .addMods("Recoil", damageAdd = .5 * 22)
+            .addMods("Switch Speed", damageAdd = .5 * 22)
+            .addMods("Damage", damageAdd = 2.0 * 22),
+
+        )
+
 }

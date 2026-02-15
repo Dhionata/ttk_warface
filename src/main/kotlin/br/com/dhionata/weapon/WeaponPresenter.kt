@@ -92,11 +92,11 @@ object WeaponPresenter {
         }
 
         distanceRanges.forEach { (start, end, weaponIndex) ->
-            val weapon = weapons[weaponIndex]
+            val name = weapons[weaponIndex].name
             val ttkStart = ttkCache[weaponIndex][start - 1]
             val ttkEnd = ttkCache[weaponIndex][end - 1]
 
-            println("De ${start}m a ${end}m: ${weapon.name} (TTK varia de ${"%.3f".format(ttkStart)}s a ${"%.3f".format(ttkEnd)}s)")
+            println("De ${start}m a ${end}m: $name (TTK varia de ${"%.3f".format(ttkStart)}s a ${"%.3f".format(ttkEnd)}s)")
         }
     }
 
@@ -142,9 +142,7 @@ object WeaponPresenter {
         val averageComparator = compareBy<Weapon> { it.ttk.last().second }.thenBy { it.ttk.first().second }.thenBy { it.ttk[1].second }
 
         mapOf(
-            "\n==== TTK no corpo ====" to bodyComparator,
-            "\n==== TTK na cabeça ====" to headComparator,
-            "\n==== Média do TTK por Arma ====" to averageComparator
+            "\n==== TTK no corpo ====" to bodyComparator, "\n==== TTK na cabeça ====" to headComparator, "\n==== Média do TTK por Arma ====" to averageComparator
         ).forEach { (title, comparator) ->
             println(title)
             printSortedWeapons("\n=== Classe Fuzileiro ===\n", fuzileiroWeapons, comparator)
@@ -177,11 +175,7 @@ object WeaponPresenter {
         }
 
         val classes = mapOf(
-            "Fuzileiro" to fuzileiroWeapons,
-            "Engenheiro" to engenheiroWeapons,
-            "Sniper" to sniperWeapons,
-            "Médico" to medicWeapons,
-            "Pistolas" to pistolas
+            "Fuzileiro" to fuzileiroWeapons, "Engenheiro" to engenheiroWeapons, "Sniper" to sniperWeapons, "Médico" to medicWeapons, "Pistolas" to pistolas
         )
 
         classes.forEach { (className, weapons) ->

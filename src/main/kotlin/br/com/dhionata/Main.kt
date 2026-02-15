@@ -71,6 +71,7 @@ fun main() {
 }
 
 fun formatValue(value: Double, scale: Int = 2): String {
-    if (value.isInfinite() || value.isNaN()) return "Infinito"
-    return BigDecimal(value).setScale(scale, RoundingMode.HALF_UP).toString()
+    if (value.isInfinite()) return "Infinity" // Or a localized string
+    if (value.isNaN()) return "NaN" // Or a localized string
+    return BigDecimal.valueOf(value).setScale(scale, RoundingMode.HALF_UP).toString()
 }
